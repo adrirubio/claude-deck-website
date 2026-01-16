@@ -78,6 +78,25 @@ html {
   opacity: 0.5;
 }
 
+/* Feature card expand icon and preview hint hover effects */
+.feature-card:hover .expand-icon {
+  opacity: 1;
+}
+
+.feature-card:hover .preview-hint {
+  opacity: 1;
+}
+
+/* Scroll indicator styling */
+.scroll-indicator {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-indicator:hover {
+  opacity: 1;
+}
+
 /* Screenshot frame hover glow effect */
 .screenshot-frame {
   transition: box-shadow 0.3s ease, transform 0.3s ease;
@@ -215,6 +234,10 @@ a {
 
   html {
     scroll-behavior: auto;
+  }
+
+  .scroll-indicator svg {
+    animation: none !important;
   }
 }
 
