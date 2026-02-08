@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Claude Deck - The Control Panel for Claude Code</title>
-  <meta name="description" content="Claude Deck - The open source control panel for managing Claude Code configurations, MCP servers, commands, plugins, hooks, and permissions.">
+  <title>Claude Deck - Web Dashboard for Claude Code</title>
+  <meta name="description" content="Claude Deck - Open source web dashboard for managing Claude Code configurations, MCP servers, commands, plugins, hooks, and permissions.">
   <meta name="theme-color" content="#0c0c0c">
 
   <!-- Favicon -->
@@ -12,8 +12,8 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Claude Deck - The Control Panel for Claude Code">
-  <meta property="og:description" content="Visual control panel for managing Claude Code configurations, MCP servers, and more.">
+  <meta property="og:title" content="Claude Deck - Web Dashboard for Claude Code">
+  <meta property="og:description" content="Open source web dashboard for managing Claude Code configurations, MCP servers, and more.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://claudedeck.org">
   <meta property="og:image" content="https://claudedeck.org/assets/logo-dark.png">
@@ -83,9 +83,16 @@
   <!-- Hero Section -->
   <section class="relative min-h-screen flex items-center justify-center px-4 py-20 pt-32">
     <div class="max-w-4xl mx-auto text-center">
-      <!-- Open Source Badge -->
-      <div class="inline-block px-4 py-1.5 mb-8 text-sm font-mono text-accent-green bg-accent-green/10 rounded-full border border-accent-green/20">
-        Open Source
+      <!-- Badges -->
+      <div class="flex items-center justify-center gap-3 mb-8">
+        <div class="inline-block px-4 py-1.5 text-sm font-mono text-accent-green bg-accent-green/10 rounded-full border border-accent-green/20">
+          Open Source
+        </div>
+        <a href="https://github.com/adrirubio/claude-deck" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-1.5 px-4 py-1.5 text-sm font-mono text-text-secondary bg-bg-card rounded-full border border-border-default hover:border-border-bright transition-colors">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          Star on GitHub
+        </a>
       </div>
 
       <!-- Title -->
@@ -95,7 +102,7 @@
 
       <!-- Tagline -->
       <p class="text-xl sm:text-2xl md:text-3xl text-text-secondary font-mono mb-6">
-        The Control Panel for Claude Code
+        Web Dashboard for Claude Code
       </p>
 
       <!-- Description -->
@@ -349,15 +356,15 @@
           </div>
         </div>
 
-        <!-- Feature Card: Backup & Restore -->
+        <!-- Feature Card: Session Transcripts -->
         <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-amber/5"
-             role="button" aria-label="View Backup & Restore screenshot"
-             onclick="openModal('assets/screenshot-backup.png', 'Backup & Restore')">
+             role="button" aria-label="View Session Transcripts screenshot"
+             onclick="openModal('assets/screenshot-sessions.png', 'Session Transcripts')">
           <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
-            <span class="ml-2 text-xs text-text-muted font-mono">backup</span>
+            <span class="ml-2 text-xs text-text-muted font-mono">sessions</span>
           </div>
           <div class="p-6 relative">
             <!-- Expand Icon -->
@@ -366,16 +373,21 @@
             </svg>
             <div class="w-10 h-10 rounded-lg bg-accent-amber/10 flex items-center justify-center mb-4">
               <svg class="w-5 h-5 text-accent-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
               </svg>
             </div>
-            <h3 class="text-lg font-semibold mb-2">Backup & Restore</h3>
-            <p class="text-text-secondary text-sm">Create and manage configuration backups as ZIP files.</p>
+            <h3 class="text-lg font-semibold mb-2">Session Transcripts</h3>
+            <p class="text-text-secondary text-sm">Browse conversation history with full message and tool use details.</p>
             <!-- Hover Hint -->
             <p class="preview-hint text-xs text-accent-amber/70 mt-3 opacity-0 transition-opacity">Click to preview</p>
           </div>
         </div>
       </div>
+
+      <!-- Additional features note -->
+      <p class="text-text-muted text-center text-sm mt-8">
+        Plus agents, skills, memory, output styles, status line, backup & restore, and more.
+      </p>
     </div>
   </section>
 
@@ -398,7 +410,7 @@
         <div class="p-6 font-mono text-sm overflow-x-auto">
           <div class="space-y-4">
             <div>
-              <span class="text-text-muted"># Clone the repository</span>
+              <span class="text-text-muted"># Clone and install</span>
               <div class="flex items-start gap-2">
                 <span class="text-accent-green select-none">$</span>
                 <span class="text-text-primary">git clone https://github.com/adrirubio/claude-deck</span>
@@ -407,37 +419,17 @@
                 <span class="text-accent-green select-none">$</span>
                 <span class="text-text-primary">cd claude-deck</span>
               </div>
-            </div>
-
-            <div>
-              <span class="text-text-muted"># Start the backend</span>
               <div class="flex items-start gap-2">
                 <span class="text-accent-green select-none">$</span>
-                <span class="text-text-primary">cd backend</span>
-              </div>
-              <div class="flex items-start gap-2">
-                <span class="text-accent-green select-none">$</span>
-                <span class="text-text-primary">pip install -r requirements.txt</span>
-              </div>
-              <div class="flex items-start gap-2">
-                <span class="text-accent-green select-none">$</span>
-                <span class="text-text-primary">uvicorn app.main:app --reload --port 8000</span>
+                <span class="text-text-primary">./scripts/install.sh</span>
               </div>
             </div>
 
             <div>
-              <span class="text-text-muted"># In a new terminal, start the frontend</span>
+              <span class="text-text-muted"># Start both servers</span>
               <div class="flex items-start gap-2">
                 <span class="text-accent-green select-none">$</span>
-                <span class="text-text-primary">cd frontend</span>
-              </div>
-              <div class="flex items-start gap-2">
-                <span class="text-accent-green select-none">$</span>
-                <span class="text-text-primary">npm install</span>
-              </div>
-              <div class="flex items-start gap-2">
-                <span class="text-accent-green select-none">$</span>
-                <span class="text-text-primary">npm run dev</span>
+                <span class="text-text-primary">./scripts/dev.sh</span>
               </div>
             </div>
 
@@ -465,6 +457,15 @@
     </div>
   </section>
 
+  <!-- Built By -->
+  <section class="py-12 px-4 border-t border-border-default">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="text-text-secondary text-sm">
+        Built by <a href="https://github.com/adrirubio" target="_blank" rel="noopener noreferrer" class="text-text-primary hover:text-accent-green transition-colors">Adrian</a> (13) and <a href="https://github.com/juanrubio" target="_blank" rel="noopener noreferrer" class="text-text-primary hover:text-accent-green transition-colors">Juan</a> as a Christmas break learning project.
+      </p>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="py-12 px-4 border-t border-border-default">
     <div class="max-w-4xl mx-auto text-center">
@@ -472,7 +473,7 @@
         Released under the <a href="https://github.com/adrirubio/claude-deck/blob/main/LICENSE" class="text-text-secondary hover:text-text-primary transition-colors">MIT License</a>
       </p>
       <p class="text-text-muted text-sm">
-        Made for Claude Code users
+        Claude Deck is a community project and is not affiliated with or endorsed by Anthropic.
       </p>
     </div>
   </footer>
