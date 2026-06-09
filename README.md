@@ -1,6 +1,6 @@
 # Claude Deck Website
 
-Landing page for [Claude Deck](https://github.com/adrirubio/claude-deck) - The Control Panel for Claude Code.
+Landing page for [Claude Deck](https://github.com/adrirubio/claude-deck) - The Control Panel for Claude Code and Codex CLI.
 
 ## Live Site
 
@@ -17,7 +17,7 @@ npx serve
 
 ## Deployment
 
-This site is deployed on Cloudflare Pages. Any push to the `main` branch will trigger a new deployment.
+This site is deployed on Cloudflare Pages. Any push to the `master` branch will trigger a new deployment.
 
 ## Tech Stack
 
