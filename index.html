@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Claude Deck - Web Dashboard for Claude Code and Codex CLI</title>
-  <meta name="description" content="Open source, self-hosted dashboard for Claude Code and Codex CLI. Manage configuration, MCP servers, plugins, live sessions, usage, transcripts, and more without digging through config files.">
+  <title>Claude Deck - Local Command Center for Claude Code and Codex CLI</title>
+  <meta name="description" content="Open source, self-hosted command center for Claude Code and Codex CLI. Coordinate local agents with Agent Mail, reusable Agent Teams, live sessions, provider-aware configuration, usage, transcripts, MCP servers, and more.">
   <meta name="theme-color" content="#0c0c0c">
 
   <!-- Favicon -->
@@ -12,8 +12,8 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Claude Deck - Web Dashboard for Claude Code and Codex CLI">
-  <meta property="og:description" content="Open source, self-hosted dashboard for Claude Code and Codex CLI. Manage configuration, MCP servers, plugins, live sessions, usage, transcripts, and more from one local UI.">
+  <meta property="og:title" content="Claude Deck - Local Command Center for Claude Code and Codex CLI">
+  <meta property="og:description" content="Open source, self-hosted command center for Claude Code and Codex CLI. Coordinate local agents with Agent Mail, Agent Teams, live sessions, and provider-aware configuration.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://claudedeck.org">
   <meta property="og:image" content="https://claudedeck.org/assets/logo-dark.png">
@@ -82,10 +82,10 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="relative min-h-screen flex items-center justify-center px-4 py-20 pt-32">
+  <section class="relative min-h-[78vh] md:min-h-[88vh] flex items-center justify-center px-4 pt-20 md:pt-28 pb-10 md:pb-16">
     <div class="max-w-4xl mx-auto text-center">
       <!-- Badges -->
-      <div class="flex items-center justify-center gap-3 mb-8">
+      <div class="flex items-center justify-center gap-3 mb-6 md:mb-8">
         <div class="inline-block px-4 py-1.5 text-sm font-mono text-accent-green bg-accent-green/10 rounded-full border border-accent-green/20">
           Open Source
         </div>
@@ -102,37 +102,39 @@
       </h1>
 
       <!-- Tagline -->
-      <p class="text-xl sm:text-2xl md:text-3xl text-text-secondary font-mono mb-6">
-        Visual configuration and live session control for Claude Code and Codex CLI
+      <p class="text-lg sm:text-2xl md:text-3xl text-text-secondary font-mono mb-5 md:mb-6">
+        Local agent coordination for Claude Code and Codex CLI
       </p>
 
       <!-- Description -->
-      <p class="text-text-muted max-w-3xl mx-auto mb-6 text-lg leading-relaxed">
-        Claude Deck gives you a visual control panel for local coding agents: manage Claude Code and Codex CLI configuration, inspect Claude usage and transcripts, and use Agent Bridge to monitor and interact with live tmux sessions from the browser.
+      <p class="text-text-muted max-w-3xl mx-auto mb-5 md:mb-6 text-base md:text-lg leading-relaxed">
+        Claude Deck gives you a local command center for coding agents: route Agent Mail context requests and handoffs, launch reusable Agent Teams, monitor live sessions, and manage Claude Code and Codex CLI configuration from one browser UI.
       </p>
 
-      <div class="flex flex-wrap items-center justify-center gap-3 mb-10 text-sm font-mono text-text-secondary">
-        <span class="px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Local-only</span>
-        <span class="px-3 py-1.5 rounded-full border border-border-default bg-bg-card">No account</span>
-        <span class="px-3 py-1.5 rounded-full border border-border-default bg-bg-card">No telemetry</span>
-        <span class="px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Works with real Claude Code and Codex files</span>
+      <div class="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-7 md:mb-10 text-xs sm:text-sm font-mono text-text-secondary">
+        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Local-only</span>
+        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">No account</span>
+        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">No telemetry</span>
+        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Agent Mail</span>
+        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Agent Teams</span>
+        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Works with real Claude Code and Codex files</span>
       </div>
 
       <!-- CTAs -->
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <div class="flex flex-row flex-wrap gap-3 sm:gap-4 justify-center">
         <a href="#demo"
-           class="px-8 py-3.5 bg-accent-green hover:bg-accent-green/90 text-bg-primary font-semibold rounded-lg transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent-green/20">
-          Explore Features
+           class="px-5 sm:px-8 py-3.5 bg-accent-green hover:bg-accent-green/90 text-bg-primary font-semibold rounded-lg transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent-green/20">
+          Explore 2.0 Features
         </a>
         <a href="#install"
-           class="px-8 py-3.5 bg-transparent border border-border-bright hover:border-text-muted text-text-primary rounded-lg transition-all hover:-translate-y-0.5">
+           class="px-5 sm:px-8 py-3.5 bg-transparent border border-border-bright hover:border-text-muted text-text-primary rounded-lg transition-all hover:-translate-y-0.5">
           Get Started
         </a>
       </div>
     </div>
 
     <!-- Scroll Indicator -->
-    <a href="#demo" class="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-muted hover:text-accent-green transition-colors" aria-label="Scroll to see more">
+    <a href="#demo" class="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-text-muted hover:text-accent-green transition-colors" aria-label="Scroll to see more">
       <span class="text-xs font-mono tracking-wider">Scroll</span>
       <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
@@ -156,18 +158,18 @@
         <div class="flex flex-col items-center gap-3">
           <div class="w-12 h-12 rounded-lg bg-accent-cyan/10 flex items-center justify-center">
             <svg class="w-6 h-6 text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
             </svg>
           </div>
-          <p class="text-text-secondary">Track MCP servers, providers, usage, transcripts, commands, hooks, and more in one place</p>
+          <p class="text-text-secondary">Agent Mail lets local agents ask for context, hand off work, reply in threads, and keep durable per-repo identities</p>
         </div>
         <div class="flex flex-col items-center gap-3">
           <div class="w-12 h-12 rounded-lg bg-accent-amber/10 flex items-center justify-center">
             <svg class="w-6 h-6 text-accent-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-5-3.87M9 20H4v-2a4 4 0 015-3.87m8-4.13a4 4 0 11-8 0 4 4 0 018 0zm-8 0a4 4 0 10-8 0 4 4 0 008 0z"></path>
             </svg>
           </div>
-          <p class="text-text-secondary">Agent Bridge brings live Claude Code and Codex tmux sessions into the browser</p>
+          <p class="text-text-secondary">Agent Teams saves planner, implementer, reviewer, release, or DevOps rosters so they can be launched or reused quickly</p>
         </div>
       </div>
 
@@ -180,7 +182,7 @@
           </div>
           <div>
             <p class="font-semibold text-text-primary mb-1">Important: Claude Deck works with your real local Claude Code and Codex CLI files</p>
-            <p class="text-sm text-text-secondary leading-relaxed">It is not a mock viewer. Changes made in the UI can change your actual local agent setup. Review changes carefully and create a backup before major edits. Claude Deck is local-only, with no account and no telemetry.</p>
+            <p class="text-sm text-text-secondary leading-relaxed">It is not a mock viewer. Changes made in the UI can change your actual local agent setup, including Agent Mail MCP and hook configuration. Review changes carefully and create a backup before major edits. Claude Deck is local-only, with no account and no telemetry.</p>
           </div>
         </div>
       </div>
@@ -192,49 +194,49 @@
     <div class="max-w-5xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Who It’s For</h2>
       <p class="text-text-secondary text-center mb-12 max-w-3xl mx-auto">
-        Claude Deck is most useful if you want a visual layer over Claude Code and Codex CLI, especially if Agent Bridge matches how you actually work.
+        Claude Deck is most useful when you run more than one local agent, move work across repositories, or want the current state of your Claude Code and Codex CLI setup to be visible without digging through files and terminal panes.
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div class="bg-bg-card rounded-xl border border-border-default p-6">
-          <h3 class="font-semibold mb-2">Visual configuration over CLI friction</h3>
-          <p class="text-sm text-text-secondary">When you’d rather inspect and change setup in a UI than bounce through commands, flags, and scattered config surfaces.</p>
+          <h3 class="font-semibold mb-2">Local agent teams</h3>
+          <p class="text-sm text-text-secondary">When a planner, implementer, reviewer, or release agent needs a durable role and a clear route to the rest of the team.</p>
         </div>
         <div class="bg-bg-card rounded-xl border border-border-default p-6">
-          <h3 class="font-semibold mb-2">Agent Bridge users</h3>
-          <p class="text-sm text-text-secondary">When Claude Code or Codex already lives in tmux and you want live browser access to monitor and interact with sessions.</p>
+          <h3 class="font-semibold mb-2">Cross-repo projects</h3>
+          <p class="text-sm text-text-secondary">When separate repositories contribute to the same system and agents need to ask each other for repo-specific context.</p>
         </div>
         <div class="bg-bg-card rounded-xl border border-border-default p-6">
-          <h3 class="font-semibold mb-2">Usage and transcript visibility</h3>
-          <p class="text-sm text-text-secondary">When you want provider status, Claude cost tracking, session history, and a clearer operational view around local agents.</p>
+          <h3 class="font-semibold mb-2">Live session operators</h3>
+          <p class="text-sm text-text-secondary">When Claude Code or Codex lives in tmux and you want browser access to monitor, spawn, resume, fork, or attach to sessions.</p>
         </div>
         <div class="bg-bg-card rounded-xl border border-border-default p-6">
-          <h3 class="font-semibold mb-2">Power users with moving parts</h3>
-          <p class="text-sm text-text-secondary">When MCP servers, commands, hooks, agents, and sessions add up enough that a control panel starts making sense.</p>
+          <h3 class="font-semibold mb-2">Provider setup owners</h3>
+          <p class="text-sm text-text-secondary">When MCP servers, commands, hooks, permissions, Codex profiles, transcripts, and backups need one visible control surface.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Why Not Just Edit JSON -->
+  <!-- Why Not Just Use Terminals -->
   <section class="py-20 px-4 border-t border-border-default">
     <div class="max-w-4xl mx-auto">
       <div class="bg-bg-card rounded-2xl border border-border-default p-8 md:p-10">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">Why use Claude Deck instead of staying in the command line?</h2>
         <p class="text-text-secondary text-lg leading-relaxed mb-6">
-          Most people are not hand-editing Claude Code JSON and Codex TOML files all day. The real comparison is visual control panel versus command-line-only workflow.
+          The command line is still where the agents work. Claude Deck is the coordination layer around that work: a place to see who is running, what they can receive, which team they belong to, and how their provider setup is configured.
         </p>
         <p class="text-text-secondary leading-relaxed mb-6">
-          Claude Deck becomes useful when you want to configure Claude Code and Codex visually, understand what is active, inspect usage and transcripts, and use Agent Bridge to work with live tmux sessions from the browser.
+          The value shows up when multiple local agents are active. Agent Mail keeps requests and handoffs durable, Agent Teams makes rosters reusable, Agent Bridge keeps live sessions inspectable, and provider-aware configuration keeps Claude Code and Codex boundaries explicit.
         </p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <div class="rounded-xl border border-border-default bg-bg-secondary p-4">
             <strong class="block mb-2 text-text-primary">Provider files stay the source of truth</strong>
-            <span class="text-text-secondary">Claude Deck works with your existing Claude Code and Codex files and sessions rather than inventing a parallel system.</span>
+            <span class="text-text-secondary">Claude Deck works with your existing Claude Code and Codex files, hooks, MCP config, and sessions rather than inventing a parallel setup.</span>
           </div>
           <div class="rounded-xl border border-border-default bg-bg-secondary p-4">
-            <strong class="block mb-2 text-text-primary">The UI adds control and visibility</strong>
-            <span class="text-text-secondary">Visual management, Agent Bridge, testing, provider diagnostics, usage visibility, transcript browsing, and backups are the real value.</span>
+            <strong class="block mb-2 text-text-primary">The UI adds coordination and visibility</strong>
+            <span class="text-text-secondary">Agent Mail, Agent Teams, Agent Bridge, provider diagnostics, usage visibility, transcript browsing, and backups are the real value.</span>
           </div>
         </div>
       </div>
@@ -246,42 +248,42 @@
     <div class="max-w-6xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">See It In Action</h2>
       <p class="text-text-secondary text-center mb-12">
-        A visual interface for your Claude Code and Codex CLI setup.
+        Agent Mail, Agent Teams, live sessions, and provider setup in one local interface.
       </p>
 
-      <!-- Main Screenshot: Agent Bridge -->
+      <!-- Main Screenshot: Agent Mail -->
       <div class="screenshot-frame bg-bg-card rounded-xl border border-border-default overflow-hidden shadow-2xl mb-6">
         <div class="hidden md:flex items-center gap-2 px-4 py-3 bg-bg-secondary border-b border-border-default">
           <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
           <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
           <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
-          <span class="ml-2 text-sm text-text-muted font-mono">Agent Bridge — Live Claude Code and Codex tmux sessions in the browser</span>
+          <span class="ml-2 text-sm text-text-muted font-mono">Agent Mail — Context requests and handoffs across local agents</span>
         </div>
-        <img src="assets/screenshot-cc-bridge.png" alt="Claude Deck Agent Bridge with multiple terminal sessions" class="w-full h-auto" loading="lazy">
+        <img src="assets/screenshot-agent-mail.png" alt="Claude Deck Agent Mail with demo team members and inbox state" class="w-full h-auto" loading="lazy">
       </div>
 
       <!-- Two smaller screenshots -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Agent Teams -->
+        <div class="screenshot-frame bg-bg-card rounded-xl border border-border-default overflow-hidden shadow-xl">
+          <div class="hidden md:flex items-center gap-2 px-4 py-3 bg-bg-secondary border-b border-border-default">
+            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+            <span class="ml-2 text-sm text-text-muted font-mono">Agent Teams — Reusable planner, implementer, and reviewer rosters</span>
+          </div>
+          <img src="assets/screenshot-agent-teams.png" alt="Claude Deck Agent Teams roster preset editor" class="w-full h-auto" loading="lazy">
+        </div>
+
         <!-- Dashboard -->
         <div class="screenshot-frame bg-bg-card rounded-xl border border-border-default overflow-hidden shadow-xl">
           <div class="hidden md:flex items-center gap-2 px-4 py-3 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
-            <span class="ml-2 text-sm text-text-muted font-mono">Dashboard — Overview of your local agent setup</span>
+            <span class="ml-2 text-sm text-text-muted font-mono">Dashboard — Provider-aware overview of your local agent setup</span>
           </div>
           <img src="assets/screenshot-dashboard.png" alt="Claude Deck dashboard overview" class="w-full h-auto" loading="lazy">
-        </div>
-
-        <!-- MCP Servers -->
-        <div class="screenshot-frame bg-bg-card rounded-xl border border-border-default overflow-hidden shadow-xl">
-          <div class="hidden md:flex items-center gap-2 px-4 py-3 bg-bg-secondary border-b border-border-default">
-            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
-            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
-            <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
-            <span class="ml-2 text-sm text-text-muted font-mono">MCP Servers</span>
-          </div>
-          <img src="assets/screenshot-mcp.png" alt="MCP Servers management" class="w-full h-auto" loading="lazy">
         </div>
       </div>
     </div>
@@ -292,10 +294,83 @@
     <div class="max-w-6xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Features</h2>
       <p class="text-text-secondary text-center mb-12 max-w-2xl mx-auto">
-        Everything you need to manage Claude Code and Codex CLI configuration in one place.
+        Manage Claude Code and Codex CLI configuration, communication, sessions, and reusable teams in one place.
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Feature Card: Agent Mail -->
+        <a class="feature-card block cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-green/5"
+           href="/docs/features/agent-mail.html" aria-label="Read Agent Mail documentation">
+          <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
+            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+            <span class="ml-2 text-xs text-text-muted font-mono">agent-mail</span>
+          </div>
+          <div class="p-6 relative">
+            <svg class="expand-icon absolute top-4 right-4 w-4 h-4 text-accent-green opacity-30 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h6m0 0v6m0-6l-8 8-4-4-4 4"></path>
+            </svg>
+            <div class="w-10 h-10 rounded-lg bg-accent-green/10 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-accent-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Agent Mail</h3>
+            <p class="text-text-secondary text-sm">Route structured messages, context requests, handoffs, replies, and inbox state between local Claude Code and Codex agents.</p>
+            <p class="preview-hint text-xs text-accent-green/70 mt-3 opacity-0 transition-opacity">Read the docs</p>
+          </div>
+        </a>
+
+        <!-- Feature Card: Agent Teams -->
+        <a class="feature-card block cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-cyan/5"
+           href="/docs/features/agent-teams.html" aria-label="Read Agent Teams documentation">
+          <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
+            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+            <span class="ml-2 text-xs text-text-muted font-mono">agent-teams</span>
+          </div>
+          <div class="p-6 relative">
+            <svg class="expand-icon absolute top-4 right-4 w-4 h-4 text-accent-cyan opacity-30 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h6m0 0v6m0-6l-8 8-4-4-4 4"></path>
+            </svg>
+            <div class="w-10 h-10 rounded-lg bg-accent-cyan/10 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-5-3.87M9 20H4v-2a4 4 0 015-3.87m8-4.13a4 4 0 11-8 0 4 4 0 018 0zm-8 0a4 4 0 10-8 0 4 4 0 008 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Agent Teams</h3>
+            <p class="text-text-secondary text-sm">Save named rosters for projects, release work, DevOps, or same-repo planner/implementer/reviewer loops.</p>
+            <p class="preview-hint text-xs text-accent-cyan/70 mt-3 opacity-0 transition-opacity">Read the docs</p>
+          </div>
+        </a>
+
+        <!-- Feature Card: Agent Bridge -->
+        <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-amber/5"
+             role="button" aria-label="View Agent Bridge screenshot"
+             onclick="openModal('assets/screenshot-cc-bridge.png', 'Agent Bridge')">
+          <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
+            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+            <span class="ml-2 text-xs text-text-muted font-mono">agent-bridge</span>
+          </div>
+          <div class="p-6 relative">
+            <svg class="expand-icon absolute top-4 right-4 w-4 h-4 text-accent-amber opacity-30 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+            </svg>
+            <div class="w-10 h-10 rounded-lg bg-accent-amber/10 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-accent-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Agent Bridge</h3>
+            <p class="text-text-secondary text-sm">Monitor, spawn, resume, fork, and attach to Claude Code and Codex tmux sessions from the browser.</p>
+            <p class="preview-hint text-xs text-accent-amber/70 mt-3 opacity-0 transition-opacity">Click to preview</p>
+          </div>
+        </div>
+
         <!-- Feature Card: MCP Servers -->
         <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-green/5"
              role="button" aria-label="View MCP Servers screenshot"
@@ -351,10 +426,10 @@
           </div>
         </div>
 
-        <!-- Feature Card: Usage Analytics -->
+        <!-- Feature Card: Provider Status & Usage -->
         <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-amber/5"
-             role="button" aria-label="View Usage Analytics screenshot"
-             onclick="openModal('assets/screenshot-usage.png', 'Usage Analytics')">
+             role="button" aria-label="View Provider Status and Usage screenshot"
+             onclick="openModal('assets/screenshot-usage.png', 'Provider Status & Usage')">
           <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
@@ -371,8 +446,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
               </svg>
             </div>
-            <h3 class="text-lg font-semibold mb-2">Usage Analytics</h3>
-            <p class="text-text-secondary text-sm">Track tokens, costs, and billing with detailed charts and breakdowns.</p>
+            <h3 class="text-lg font-semibold mb-2">Provider Status & Usage</h3>
+            <p class="text-text-secondary text-sm">Track provider availability, Claude Code tokens, costs, billing, and diagnostics where the provider supports it.</p>
             <!-- Hover Hint -->
             <p class="preview-hint text-xs text-accent-amber/70 mt-3 opacity-0 transition-opacity">Click to preview</p>
           </div>
@@ -462,7 +537,7 @@
 
       <!-- Additional features note -->
       <p class="text-text-muted text-center text-sm mt-8">
-        Plus agents, skills, memory, output styles, status line, backup & restore, and more.
+        Plus agents, skills, memory, output styles, status line, backup & restore, external orchestration docs, and more.
       </p>
     </div>
   </section>
