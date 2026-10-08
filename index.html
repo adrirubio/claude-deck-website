@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Claude Deck - Review and Steer Coding Agents Working on Your GitHub Issues</title>
-  <meta name="description" content="Claude Deck is an open source, self-hosted workspace for following coding-agent work on your GitHub issues. See queued work, review requests and attempts that need attention across Claude Code, Codex CLI, GitHub Copilot CLI, OpenCode CLI and Pi. Local only, no account, no telemetry.">
+  <meta name="description" content="Claude Deck is an open source, self-hosted workspace for following coding-agent work on your GitHub issues. See queued work, review requests and attempts that need attention across Claude Code, Codex CLI, GitHub Copilot CLI, OpenCode CLI and Pi. Self-hosted, no Deck account, no Deck telemetry.">
   <meta name="theme-color" content="#0c0c0c">
 
   <!-- Favicon -->
@@ -13,7 +13,7 @@
 
   <!-- Open Graph -->
   <meta property="og:title" content="Claude Deck - Review and Steer Coding Agents Working on Your GitHub Issues">
-  <meta property="og:description" content="Open source, self-hosted workspace to follow agent attempts on GitHub issues. See what is queued, what waits for a person, and what needs attention. Local only, no account, no telemetry.">
+  <meta property="og:description" content="Open source, self-hosted workspace to follow agent attempts on GitHub issues. See what is queued, what waits for a person, and what needs attention. Self-hosted, no Deck account, no Deck telemetry.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://claudedeck.org">
   <meta property="og:image" content="https://claudedeck.org/assets/logo-dark.png">
@@ -113,8 +113,8 @@
 
       <div class="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-7 md:mb-10 text-xs sm:text-sm font-mono text-text-secondary">
         <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Local-only</span>
-        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">No account</span>
-        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">No telemetry</span>
+        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">No Deck account</span>
+        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">No Deck telemetry</span>
         <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Work and Repositories</span>
         <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Human actions</span>
         <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Audit history</span>
@@ -154,7 +154,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
             </svg>
           </div>
-          <p class="text-text-secondary">Work shows every issue with its owner, waiting reason and pull request, with filters for team, repository and harness</p>
+          <p class="text-text-secondary">Work shows each tracked issue with its owner, waiting reason and pull request, with filters for team, repository and harness</p>
         </div>
         <div class="flex flex-col items-center gap-3">
           <div class="w-12 h-12 rounded-lg bg-accent-cyan/10 flex items-center justify-center">
@@ -228,12 +228,12 @@
           GitHub is still where issues and pull requests live, and your agent tools still do the work. Claude Deck adds one operating view across teams and repositories: what is queued, who owns it, what waits for a person, and what needs attention.
         </p>
         <p class="text-text-secondary leading-relaxed mb-6">
-          Opening a page in Deck only reads state. It does not dispatch work, send Mail or start a session. Actions that change something, such as recovery steps, ask for confirmation and check your authorization first.
+          Opening Overview, Work or Repositories only reads state. It does not dispatch work, send Mail or start a session. Protected actions, such as retry and recovery, ask for confirmation and check your authorization first.
         </p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <div class="rounded-xl border border-border-default bg-bg-secondary p-4">
             <strong class="block mb-2 text-text-primary">GitHub and your agent files stay the source of truth</strong>
-            <span class="text-text-secondary">Deck reads issues and pull requests from GitHub and works with your existing agent configuration and sessions. It does not keep a parallel copy.</span>
+            <span class="text-text-secondary">Deck reads issues and pull requests from GitHub and works with your existing agent configuration and sessions. Deck keeps its own tracking and audit records, but GitHub stays the source for issues and pull requests.</span>
           </div>
           <div class="rounded-xl border border-border-default bg-bg-secondary p-4">
             <strong class="block mb-2 text-text-primary">Finished is not the same as reviewed</strong>
@@ -605,7 +605,7 @@
     <div class="max-w-4xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Get Started</h2>
       <p class="text-text-secondary text-center mb-12">
-        Claude Deck runs natively on the same host as your agent tools. You need Python 3.11+, Node.js 18+ and at least one supported agent CLI. Docker is not supported. Clone the repository, run the install script, then start Claude Deck.
+        Claude Deck runs natively on the same host as your agent tools. You need Python 3.11+, Node.js 18+ and at least one supported agent CLI. Docker is not supported. Agent-team pane binding needs Linux. Clone the repository, run the install script, then start Claude Deck.
       </p>
 
       <!-- Terminal Window -->
