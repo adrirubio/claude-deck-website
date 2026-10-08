@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Claude Deck - Local Command Center for Claude Code and Codex CLI</title>
-  <meta name="description" content="Open source, self-hosted command center for Claude Code and Codex CLI. Coordinate local agents with Agent Mail, reusable Agent Teams, live sessions, provider-aware configuration, usage, transcripts, MCP servers, and more.">
+  <title>Claude Deck - Review and Steer Coding Agents Working on Your GitHub Issues</title>
+  <meta name="description" content="Claude Deck is an open source, self-hosted workspace for following coding-agent work on your GitHub issues. See queued work, review requests and attempts that need attention across Claude Code, Codex CLI, GitHub Copilot CLI, OpenCode CLI and Pi. Runs on your machine, with no Deck account and no Deck telemetry.">
   <meta name="theme-color" content="#0c0c0c">
 
   <!-- Favicon -->
@@ -12,8 +12,8 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Claude Deck - Local Command Center for Claude Code and Codex CLI">
-  <meta property="og:description" content="Open source, self-hosted command center for Claude Code and Codex CLI. Coordinate local agents with Agent Mail, Agent Teams, live sessions, and provider-aware configuration.">
+  <meta property="og:title" content="Claude Deck - Review and Steer Coding Agents Working on Your GitHub Issues">
+  <meta property="og:description" content="Open source, self-hosted workspace to follow agent attempts on GitHub issues. See what is queued, what waits for a person, and what needs attention. Runs on your machine, with no Deck account and no Deck telemetry.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://claudedeck.org">
   <meta property="og:image" content="https://claudedeck.org/assets/logo-dark.png">
@@ -67,7 +67,7 @@
         </a>
         <!-- Section Navigation Links -->
         <div class="hidden md:flex items-center gap-6">
-          <a href="#demo" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Demo</a>
+          <a href="#demo" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Screens</a>
           <a href="#features" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Features</a>
           <a href="#install" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Get Started</a>
           <a href="/docs/" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Docs</a>
@@ -103,28 +103,29 @@
 
       <!-- Tagline -->
       <p class="text-lg sm:text-2xl md:text-3xl text-text-secondary font-mono mb-5 md:mb-6">
-        Local agent coordination for Claude Code and Codex CLI
+        Follow and steer coding agents working on your GitHub issues
       </p>
 
       <!-- Description -->
       <p class="text-text-muted max-w-3xl mx-auto mb-5 md:mb-6 text-base md:text-lg leading-relaxed">
-        Claude Deck gives you a local command center for coding agents: route Agent Mail context requests and handoffs, launch reusable Agent Teams, monitor live sessions, and manage Claude Code and Codex CLI configuration from one browser UI.
+        Claude Deck is a self-hosted workspace that shows which issues are queued, which agent owns each one, which pull requests wait for review, and which attempts need you. It works with the agent tools already on your machine: Claude Code, Codex CLI, GitHub Copilot CLI, OpenCode CLI and Pi.
       </p>
 
       <div class="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-7 md:mb-10 text-xs sm:text-sm font-mono text-text-secondary">
         <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Local-only</span>
-        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">No account</span>
-        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">No telemetry</span>
-        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Agent Mail</span>
-        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Agent Teams</span>
-        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Works with real Claude Code and Codex files</span>
+        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">No Deck account</span>
+        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">No Deck telemetry</span>
+        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Work and Repositories</span>
+        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Human actions</span>
+        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Audit history</span>
+        <span class="px-2.5 md:px-3 py-1.5 rounded-full border border-border-default bg-bg-card">Five harnesses</span>
       </div>
 
       <!-- CTAs -->
       <div class="flex flex-row flex-wrap gap-3 sm:gap-4 justify-center">
-        <a href="#demo"
+        <a href="#features"
            class="px-5 sm:px-8 py-3.5 bg-accent-green hover:bg-accent-green/90 text-bg-primary font-semibold rounded-lg transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent-green/20">
-          Explore 2.0 Features
+          See how it works
         </a>
         <a href="#install"
            class="px-5 sm:px-8 py-3.5 bg-transparent border border-border-bright hover:border-text-muted text-text-primary rounded-lg transition-all hover:-translate-y-0.5">
@@ -153,7 +154,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
             </svg>
           </div>
-          <p class="text-text-secondary">Visual configuration for Claude Code and Codex CLI instead of juggling command-line edits and scattered settings</p>
+          <p class="text-text-secondary">Work shows each tracked issue with its owner, waiting reason and pull request, with filters for team, repository and harness</p>
         </div>
         <div class="flex flex-col items-center gap-3">
           <div class="w-12 h-12 rounded-lg bg-accent-cyan/10 flex items-center justify-center">
@@ -161,7 +162,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
             </svg>
           </div>
-          <p class="text-text-secondary">Agent Mail lets local agents ask for context, hand off work, reply in threads, and keep durable per-repo identities</p>
+          <p class="text-text-secondary">Plan approval, operator action and human pull request review stay separate, and Deck shows which one is waiting</p>
         </div>
         <div class="flex flex-col items-center gap-3">
           <div class="w-12 h-12 rounded-lg bg-accent-amber/10 flex items-center justify-center">
@@ -169,7 +170,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-5-3.87M9 20H4v-2a4 4 0 015-3.87m8-4.13a4 4 0 11-8 0 4 4 0 018 0zm-8 0a4 4 0 10-8 0 4 4 0 008 0z"></path>
             </svg>
           </div>
-          <p class="text-text-secondary">Agent Teams saves planner, implementer, reviewer, release, or DevOps rosters so they can be launched or reused quickly</p>
+          <p class="text-text-secondary">An audit ledger records delivery history, and metrics say what data they cover and where data is missing</p>
         </div>
       </div>
 
@@ -181,8 +182,8 @@
             </svg>
           </div>
           <div>
-            <p class="font-semibold text-text-primary mb-1">Important: Claude Deck works with your real local Claude Code and Codex CLI files</p>
-            <p class="text-sm text-text-secondary leading-relaxed">It is not a mock viewer. Changes made in the UI can change your actual local agent setup, including Agent Mail MCP and hook configuration. Review changes carefully and create a backup before major edits. Claude Deck is local-only, with no account and no telemetry.</p>
+            <p class="font-semibold text-text-primary mb-1">Important: Claude Deck works with your real local agent files</p>
+            <p class="text-sm text-text-secondary leading-relaxed">It is not a mock viewer. Changes made in the UI can change the files your agent tools really use. Review changes carefully and create a backup before major edits. Claude Deck runs on your machine, with no Deck account and no Deck telemetry. GitHub and your agent tools still use their own services and credentials.</p>
           </div>
         </div>
       </div>
@@ -194,25 +195,25 @@
     <div class="max-w-5xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Who It’s For</h2>
       <p class="text-text-secondary text-center mb-12 max-w-3xl mx-auto">
-        Claude Deck is most useful when you run more than one local agent, move work across repositories, or want the current state of your Claude Code and Codex CLI setup to be visible without digging through files and terminal panes.
+        Claude Deck is for technical operators who already have repositories, local agent tools, tmux sessions and their own model credentials, and who want to see the state of agent work without searching terminals.
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div class="bg-bg-card rounded-xl border border-border-default p-6">
-          <h3 class="font-semibold mb-2">Local agent teams</h3>
-          <p class="text-sm text-text-secondary">When a planner, implementer, reviewer, or release agent needs a durable role and a clear route to the rest of the team.</p>
+          <h3 class="font-semibold mb-2">Agent team operators</h3>
+          <p class="text-sm text-text-secondary">When a Leader, implementers and reviewers work through a backlog and you need to see who owns what and why work waits.</p>
         </div>
         <div class="bg-bg-card rounded-xl border border-border-default p-6">
-          <h3 class="font-semibold mb-2">Cross-repo projects</h3>
-          <p class="text-sm text-text-secondary">When separate repositories contribute to the same system and agents need to ask each other for repo-specific context.</p>
+          <h3 class="font-semibold mb-2">Multi-repository projects</h3>
+          <p class="text-sm text-text-secondary">When several repositories ship together and you need to see which ones are enabled, polling, paused or blocked.</p>
         </div>
         <div class="bg-bg-card rounded-xl border border-border-default p-6">
-          <h3 class="font-semibold mb-2">Live session operators</h3>
-          <p class="text-sm text-text-secondary">When Claude Code or Codex lives in tmux and you want browser access to monitor, spawn, resume, fork, or attach to sessions.</p>
+          <h3 class="font-semibold mb-2">Mixed-harness setups</h3>
+          <p class="text-sm text-text-secondary">When teams use more than one agent tool and you need to know what each tool supports before you rely on it.</p>
         </div>
         <div class="bg-bg-card rounded-xl border border-border-default p-6">
-          <h3 class="font-semibold mb-2">Provider setup owners</h3>
-          <p class="text-sm text-text-secondary">When MCP servers, commands, hooks, permissions, Codex profiles, transcripts, and backups need one visible control surface.</p>
+          <h3 class="font-semibold mb-2">Review owners</h3>
+          <p class="text-sm text-text-secondary">When you decide on pull requests and interventions and want a clear record of what was approved, by whom, and when.</p>
         </div>
       </div>
     </div>
@@ -222,21 +223,21 @@
   <section class="py-20 px-4 border-t border-border-default">
     <div class="max-w-4xl mx-auto">
       <div class="bg-bg-card rounded-2xl border border-border-default p-8 md:p-10">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Why use Claude Deck instead of staying in the command line?</h2>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Why use Claude Deck instead of GitHub and terminals alone?</h2>
         <p class="text-text-secondary text-lg leading-relaxed mb-6">
-          The command line is still where the agents work. Claude Deck is the coordination layer around that work: a place to see who is running, what they can receive, which team they belong to, and how their provider setup is configured.
+          GitHub is still where issues and pull requests live, and your agent tools still do the work. Claude Deck adds one operating view across teams and repositories: what is queued, who owns it, what waits for a person, and what needs attention.
         </p>
         <p class="text-text-secondary leading-relaxed mb-6">
-          The value shows up when multiple local agents are active. Agent Mail keeps requests and handoffs durable, Agent Teams makes rosters reusable, Agent Bridge keeps live sessions inspectable, and provider-aware configuration keeps Claude Code and Codex boundaries explicit.
+          Opening Overview, Work or Repositories only reads state. It does not dispatch work, send Mail or start a session. Protected actions, such as retry and recovery, ask for confirmation and check your authorization first.
         </p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <div class="rounded-xl border border-border-default bg-bg-secondary p-4">
-            <strong class="block mb-2 text-text-primary">Provider files stay the source of truth</strong>
-            <span class="text-text-secondary">Claude Deck works with your existing Claude Code and Codex files, hooks, MCP config, and sessions rather than inventing a parallel setup.</span>
+            <strong class="block mb-2 text-text-primary">GitHub and your agent files stay the source of truth</strong>
+            <span class="text-text-secondary">Deck reads issues and pull requests from GitHub and works with your existing agent configuration and sessions. Deck keeps its own tracking and audit records, but GitHub stays the source for issues and pull requests.</span>
           </div>
           <div class="rounded-xl border border-border-default bg-bg-secondary p-4">
-            <strong class="block mb-2 text-text-primary">The UI adds coordination and visibility</strong>
-            <span class="text-text-secondary">Agent Mail, Agent Teams, Agent Bridge, provider diagnostics, usage visibility, transcript browsing, and backups are the real value.</span>
+            <strong class="block mb-2 text-text-primary">Finished is not the same as reviewed</strong>
+            <span class="text-text-secondary">A finished attempt is a tracking state. It does not show that the work was reviewed, reliable, cheaper or faster. Deck does not claim time saved or cost savings.</span>
           </div>
         </div>
       </div>
@@ -248,44 +249,33 @@
     <div class="max-w-6xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">See It In Action</h2>
       <p class="text-text-secondary text-center mb-12">
-        Agent Mail, Agent Teams, live sessions, and provider setup in one local interface.
+        The Overview and Work pages of Claude Deck 3, shown with synthetic example records.
       </p>
 
-      <!-- Main Screenshot: Agent Mail -->
-      <div class="screenshot-frame bg-bg-card rounded-xl border border-border-default overflow-hidden shadow-2xl mb-6">
-        <div class="hidden md:flex items-center gap-2 px-4 py-3 bg-bg-secondary border-b border-border-default">
-          <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
-          <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
-          <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
-          <span class="ml-2 text-sm text-text-muted font-mono">Agent Mail — Context requests and handoffs across local agents</span>
-        </div>
-        <img src="assets/screenshot-agent-mail.png" alt="Claude Deck Agent Mail with demo team members and inbox state" class="w-full h-auto" loading="lazy">
-      </div>
-
-      <!-- Two smaller screenshots -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Agent Teams -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="screenshot-frame bg-bg-card rounded-xl border border-border-default overflow-hidden shadow-xl">
           <div class="hidden md:flex items-center gap-2 px-4 py-3 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
-            <span class="ml-2 text-sm text-text-muted font-mono">Agent Teams — Reusable planner, implementer, and reviewer rosters</span>
+            <span class="ml-2 text-sm text-text-muted font-mono">Overview — Counts, filters and automation observations</span>
           </div>
-          <img src="assets/screenshot-agent-teams.png" alt="Claude Deck Agent Teams roster preset editor" class="w-full h-auto" loading="lazy">
+          <img src="assets/screenshot-overview.png" alt="Claude Deck Overview page with synthetic example records: work counts by state, automation observation, and a needs-review table" width="1440" height="1050" class="w-full h-auto" loading="lazy">
         </div>
-
-        <!-- Dashboard -->
         <div class="screenshot-frame bg-bg-card rounded-xl border border-border-default overflow-hidden shadow-xl">
           <div class="hidden md:flex items-center gap-2 px-4 py-3 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
-            <span class="ml-2 text-sm text-text-muted font-mono">Dashboard — Provider-aware overview of your local agent setup</span>
+            <span class="ml-2 text-sm text-text-muted font-mono">Work — Owner, waiting reason and pull request for each tracked issue</span>
           </div>
-          <img src="assets/screenshot-dashboard.png" alt="Claude Deck dashboard overview" class="w-full h-auto" loading="lazy">
+          <img src="assets/screenshot-work.png" alt="Claude Deck Work page with three synthetic example issues, their stage, owner, waiting reason and pull request" width="1440" height="1050" class="w-full h-auto" loading="lazy">
         </div>
       </div>
+
+      <p class="text-text-muted text-center text-sm mt-6">
+        These images use synthetic example records from Claude Deck 3.0.0. They show no real issues, repositories or settings.
+      </p>
     </div>
   </section>
 
@@ -294,10 +284,94 @@
     <div class="max-w-6xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Features</h2>
       <p class="text-text-secondary text-center mb-12 max-w-2xl mx-auto">
-        Manage Claude Code and Codex CLI configuration, communication, sessions, and reusable teams in one place.
+        Follow agent work on GitHub issues, and keep configuration, communication, sessions and teams in the same place.
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Feature Card: Overview and Work -->
+        <a class="feature-card block cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-green/5"
+           href="/docs/features/work.html" aria-label="Read Overview and Work documentation">
+          <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
+            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+            <span class="ml-2 text-xs text-text-muted font-mono">work</span>
+          </div>
+          <div class="p-6 relative">
+            <div class="w-10 h-10 rounded-lg bg-accent-green/10 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-accent-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Overview and Work</h3>
+            <p class="text-text-secondary text-sm">See queued, active and waiting issues with their owner, waiting reason and pull request. Filter by team, repository and harness. Counts are complete for the filter you choose.</p>
+            <p class="preview-hint text-xs text-accent-green/70 mt-3 opacity-0 transition-opacity">Read the docs</p>
+          </div>
+        </a>
+
+        <!-- Feature Card: Repositories -->
+        <a class="feature-card block cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-cyan/5"
+           href="/docs/features/repositories.html" aria-label="Read Repositories documentation">
+          <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
+            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+            <span class="ml-2 text-xs text-text-muted font-mono">repositories</span>
+          </div>
+          <div class="p-6 relative">
+            <div class="w-10 h-10 rounded-lg bg-accent-cyan/10 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Repositories</h3>
+            <p class="text-text-secondary text-sm">Compare what you configured with what is really happening. See which repositories are enabled, polling, paused, blocked or unknown.</p>
+            <p class="preview-hint text-xs text-accent-cyan/70 mt-3 opacity-0 transition-opacity">Read the docs</p>
+          </div>
+        </a>
+
+        <!-- Feature Card: Harnesses -->
+        <a class="feature-card block cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-amber/5"
+           href="/docs/features/harnesses.html" aria-label="Read Harnesses documentation">
+          <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
+            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+            <span class="ml-2 text-xs text-text-muted font-mono">harnesses</span>
+          </div>
+          <div class="p-6 relative">
+            <div class="w-10 h-10 rounded-lg bg-accent-amber/10 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-accent-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Harnesses</h3>
+            <p class="text-text-secondary text-sm">Check what Claude Code, Codex CLI, GitHub Copilot CLI, OpenCode CLI and Pi support. Readiness is shown per harness. Support differs between harnesses.</p>
+            <p class="preview-hint text-xs text-accent-amber/70 mt-3 opacity-0 transition-opacity">Read the docs</p>
+          </div>
+        </a>
+
+        <!-- Feature Card: Human actions, audit and metrics -->
+        <a class="feature-card block cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-green/5"
+           href="/docs/guide/factory-audit-and-metrics.html" aria-label="Read Audit and metrics documentation">
+          <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
+            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+            <span class="ml-2 text-xs text-text-muted font-mono">audit</span>
+          </div>
+          <div class="p-6 relative">
+            <div class="w-10 h-10 rounded-lg bg-accent-green/10 flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-accent-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Human actions, audit and metrics</h3>
+            <p class="text-text-secondary text-sm">Review confirmations and recovery steps before you run them. An audit ledger records delivery history. Metrics show their coverage and their gaps.</p>
+            <p class="preview-hint text-xs text-accent-green/70 mt-3 opacity-0 transition-opacity">Read the docs</p>
+          </div>
+        </a>
+
         <!-- Feature Card: Agent Mail -->
         <a class="feature-card block cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-green/5"
            href="/docs/features/agent-mail.html" aria-label="Read Agent Mail documentation">
@@ -317,7 +391,7 @@
               </svg>
             </div>
             <h3 class="text-lg font-semibold mb-2">Agent Mail</h3>
-            <p class="text-text-secondary text-sm">Route structured messages, context requests, handoffs, replies, and inbox state between local Claude Code and Codex agents.</p>
+            <p class="text-text-secondary text-sm">Inspect context requests, handoffs and replies between local agents. Agent decisions stay separate from human pull request review.</p>
             <p class="preview-hint text-xs text-accent-green/70 mt-3 opacity-0 transition-opacity">Read the docs</p>
           </div>
         </a>
@@ -341,15 +415,15 @@
               </svg>
             </div>
             <h3 class="text-lg font-semibold mb-2">Agent Teams</h3>
-            <p class="text-text-secondary text-sm">Save named rosters for projects, release work, DevOps, or same-repo planner/implementer/reviewer loops.</p>
+            <p class="text-text-secondary text-sm">Save team rosters, choose a Leader, review a launch plan, and use recovery steps within finite policies.</p>
             <p class="preview-hint text-xs text-accent-cyan/70 mt-3 opacity-0 transition-opacity">Read the docs</p>
           </div>
         </a>
 
         <!-- Feature Card: Agent Bridge -->
         <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-amber/5"
-             role="button" aria-label="View Agent Bridge screenshot"
-             onclick="openModal('assets/screenshot-cc-bridge.png', 'Agent Bridge')">
+             role="button" tabindex="0" aria-haspopup="dialog" aria-label="View Agent Bridge screenshot"
+             onclick="openModal('assets/screenshot-cc-bridge.png', 'Agent Bridge', this)">
           <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
@@ -366,15 +440,15 @@
               </svg>
             </div>
             <h3 class="text-lg font-semibold mb-2">Agent Bridge</h3>
-            <p class="text-text-secondary text-sm">Monitor, spawn, resume, fork, and attach to Claude Code and Codex tmux sessions from the browser.</p>
+            <p class="text-text-secondary text-sm">Monitor and attach to agent tmux sessions from the browser, and start sessions by hand without turning on automatic dispatch.</p>
             <p class="preview-hint text-xs text-accent-amber/70 mt-3 opacity-0 transition-opacity">Click to preview</p>
           </div>
         </div>
 
         <!-- Feature Card: MCP Servers -->
         <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-green/5"
-             role="button" aria-label="View MCP Servers screenshot"
-             onclick="openModal('assets/screenshot-mcp.png', 'MCP Servers')">
+             role="button" tabindex="0" aria-haspopup="dialog" aria-label="View MCP Servers screenshot"
+             onclick="openModal('assets/screenshot-mcp.png', 'MCP Servers', this)">
           <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
@@ -400,8 +474,8 @@
 
         <!-- Feature Card: Configuration -->
         <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-cyan/5"
-             role="button" aria-label="View Configuration screenshot"
-             onclick="openModal('assets/screenshot-config.png', 'Configuration')">
+             role="button" tabindex="0" aria-haspopup="dialog" aria-label="View Configuration screenshot"
+             onclick="openModal('assets/screenshot-config.png', 'Configuration', this)">
           <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
@@ -428,8 +502,8 @@
 
         <!-- Feature Card: Provider Status & Usage -->
         <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-amber/5"
-             role="button" aria-label="View Provider Status and Usage screenshot"
-             onclick="openModal('assets/screenshot-usage.png', 'Provider Status & Usage')">
+             role="button" tabindex="0" aria-haspopup="dialog" aria-label="View Provider Status and Usage screenshot"
+             onclick="openModal('assets/screenshot-usage.png', 'Provider Status & Usage', this)">
           <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
@@ -453,37 +527,10 @@
           </div>
         </div>
 
-        <!-- Feature Card: Commands & Plugins -->
-        <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-green/5"
-             role="button" aria-label="View Commands & Plugins screenshot"
-             onclick="openModal('assets/screenshot-commands.png', 'Commands & Plugins')">
-          <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
-            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
-            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
-            <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
-            <span class="ml-2 text-xs text-text-muted font-mono">commands</span>
-          </div>
-          <div class="p-6 relative">
-            <!-- Expand Icon -->
-            <svg class="expand-icon absolute top-4 right-4 w-4 h-4 text-accent-green opacity-30 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
-            </svg>
-            <div class="w-10 h-10 rounded-lg bg-accent-green/10 flex items-center justify-center mb-4">
-              <svg class="w-5 h-5 text-accent-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-              </svg>
-            </div>
-            <h3 class="text-lg font-semibold mb-2">Commands & Plugins</h3>
-            <p class="text-text-secondary text-sm">Browse, create, and manage slash commands and plugins visually.</p>
-            <!-- Hover Hint -->
-            <p class="preview-hint text-xs text-accent-green/70 mt-3 opacity-0 transition-opacity">Click to preview</p>
-          </div>
-        </div>
-
         <!-- Feature Card: Hooks & Permissions -->
         <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-cyan/5"
-             role="button" aria-label="View Hooks & Permissions screenshot"
-             onclick="openModal('assets/screenshot-hooks.png', 'Hooks & Permissions')">
+             role="button" tabindex="0" aria-haspopup="dialog" aria-label="View Hooks & Permissions screenshot"
+             onclick="openModal('assets/screenshot-hooks.png', 'Hooks & Permissions', this)">
           <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
@@ -509,8 +556,8 @@
 
         <!-- Feature Card: Session Transcripts -->
         <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-amber/5"
-             role="button" aria-label="View Session Transcripts screenshot"
-             onclick="openModal('assets/screenshot-sessions.png', 'Session Transcripts')">
+             role="button" tabindex="0" aria-haspopup="dialog" aria-label="View Session Transcripts screenshot"
+             onclick="openModal('assets/screenshot-sessions.png', 'Session Transcripts', this)">
           <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
@@ -537,7 +584,7 @@
 
       <!-- Additional features note -->
       <p class="text-text-muted text-center text-sm mt-8">
-        Plus agents, skills, memory, output styles, status line, backup & restore, external orchestration docs, and more.
+        Plus slash commands, plugins, agents, skills, memory, output styles, status line, backup &amp; restore, external orchestration docs, and more.
       </p>
     </div>
   </section>
@@ -547,7 +594,7 @@
     <div class="max-w-4xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Get Started</h2>
       <p class="text-text-secondary text-center mb-12">
-        Clone the repository and start the development servers.
+        Claude Deck runs natively on the same host as your agent tools. You need Python 3.11+, Node.js 18+ and at least one supported agent CLI. Docker is not supported. Agent-team pane binding needs Linux. Clone the repository, run the install script, then start Claude Deck.
       </p>
 
       <!-- Terminal Window -->
@@ -630,7 +677,7 @@
   </footer>
 
   <!-- Screenshot Modal -->
-  <dialog id="screenshot-modal" class="bg-transparent p-4 max-w-5xl w-full backdrop:bg-black/80 backdrop:backdrop-blur-sm">
+  <dialog id="screenshot-modal" aria-labelledby="modal-title" class="bg-transparent p-4 max-w-5xl w-full backdrop:bg-black/80 backdrop:backdrop-blur-sm">
     <div class="bg-bg-card rounded-xl border border-border-default overflow-hidden shadow-2xl">
       <div class="flex items-center justify-between px-4 py-3 bg-bg-secondary border-b border-border-default">
         <div class="flex items-center gap-2">
@@ -639,7 +686,7 @@
           <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
           <span id="modal-title" class="ml-2 text-sm text-text-muted font-mono">Screenshot</span>
         </div>
-        <button onclick="closeModal()" class="text-text-muted hover:text-text-primary transition-colors p-1" aria-label="Close">
+        <button id="modal-close" type="button" onclick="closeModal()" class="text-text-muted hover:text-text-primary transition-colors p-1" aria-label="Close">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
           </svg>
@@ -661,20 +708,41 @@
     const modalImage = document.getElementById('modal-image');
     const modalTitle = document.getElementById('modal-title');
 
-    function openModal(imageSrc, title) {
+    let modalOpener = null;
+
+    function openModal(imageSrc, title, opener) {
+      modalOpener = opener || document.activeElement;
       modalImage.src = imageSrc;
       modalImage.alt = title;
       modalTitle.textContent = title;
       modal.showModal();
+      document.getElementById('modal-close').focus();
     }
 
     function closeModal() {
       modal.close();
     }
 
+    // Return focus to the card that opened the dialog. Escape closes the
+    // dialog natively and also fires this event.
+    modal.addEventListener('close', () => {
+      if (modalOpener && modalOpener.isConnected) modalOpener.focus();
+      modalOpener = null;
+    });
+
     // Close on backdrop click
     modal.addEventListener('click', (e) => {
       if (e.target === modal) closeModal();
+    });
+
+    // Enter and Space activate the screenshot cards like buttons
+    document.addEventListener('keydown', (e) => {
+      const card = e.target.closest && e.target.closest('.feature-card[role="button"]');
+      if (!card || e.target !== card) return;
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
     });
   </script>
 </body>
