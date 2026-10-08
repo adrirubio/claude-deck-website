@@ -1,6 +1,6 @@
 # Claude Deck Website
 
-Landing page for [Claude Deck](https://github.com/adrirubio/claude-deck) - The Control Panel for Claude Code and Codex CLI.
+Landing page and public documentation for [Claude Deck](https://github.com/adrirubio/claude-deck), a self-hosted workspace to follow and steer coding agents working on GitHub issues.
 
 ## Live Site
 
