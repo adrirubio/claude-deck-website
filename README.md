@@ -24,13 +24,13 @@ This site is deployed on Cloudflare Pages. Any push to the `master` branch will 
 The pages under `docs/` are generated. Do not edit them by hand.
 
 - Source repository: [adrirubio/claude-deck](https://github.com/adrirubio/claude-deck), directory `docs/` (Markdown and VitePress configuration)
-- Source commit: `0b56b1e7856dd1da8bcea17df7553857dfe3c4e8` (`release/v3.0.0`, Claude Deck 3.0.0)
+- Source commit: `bc66e5fbb45af681f1a6a9b5df749addb5355a30` (`release/v3.0.0`, Claude Deck 3.0.0)
 - Build method: `npm ci` in the Deck `docs/` directory, then `scripts/deploy-docs.sh` from that commit. The script runs `vitepress build` and replaces this repository's `docs/` directory with the output.
 - Excluded from the public build: `docs/plans/`, `docs/superpowers/` and `docs/deploy/`.
 
 ## Screenshots
 
-`assets/screenshot-overview.png` and `assets/screenshot-work.png` show Claude Deck 3.0.0 with synthetic example records. They contain no live records or private settings. They come from Deck frontend source commit `1c4ecb672e553a5d413387a85d342aa00feb1e27`, which has the same tree as the source commit above.
+`assets/screenshot-overview.png` and `assets/screenshot-work.png` show Claude Deck 3.0.0 with synthetic example records. They contain no live records or private settings. They come from Deck frontend source commit `1c4ecb672e553a5d413387a85d342aa00feb1e27`. Its `frontend/` directory is identical to the `frontend/` directory of the source commit above (tree `08a3f12d25fb23599a2b4f8fa7e5a12d2c3a0b59`). The source commit above also changes backend code and one documentation page.
 
 | File | SHA-256 |
 |---|---|
@@ -43,7 +43,7 @@ Preview the landing page and the documentation together with `npx serve` or `pyt
 
 This repository targets `release/v3.0.0` for the Claude Deck 3.0.0 release work. A push to `master` deploys the site to Cloudflare Pages. Do not push to `master` until the release owner approves the preview.
 
-To restore the previous site, revert the website commit on `master`. The deployment workflow then publishes the restored files.
+To restore the previous site, revert the website commit on `master`. For a merge commit, use `git revert -m 1 <merge-sha>`. The deployment workflow then publishes the restored files. A push to `master` deploys production, so the revert push needs the same release owner approval as a publication.
 
 ## Tech Stack
 

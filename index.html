@@ -267,7 +267,7 @@
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
-            <span class="ml-2 text-sm text-text-muted font-mono">Work — Owner, waiting reason and pull request for each issue</span>
+            <span class="ml-2 text-sm text-text-muted font-mono">Work — Owner, waiting reason and pull request for each tracked issue</span>
           </div>
           <img src="assets/screenshot-work.png" alt="Claude Deck Work page with three synthetic example issues, their stage, owner, waiting reason and pull request" width="1440" height="1050" class="w-full h-auto" loading="lazy">
         </div>
@@ -422,8 +422,8 @@
 
         <!-- Feature Card: Agent Bridge -->
         <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-amber/5"
-             role="button" aria-label="View Agent Bridge screenshot"
-             onclick="openModal('assets/screenshot-cc-bridge.png', 'Agent Bridge')">
+             role="button" tabindex="0" aria-haspopup="dialog" aria-label="View Agent Bridge screenshot"
+             onclick="openModal('assets/screenshot-cc-bridge.png', 'Agent Bridge', this)">
           <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
@@ -447,8 +447,8 @@
 
         <!-- Feature Card: MCP Servers -->
         <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-green/5"
-             role="button" aria-label="View MCP Servers screenshot"
-             onclick="openModal('assets/screenshot-mcp.png', 'MCP Servers')">
+             role="button" tabindex="0" aria-haspopup="dialog" aria-label="View MCP Servers screenshot"
+             onclick="openModal('assets/screenshot-mcp.png', 'MCP Servers', this)">
           <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
@@ -474,8 +474,8 @@
 
         <!-- Feature Card: Configuration -->
         <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-cyan/5"
-             role="button" aria-label="View Configuration screenshot"
-             onclick="openModal('assets/screenshot-config.png', 'Configuration')">
+             role="button" tabindex="0" aria-haspopup="dialog" aria-label="View Configuration screenshot"
+             onclick="openModal('assets/screenshot-config.png', 'Configuration', this)">
           <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
@@ -502,8 +502,8 @@
 
         <!-- Feature Card: Provider Status & Usage -->
         <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-amber/5"
-             role="button" aria-label="View Provider Status and Usage screenshot"
-             onclick="openModal('assets/screenshot-usage.png', 'Provider Status & Usage')">
+             role="button" tabindex="0" aria-haspopup="dialog" aria-label="View Provider Status and Usage screenshot"
+             onclick="openModal('assets/screenshot-usage.png', 'Provider Status & Usage', this)">
           <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
@@ -529,8 +529,8 @@
 
         <!-- Feature Card: Hooks & Permissions -->
         <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-cyan/5"
-             role="button" aria-label="View Hooks & Permissions screenshot"
-             onclick="openModal('assets/screenshot-hooks.png', 'Hooks & Permissions')">
+             role="button" tabindex="0" aria-haspopup="dialog" aria-label="View Hooks & Permissions screenshot"
+             onclick="openModal('assets/screenshot-hooks.png', 'Hooks & Permissions', this)">
           <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
@@ -556,8 +556,8 @@
 
         <!-- Feature Card: Session Transcripts -->
         <div class="feature-card cursor-pointer bg-bg-card rounded-xl border border-border-default overflow-hidden transition-all hover:-translate-y-1 hover:border-border-bright hover:shadow-lg hover:shadow-accent-amber/5"
-             role="button" aria-label="View Session Transcripts screenshot"
-             onclick="openModal('assets/screenshot-sessions.png', 'Session Transcripts')">
+             role="button" tabindex="0" aria-haspopup="dialog" aria-label="View Session Transcripts screenshot"
+             onclick="openModal('assets/screenshot-sessions.png', 'Session Transcripts', this)">
           <div class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-bg-secondary border-b border-border-default">
             <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
@@ -677,7 +677,7 @@
   </footer>
 
   <!-- Screenshot Modal -->
-  <dialog id="screenshot-modal" class="bg-transparent p-4 max-w-5xl w-full backdrop:bg-black/80 backdrop:backdrop-blur-sm">
+  <dialog id="screenshot-modal" aria-labelledby="modal-title" class="bg-transparent p-4 max-w-5xl w-full backdrop:bg-black/80 backdrop:backdrop-blur-sm">
     <div class="bg-bg-card rounded-xl border border-border-default overflow-hidden shadow-2xl">
       <div class="flex items-center justify-between px-4 py-3 bg-bg-secondary border-b border-border-default">
         <div class="flex items-center gap-2">
@@ -686,7 +686,7 @@
           <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
           <span id="modal-title" class="ml-2 text-sm text-text-muted font-mono">Screenshot</span>
         </div>
-        <button onclick="closeModal()" class="text-text-muted hover:text-text-primary transition-colors p-1" aria-label="Close">
+        <button id="modal-close" type="button" onclick="closeModal()" class="text-text-muted hover:text-text-primary transition-colors p-1" aria-label="Close">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
           </svg>
@@ -708,20 +708,41 @@
     const modalImage = document.getElementById('modal-image');
     const modalTitle = document.getElementById('modal-title');
 
-    function openModal(imageSrc, title) {
+    let modalOpener = null;
+
+    function openModal(imageSrc, title, opener) {
+      modalOpener = opener || document.activeElement;
       modalImage.src = imageSrc;
       modalImage.alt = title;
       modalTitle.textContent = title;
       modal.showModal();
+      document.getElementById('modal-close').focus();
     }
 
     function closeModal() {
       modal.close();
     }
 
+    // Return focus to the card that opened the dialog. Escape closes the
+    // dialog natively and also fires this event.
+    modal.addEventListener('close', () => {
+      if (modalOpener && modalOpener.isConnected) modalOpener.focus();
+      modalOpener = null;
+    });
+
     // Close on backdrop click
     modal.addEventListener('click', (e) => {
       if (e.target === modal) closeModal();
+    });
+
+    // Enter and Space activate the screenshot cards like buttons
+    document.addEventListener('keydown', (e) => {
+      const card = e.target.closest && e.target.closest('.feature-card[role="button"]');
+      if (!card || e.target !== card) return;
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
     });
   </script>
 </body>
