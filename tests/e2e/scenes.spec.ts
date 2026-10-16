@@ -1,6 +1,7 @@
 import { expect, test, type Page } from '@playwright/test'
-const labels = ['GitHub holds your feature lists', 'Your AI helper prepares them', 'You, the Director',
-  'Deck sets up and runs your AI teams', 'The factory: several AI teams at work', 'Finished work flows back']
+const labels = ['GitHub holds your feature lists', 'You, the Director, and your AI helper groom the features',
+  'In Deck, you choose your AI team roster', 'Deck runs your AI teams', 'The factory: several AI teams at work',
+  'Ready features flow in', 'Finished work flows back']
 
 test('the gallery shows the outside scene with every label and no foreign request', async ({ page }) => {
   const foreign: string[] = []
@@ -32,7 +33,7 @@ test('the scene is not linked from the home page', async ({ page }) => {
   await expect(page.locator('a[href^="/scenes"]')).toHaveCount(0)
 })
 
-const linkSel = '[data-scene="outside"] .b2-link line, [data-scene="outside"] .b3-link line, [data-scene="outside"] .b4-link line, [data-scene="outside"] .b5-link line, [data-scene="outside"] .b6-link line'
+const linkSel = ['groom-link', 'roster-link', 'run-link', 'b5-link', 'b6-link'].map((c) => `[data-scene="outside"] .${c} line`).join(', ')
 const lengths = (page: Page) => page.$$eval(linkSel, (ls) => ls.map((l) => Math.hypot(Number(l.getAttribute('x2')) - Number(l.getAttribute('x1')), Number(l.getAttribute('y2')) - Number(l.getAttribute('y1')))))
 async function scrollScene(page: Page, f: number) {
   const top = await page.evaluate(() => document.querySelector('[data-scene="outside"]')!.getBoundingClientRect().top + scrollY)
@@ -83,4 +84,16 @@ test('on a phone the labels are a readable list', async ({ browser }) => {
   for (const l of labels) await expect(list.getByText(l)).toBeVisible()
   const size = await list.locator('li').first().evaluate((li) => parseFloat(getComputedStyle(li).fontSize))
   expect(size).toBeGreaterThanOrEqual(15)
+})
+
+test('you and your AI helper stand in the left corner, and the roster is chosen on Deck', async ({ page }) => {
+  await page.goto('/scenes/')
+  const box = async (sel: string) => (await page.locator(`[data-scene="outside"] ${sel}`).first().boundingBox())!
+  const you = await box('[data-role="person"]'), github = await box('.github'), deck = await box('.deck')
+  expect(you.x).toBeLessThan(github.x)
+  expect(you.x).toBeLessThan(deck.x)
+  const helper = await box('.helper [data-role="agent"]')
+  expect(Math.abs(helper.x - you.x)).toBeLessThan(120)
+  await expect(page.locator('[data-scene="outside"] .roster [data-role="agent"]')).toHaveCount(3)
+  await expect(page.locator('[data-scene="outside"] .groom-link line')).toHaveCount(2)
 })

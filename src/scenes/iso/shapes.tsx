@@ -31,24 +31,24 @@ export function Person({ o, x, y, color = HUMAN, className }: At & { color?: str
 }
 
 /** An AI agent: a verdigris body with a cap in its feature's colour and shape. */
-export function Agent({ o, x, y, feature, className }: At & { feature?: Feature; className?: string }) {
+export function Agent({ o, x, y, z = 0, feature, className }: At & { z?: number; feature?: Feature; className?: string }) {
   const k = o.k
   let cap: ReactNode
-  if (feature === undefined) cap = <Box o={o} x={x - 6} y={y - 6} z={30} w={12} d={12} h={10} color={AI_TOP} />
+  if (feature === undefined) cap = <Box o={o} x={x - 6} y={y - 6} z={z + 30} w={12} d={12} h={10} color={AI_TOP} />
   else {
     const f = FEATURES[feature]
-    if (f.cap === 'cube') cap = <Box o={o} x={x - 6} y={y - 6} z={30} w={12} d={12} h={10} color={f.color} />
+    if (f.cap === 'cube') cap = <Box o={o} x={x - 6} y={y - 6} z={z + 30} w={12} d={12} h={10} color={f.color} />
     else if (f.cap === 'pyramid') {
-      const t: [number, number, number] = [x, y, 44]
+      const t: [number, number, number] = [x, y, z + 44]
       cap = (
         <g>
-          <polygon points={pts(o, [[x - 7, y + 7, 30], [x + 7, y + 7, 30], t])} fill={shade(f.color, 0.8)} />
-          <polygon points={pts(o, [[x + 7, y - 7, 30], [x + 7, y + 7, 30], t])} fill={shade(f.color, 0.92)} />
-          <polygon points={pts(o, [[x - 7, y - 7, 30], [x + 7, y - 7, 30], t])} fill={f.color} />
+          <polygon points={pts(o, [[x - 7, y + 7, z + 30], [x + 7, y + 7, z + 30], t])} fill={shade(f.color, 0.8)} />
+          <polygon points={pts(o, [[x + 7, y - 7, z + 30], [x + 7, y + 7, z + 30], t])} fill={shade(f.color, 0.92)} />
+          <polygon points={pts(o, [[x - 7, y - 7, z + 30], [x + 7, y - 7, z + 30], t])} fill={f.color} />
         </g>
       )
     } else {
-      const [bx, by] = project(o, x, y, 30), [, ty] = project(o, x, y, 40)
+      const [bx, by] = project(o, x, y, z + 30), [, ty] = project(o, x, y, z + 40)
       cap = (
         <g>
           <rect x={bx - 7 * k} y={ty} width={14 * k} height={by - ty} fill={shade(f.color, 0.85)} />
@@ -60,7 +60,7 @@ export function Agent({ o, x, y, feature, className }: At & { feature?: Feature;
   }
   return (
     <g className={className} data-role="agent" data-feature={feature ?? ''}>
-      <Box o={o} x={x - 8} y={y - 8} z={0} w={16} d={16} h={30} color={AI} />
+      <Box o={o} x={x - 8} y={y - 8} z={z} w={16} d={16} h={30} color={AI} />
       {cap}
     </g>
   )
@@ -84,14 +84,14 @@ export function GroundLine({ o, x1, y1, x2, y2, color, className }: { o: Origin;
 }
 
 /** A label joined to a point in the scene by a short line. */
-export function Callout({ o, x, y, z, text, dx, dy, small, n, className }: At & { z: number; text: string; dx: number; dy: number; small?: boolean; n?: number; className?: string }) {
+export function Callout({ o, x, y, z, text, dx, dy, small, n, anchor, className }: At & { z: number; text: string; dx: number; dy: number; small?: boolean; n?: number; anchor?: 'start' | 'end'; className?: string }) {
   const [ax, ay] = project(o, x, y, z)
   const bx = ax + dx, by = ay + dy
   return (
     <g className={className} data-role="callout">
       <line x1={ax} y1={ay} x2={bx} y2={by - 5} stroke="#56666E" strokeWidth={1.2} />
       <circle cx={ax} cy={ay} r={2.5} fill="#56666E" />
-      <text x={bx} y={by + 12} textAnchor={dx < 0 ? 'end' : 'start'} className={small ? 'iso-label-s' : 'iso-label'}>{text}</text>
+      <text x={bx} y={by + 12} textAnchor={anchor ?? (dx < 0 ? 'end' : 'start')} className={small ? 'iso-label-s' : 'iso-label'}>{text}</text>
       {n !== undefined && (
         <g className="iso-number" aria-hidden="true">
           <circle cx={ax} cy={ay} r={17} fill="#1C2A31" />
