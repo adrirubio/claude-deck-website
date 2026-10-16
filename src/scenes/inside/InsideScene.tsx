@@ -72,7 +72,7 @@ export default function InsideScene() {
           const [dx, dy] = at(s)
           t.to(item, { x: dx, y: dy, duration: MOVE, ease: 'power1.inOut' })
             .to(rings[s], { opacity: 1, duration: 0.2, ease: 'none' })
-          if (s > 0) t.to(rings[s - 1], { opacity: 0, duration: 0.3, ease: 'none' }, '<')
+          if (s > 0) t.to(rings[s - 1], { opacity: 0, duration: 0.2, ease: 'none' }, '<')
           t.to({}, { duration: HOLD - 0.2 })
         })
         t.to([item, rings[ST.length - 1]], { opacity: 0, duration: 0.4, ease: 'none' })
