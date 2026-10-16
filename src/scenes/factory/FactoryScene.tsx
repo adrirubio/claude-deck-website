@@ -19,8 +19,8 @@ const LABELS = [
   ['Supervisor', 'checks in on the team'],
   ['Deck', 'runs the team and keeps it within its rules'],
   ['Your AI team', 'works through your features'],
-  ['You and your AI helper', 'outside: you own the features and the decisions'],
-  ['GitHub', 'outside: holds the features and the finished work'],
+  ['You and your AI helper', 'you own the features and the decisions, outside the factory'],
+  ['GitHub', 'holds the features and the finished work, outside the factory'],
 ] as const
 const FLOWS = ['Ready features come in', 'Finished work goes back'] as const
 const mid = (p: { x1: number; y1: number; x2: number; y2: number }, t = 0.5) => groundOffset(o, (p.x2 - p.x1) * t, (p.y2 - p.y1) * t)

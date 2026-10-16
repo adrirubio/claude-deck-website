@@ -6,8 +6,8 @@ const labels = [
   ['Supervisor', 'checks in on the team'],
   ['Deck', 'runs the team and keeps it within its rules'],
   ['Your AI team', 'works through your features'],
-  ['You and your AI helper', 'outside: you own the features and the decisions'],
-  ['GitHub', 'outside: holds the features and the finished work'],
+  ['You and your AI helper', 'you own the features and the decisions, outside the factory'],
+  ['GitHub', 'holds the features and the finished work, outside the factory'],
 ]
 const flows = ['Ready features come in', 'Finished work goes back']
 
