@@ -5,7 +5,7 @@ import { Agent, Box, Callout, GroundLine, Person, SplitDefs, Supervisor, WorkIte
 import { groundOffset, project, type Origin } from '../iso/project'
 import { AI, AI_TOP, FEATURES, GRAPHITE, GROUND, HUMAN, PAPER, STEEL } from '../iso/palette'
 import { makeLoops } from '../iso/loops'
-import { grow } from '../iso/motion'
+import { grow, refreshPriority } from '../iso/motion'
 import '../scenes.css'
 
 const o: Origin = { x: 330, y: 120, k: 1.18 }
@@ -58,7 +58,7 @@ export default function OutsideScene({ play = 'scroll' }: { play?: 'scroll' | 'a
       const tl = gsap.timeline(play === 'auto'
         ? { defaults: { ease: 'power2.out', duration: 0.1 }, paused: true }
         : { defaults: { ease: 'power2.out', duration: 0.1 },
-            scrollTrigger: { trigger: root.current, start: 'top top', end: '+=150%', scrub: 0.6, pin: true } })
+            scrollTrigger: { trigger: root.current, start: 'top top', end: '+=150%', scrub: 0.6, pin: true, refreshPriority: refreshPriority(root.current!) } })
       const lp = (loops = makeLoops(root.current!, tl))
       // Beat 1: the ground and GitHub with its feature lists.
       tl.from(q('.b1-ground'), { opacity: 0, y: 12 }, 0)
@@ -108,9 +108,12 @@ export default function OutsideScene({ play = 'scroll' }: { play?: 'scroll' | 'a
       move('.b6-item', OUT, 0.8)
       if (play === 'auto') {
         tl.timeScale(1 / AUTO_SECONDS)
-        ScrollTrigger.create({ trigger: root.current, start: 'top 80%', once: true, onEnter: () => tl.play() })
+        ScrollTrigger.create({ trigger: root.current, start: 'top 80%', once: true, refreshPriority: refreshPriority(root.current!), onEnter: () => tl.play() })
       }
     }, root)
+    // Scenes load in any order; a pinned scene adds space above the ones below it, so every trigger is measured again, top to bottom.
+    ScrollTrigger.sort()
+    ScrollTrigger.refresh()
     return () => { loops?.kill(); ctx.revert() }
   }, [play])
 

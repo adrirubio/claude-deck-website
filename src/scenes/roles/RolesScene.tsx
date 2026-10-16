@@ -5,7 +5,7 @@ import { Agent, Box, Callout, Person, SplitDefs, Supervisor, WorkItem } from '..
 import { project, type Origin } from '../iso/project'
 import { AI_TOP, FEATURES, GRAPHITE, GROUND, HUMAN, PAPER, STEEL, type Feature } from '../iso/palette'
 import { makeLoops } from '../iso/loops'
-import { grow } from '../iso/motion'
+import { grow, refreshPriority } from '../iso/motion'
 import '../scenes.css'
 
 const o: Origin = { x: 600, y: 120, k: 1 }
@@ -76,7 +76,7 @@ export default function RolesScene() {
       const pop = { opacity: 0, scale: 0.6, transformOrigin: '50% 100%', ease: 'back.out(2)' }
       const tl = gsap.timeline({
         defaults: { ease: 'power2.out', duration: 0.1 },
-        scrollTrigger: { trigger: root.current, start: 'top top', end: '+=150%', scrub: 0.6, pin: true },
+        scrollTrigger: { trigger: root.current, start: 'top top', end: '+=150%', scrub: 0.6, pin: true, refreshPriority: refreshPriority(root.current!) },
       })
       const lp = (loops = makeLoops(root.current!, tl))
       // Beat 1: you, on the top platform, and GitHub, where you write the features.
@@ -117,6 +117,9 @@ export default function RolesScene() {
         lp.add(t, 0.64, card)
       })
     }, root)
+    // Scenes load in any order; a pinned scene adds space above the ones below it, so every trigger is measured again, top to bottom.
+    ScrollTrigger.sort()
+    ScrollTrigger.refresh()
     return () => { loops?.kill(); ctx.revert() }
   }, [])
 

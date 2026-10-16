@@ -61,8 +61,8 @@ test('flow items hide again when you scroll back', async ({ page }) => {
   await scrollScene(page, 1.05); await page.waitForTimeout(1500)
   expect(Math.max(...await page.$$eval('[data-scene="outside"] .b5-item, [data-scene="outside"] .b6-item', (els) => els.map((e) => +getComputedStyle(e).opacity)))).toBeGreaterThan(0)
   await scrollScene(page, 0.2)
-  const op = await page.$$eval('[data-scene="outside"] .b5-item, [data-scene="outside"] .b6-item', (els) => els.map((e) => +getComputedStyle(e).opacity))
-  expect(Math.max(...op)).toBe(0)
+  // The scrub eases the story back, so wait for it to pass the flows' start rather than for a fixed time.
+  await expect.poll(async () => Math.max(...await page.$$eval('[data-scene="outside"] .b5-item, [data-scene="outside"] .b6-item', (els) => els.map((e) => +getComputedStyle(e).opacity))), { timeout: 5000 }).toBe(0)
 })
 
 test('without JavaScript the whole drawing sits inside its frame', async ({ browser }) => {

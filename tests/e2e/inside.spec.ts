@@ -57,8 +57,8 @@ test('scrolling back before the teams start hides the features again', async ({ 
   await scrollScene(page, 1.05); await page.waitForTimeout(1500)
   expect(Math.max(...await page.$$eval(`${S} .team-item`, (els) => els.map((e) => +getComputedStyle(e).opacity)))).toBeGreaterThan(0)
   await scrollScene(page, 0.3)
-  const op = await page.$$eval(`${S} .team-item`, (els) => els.map((e) => +getComputedStyle(e).opacity))
-  expect(Math.max(...op)).toBe(0)
+  // The scrub eases the story back, so wait for it to pass the teams' start rather than for a fixed time.
+  await expect.poll(async () => Math.max(...await page.$$eval(`${S} .team-item`, (els) => els.map((e) => +getComputedStyle(e).opacity))), { timeout: 5000 }).toBe(0)
 })
 
 test('without JavaScript the inside drawing sits inside its frame', async ({ browser }) => {

@@ -5,7 +5,7 @@ import { Agent, Box, Callout, GroundLine, SplitDefs, StepLabel, Supervisor, Work
 import { groundOffset, project, type Origin } from '../iso/project'
 import { AI, AI_TOP, FEATURES, GRAPHITE, GROUND, HUMAN, STEEL } from '../iso/palette'
 import { makeLoops } from '../iso/loops'
-import { grow } from '../iso/motion'
+import { grow, refreshPriority } from '../iso/motion'
 import { DECK, FRONT_Y, TEAMS } from './teams'
 import '../scenes.css'
 
@@ -44,7 +44,7 @@ export default function InsideScene() {
       const pop = { opacity: 0, scale: 0.6, transformOrigin: '50% 100%', ease: 'back.out(2)' }
       const tl = gsap.timeline({
         defaults: { ease: 'power2.out', duration: 0.1 },
-        scrollTrigger: { trigger: root.current, start: 'top top', end: '+=150%', scrub: 0.6, pin: true },
+        scrollTrigger: { trigger: root.current, start: 'top top', end: '+=150%', scrub: 0.6, pin: true, refreshPriority: refreshPriority(root.current!) },
       })
       const lp = (loops = makeLoops(root.current!, tl))
       // Beat 1: the factory floor, its walls and three empty belts.
@@ -85,6 +85,9 @@ export default function InsideScene() {
         lp.add(t, 0.58, [item, ...rings])
       })
     }, root)
+    // Scenes load in any order; a pinned scene adds space above the ones below it, so every trigger is measured again, top to bottom.
+    ScrollTrigger.sort()
+    ScrollTrigger.refresh()
     return () => { loops?.kill(); ctx.revert() }
   }, [])
 

@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro'
 import OutsideScene from '../../scenes/outside/OutsideScene'
 import InsideScene from '../../scenes/inside/InsideScene'
 import RolesScene from '../../scenes/roles/RolesScene'
+import FactoryScene from '../../scenes/factory/FactoryScene'
 ---
 <Base title="Deck scenes (draft)">
   <main>
@@ -11,13 +12,16 @@ import RolesScene from '../../scenes/roles/RolesScene'
       <p style="color:var(--muted);margin:6px 0 0">Scroll to play each scene. Draft, not linked from the site. The hero version, which plays on its own, is at <a href="/scenes/hero/">/scenes/hero/</a>.</p>
     </header>
     <section aria-label="The factory from outside">
-      <OutsideScene client:visible />
+      <OutsideScene client:load />
     </section>
     <section aria-label="Inside the factory">
-      <InsideScene client:visible />
+      <InsideScene client:load />
     </section>
     <section aria-label="Who does what">
-      <RolesScene client:visible />
+      <RolesScene client:load />
+    </section>
+    <section aria-label="What the factory is">
+      <FactoryScene client:load />
     </section>
     <div style="height:60vh"></div>
   </main>
