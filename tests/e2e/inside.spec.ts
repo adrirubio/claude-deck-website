@@ -2,7 +2,7 @@ import { expect, test, type Page } from '@playwright/test'
 const S = '[data-scene="inside"]'
 const steps = ['Plan', 'Approve', 'Build', 'Review', 'Check', 'Merged']
 const roles = ['agent owner', 'AI Leader', 'agent owner', 'AI reviewer', 'AI Leader and Supervisor', 'back to GitHub']
-const captions = ['Each ready feature gets its own lane', 'Several features move through the AI team at once', 'Merged work goes back to GitHub']
+const captions = ['Each feature gets its own team', 'Teams work at their own pace, on different features or projects', 'Merged work goes back to GitHub']
 
 // The scene loads when it comes into view, as it does for a reader scrolling down; then jump within it.
 async function enterScene(page: Page) { await page.goto('/scenes/'); await page.waitForTimeout(800); await scrollScene(page, 0) }
@@ -11,7 +11,7 @@ async function scrollScene(page: Page, f: number) {
   const top = await page.evaluate((s) => { const el = document.querySelector(s)!, pin = el.parentElement!; return (pin.classList.contains('pin-spacer') ? pin : el).getBoundingClientRect().top + scrollY }, S)
   await page.evaluate(([t, f]: number[]) => scrollTo(0, t + innerHeight * 1.5 * f), [top, f]); await page.waitForTimeout(1200)
 }
-const itemXs = (page: Page) => page.$$eval(`${S} .lane-item`, (els) => els.map((e) => Math.round(e.getBoundingClientRect().x)))
+const itemXs = (page: Page) => page.$$eval(`${S} .team-item`, (els) => els.map((e) => Math.round(e.getBoundingClientRect().x)))
 
 test('the gallery shows the inside scene with every step, role and caption', async ({ page }) => {
   await page.goto('/scenes/')
@@ -22,11 +22,11 @@ test('the gallery shows the inside scene with every step, role and caption', asy
   for (const c of captions) await expect(svg.getByText(c)).toBeAttached()
 })
 
-test('each lane has its own feature colour, and its agent owners wear that cap', async ({ page }) => {
+test('each team has its own feature colour, and its agent owners wear that cap', async ({ page }) => {
   await page.goto('/scenes/')
   for (const f of [0, 1, 2]) {
-    await expect(page.locator(`${S} .lane-${f} .owner [data-role="agent"][data-feature="${f}"]`)).toHaveCount(2)
-    await expect(page.locator(`${S} .lane-${f} .lane-item[data-feature="${f}"]`)).toHaveCount(1)
+    await expect(page.locator(`${S} .team-${f} .owner [data-role="agent"][data-feature="${f}"]`)).toHaveCount(2)
+    await expect(page.locator(`${S} .team-${f} .team-item[data-feature="${f}"]`)).toHaveCount(1)
   }
   await expect(page.locator(`${S} [data-role="supervisor"]`)).toHaveCount(3)
 })
@@ -40,7 +40,7 @@ test('the still frame shows the three features at different stations, in paralle
   for (const c of captions) await expect(page.locator(`${S} svg`).getByText(c)).toBeVisible()
 })
 
-test('once the lanes run, features move from station to station on their own', async ({ page }) => {
+test('once the teams start, features move from station to station on their own', async ({ page }) => {
   await enterScene(page)
   await expect(page.locator(S)).toHaveAttribute('data-state', 'animated')
   await scrollScene(page, 1.05)
@@ -52,12 +52,12 @@ test('once the lanes run, features move from station to station on their own', a
   expect(lit).toBeGreaterThan(0)
 })
 
-test('scrolling back before the lanes run hides the features again', async ({ page }) => {
+test('scrolling back before the teams start hides the features again', async ({ page }) => {
   await enterScene(page)
   await scrollScene(page, 1.05); await page.waitForTimeout(1500)
-  expect(Math.max(...await page.$$eval(`${S} .lane-item`, (els) => els.map((e) => +getComputedStyle(e).opacity)))).toBeGreaterThan(0)
+  expect(Math.max(...await page.$$eval(`${S} .team-item`, (els) => els.map((e) => +getComputedStyle(e).opacity)))).toBeGreaterThan(0)
   await scrollScene(page, 0.3)
-  const op = await page.$$eval(`${S} .lane-item`, (els) => els.map((e) => +getComputedStyle(e).opacity))
+  const op = await page.$$eval(`${S} .team-item`, (els) => els.map((e) => +getComputedStyle(e).opacity))
   expect(Math.max(...op)).toBe(0)
 })
 
@@ -82,4 +82,25 @@ test('on a phone the steps are a readable numbered list, with no overflow', asyn
   await expect(list.locator('li')).toHaveCount(6)
   for (const s of steps) await expect(list.getByText(s, { exact: false }).first()).toBeVisible()
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390)
+})
+
+test('the scene never says "lane": Deck uses the word for something else', async ({ page }) => {
+  await page.goto('/scenes/')
+  const words = await page.locator(S).evaluate((el) => el.textContent + ' ' + el.querySelector('svg')!.getAttribute('aria-label'))
+  expect(words).not.toMatch(/\blanes?\b/i)
+})
+
+test('a feature sent back moves backwards along its belt', async ({ page }) => {
+  await enterScene(page)
+  await scrollScene(page, 1.05)
+  // The violet team's plan goes back from Approve to Plan early in its trip.
+  const item = page.locator(`${S} .team-1 .team-item`)
+  let last = -Infinity, back = false
+  for (let i = 0; i < 70 && !back; i++) {
+    const [x, op] = await item.evaluate((e) => [e.getBoundingClientRect().x, +getComputedStyle(e).opacity])
+    if (op > 0.9 && x < last - 2) back = true
+    last = op > 0.9 ? x : -Infinity
+    await page.waitForTimeout(100)
+  }
+  expect(back).toBe(true)
 })
