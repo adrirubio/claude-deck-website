@@ -175,7 +175,7 @@ export default function OutsideScene() {
         {/* Labels, beside their objects */}
         <g className="c1"><Callout o={o} x={0} y={60} z={46} text={LABELS[0]} n={1} dx={-60} dy={-40} /></g>
         <g className="c2"><Callout o={o} x={YOU.x} y={YOU.y} z={40} text={LABELS[1]} n={2} dx={6} dy={268} /></g>
-        <g className="c3"><Callout o={o} x={DECK.x + 58} y={DECK.y + 58} z={DECK.h + 10} text={LABELS[2]} n={3} dx={-196} dy={95} anchor="start" /></g>
+        <g className="c3"><Callout o={o} x={DECK.x} y={DECK.y + DECK.d} z={DECK.h} text={LABELS[2]} n={3} dx={-118} dy={107} anchor="start" /></g>
         <g className="c4"><Callout o={o} x={(RUN_LINE.x1 + RUN_LINE.x2) / 2} y={300} z={2} text={LABELS[3]} n={4} dx={230} dy={128} /></g>
         <g className="c4"><Callout o={o} x={F.x + F.w} y={F.y} z={16} text={LABELS[4]} n={5} dx={20} dy={-50} /></g>
         {TEAMS.map((t) => <g key={'l' + t.name} className="c4"><Callout o={o} x={F.x + 200} y={t.y + 8} z={9} text={t.name} dx={16} dy={18} small /></g>)}
