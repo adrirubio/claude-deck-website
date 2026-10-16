@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Agent, Box, Callout, GroundLine, SplitDefs, StepLabel, Supervisor, WorkItem } from '../iso/shapes'
+import { Agent, Box, Callout, GroundLine, StepLabel, WorkItem } from '../iso/shapes'
 import { groundOffset, project, type Origin } from '../iso/project'
 import { AI, AI_TOP, FEATURES, GRAPHITE, GROUND, HUMAN, STEEL } from '../iso/palette'
 import { makeLoops } from '../iso/loops'
@@ -17,7 +17,7 @@ const L = 720
 const ST = [80, 200, 320, 440, 560, 680]
 const STEPS = [
   { title: 'Plan', sub: 'agent owner' }, { title: 'Approve', sub: 'AI Leader' }, { title: 'Build', sub: 'agent owner' },
-  { title: 'Review', sub: 'AI reviewer' }, { title: 'Check', sub: 'AI Leader and Supervisor' }, { title: 'Merged', sub: 'back to GitHub' },
+  { title: 'Review', sub: 'AI reviewer' }, { title: 'Check', sub: 'AI Leader, with your supervision' }, { title: 'Merged', sub: 'back to GitHub' },
 ]
 const CAPTIONS = ['Inside the factory: your AI teams at work', 'Each feature gets its own team', 'Teams work at their own pace, on different features or projects', 'Deck runs every team', 'Merged work goes back to GitHub']
 const WALL = '#C3CED3'
@@ -101,8 +101,7 @@ export default function InsideScene() {
   ))
   return (
     <div ref={root} className="scene" data-scene="inside" data-state={state}>
-      <svg viewBox={VIEWBOX} role="img" aria-label="Inside the factory. Inside the factory, each feature gets its own AI team, shown in its own colour, and the teams work at their own pace. Deck, inside the factory, runs every team. Each feature passes six stations in order: the agent owner plans, the AI Leader approves, the agent owner builds, an AI reviewer checks, the AI Leader and the Supervisor check, and the work is merged and goes back to GitHub. Sometimes work is sent back a step: a plan back to planning, or a build back from review.">
-        <SplitDefs />
+      <svg viewBox={VIEWBOX} role="img" aria-label="Inside the factory. Inside the factory, each feature gets its own AI team, shown in its own colour, and the teams work at their own pace. Deck, inside the factory, runs every team. Each feature passes six stations in order: the agent owner plans, the AI Leader approves, the agent owner builds, an AI reviewer checks, the AI Leader checks under your supervision, and the work is merged and goes back to GitHub. Sometimes work is sent back a step: a plan back to planning, or a build back from review.">
         <g className="floor">
           <Box o={o} x={-170} y={-60} z={-12} w={L + 340} d={500} h={12} color={GROUND} />
           <Box o={o} x={-34} y={-32} w={L + 52} d={FRONT_Y - -32 + 8} h={4} color="#E9EEF0" />
@@ -131,7 +130,6 @@ export default function InsideScene() {
               {ST.map((x, s) => {
                 const y = team.y + 44
                 if (s === 0 || s === 2) return <g key={s} className={`col-${s} owner`}><Agent o={o} x={x} y={y} feature={team.f} /></g>
-                if (s === 4) return <g key={s} className={`col-${s}`}><Agent o={o} x={x - 13} y={y} /><Supervisor o={o} x={x + 13} y={y} /></g>
                 if (s === 5) return <g key={s} className={`col-${s}`}><Box o={o} x={x - 12} y={y - 10} w={24} d={20} h={18} color={STEEL} /></g>
                 return <g key={s} className={`col-${s}`}><Agent o={o} x={x} y={y} /></g>
               })}

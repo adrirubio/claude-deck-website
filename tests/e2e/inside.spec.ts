@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test'
 const S = '[data-scene="inside"]'
 const steps = ['Plan', 'Approve', 'Build', 'Review', 'Check', 'Merged']
-const roles = ['agent owner', 'AI Leader', 'agent owner', 'AI reviewer', 'AI Leader and Supervisor', 'back to GitHub']
+const roles = ['agent owner', 'AI Leader', 'agent owner', 'AI reviewer', 'AI Leader, with your supervision', 'back to GitHub']
 const captions = ['Inside the factory: your AI teams at work', 'Each feature gets its own team', 'Teams work at their own pace, on different features or projects', 'Deck runs every team', 'Merged work goes back to GitHub']
 
 // The scene loads when it comes into view, as it does for a reader scrolling down; then jump within it.
@@ -28,7 +28,8 @@ test('each team has its own feature colour, and its agent owners wear that cap',
     await expect(page.locator(`${S} .team-${f} .owner [data-role="agent"][data-feature="${f}"]`)).toHaveCount(2)
     await expect(page.locator(`${S} .team-${f} .team-item[data-feature="${f}"]`)).toHaveCount(1)
   }
-  await expect(page.locator(`${S} [data-role="supervisor"]`)).toHaveCount(3)
+  // Supervision is yours, from outside the factory: no Supervisor stands at the stations.
+  await expect(page.locator(`${S} [data-role="supervisor"]`)).toHaveCount(0)
 })
 
 test('the still frame shows the three features at different stations, in parallel', async ({ browser }) => {
