@@ -4,6 +4,8 @@
 
 **How it plays:** the scene pins to the screen when its top reaches the top of the viewport, and scroll drives it for one and a half screen heights (GSAP ScrollTrigger, `pin`, `scrub: 0.6`). Progress runs from 0 to 1 across that scroll. Once its beat is reached, each flow of feature cards (grooming, in, back) loops on its own, but only while the scene is on screen. Scrolling back before that beat hides its cards again.
 
+**On the home page (the hero):** the same story plays on its own, once, over 8 seconds, when the scene comes into view; no pinning and no scrolling needed. Then the flows keep looping while it is on screen. Draft at `/scenes/hero/`.
+
 **Still version (reduced motion, or before the script loads):** the final frame, with every label shown and no motion. The frame is fixed, so the page does not shift when the script loads.
 
 **On phones:** the drawing is too small for its labels, so it shows numbered markers and the labels appear as a numbered list under the drawing.

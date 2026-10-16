@@ -35,7 +35,10 @@ const LABELS = [
   'Ready features flow in', 'Finished work flows back',
 ]
 
-export default function OutsideScene() {
+// The hero plays the story once on its own, in this many seconds; elsewhere scroll drives it.
+const AUTO_SECONDS = 8
+
+export default function OutsideScene({ play = 'scroll' }: { play?: 'scroll' | 'auto' }) {
   const root = useRef<HTMLDivElement>(null)
   const [state, setState] = useState<'still' | 'animated'>('still')
 
@@ -54,10 +57,10 @@ export default function OutsideScene() {
         return g
       }
       const pop = { opacity: 0, scale: 0.6, transformOrigin: '50% 100%', ease: 'back.out(2)' }
-      const tl = gsap.timeline({
-        defaults: { ease: 'power2.out', duration: 0.1 },
-        scrollTrigger: { trigger: root.current, start: 'top top', end: '+=150%', scrub: 0.6, pin: true },
-      })
+      const tl = gsap.timeline(play === 'auto'
+        ? { defaults: { ease: 'power2.out', duration: 0.1 }, paused: true }
+        : { defaults: { ease: 'power2.out', duration: 0.1 },
+            scrollTrigger: { trigger: root.current, start: 'top top', end: '+=150%', scrub: 0.6, pin: true } })
       // Beat 1: the ground and GitHub with its feature lists.
       tl.from(q('.b1-ground'), { opacity: 0, y: 12 }, 0)
         .from(q('.github'), { opacity: 0, y: 40, ease: 'back.out(1.4)' }, 0.04)
@@ -113,13 +116,17 @@ export default function OutsideScene() {
       tl.eventCallback('onUpdate', sync)
       ScrollTrigger.create({ trigger: root.current, start: 'top bottom', end: 'bottom top',
         onToggle: (self) => { visible = self.isActive; sync() } })
+      if (play === 'auto') {
+        tl.timeScale(1 / AUTO_SECONDS)
+        ScrollTrigger.create({ trigger: root.current, start: 'top 80%', once: true, onEnter: () => tl.play() })
+      }
     }, root)
     return () => { loops.forEach(({ tween }) => tween.kill()); ctx.revert() }
-  }, [])
+  }, [play])
 
   const line = (p: Path, color: string) => <GroundLine o={o} x1={p.x1} y1={p.y1} x2={p.x2} y2={p.y2} color={color} />
   return (
-    <div ref={root} className="scene" data-scene="outside" data-state={state}>
+    <div ref={root} className="scene" data-scene="outside" data-play={play} data-state={state}>
       <svg viewBox={VIEWBOX} role="img" aria-label="The factory from outside. You, the Director, and your AI helper groom your features in GitHub. In Deck, you choose your AI team roster, and Deck runs your AI teams. Ready features flow into the factory, where several AI teams work, and finished work flows back to GitHub.">
         <g className="b1-ground"><Box o={o} x={-40} y={-40} z={-12} w={640} d={420} h={12} color={GROUND} /></g>
 
