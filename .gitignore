@@ -51,3 +51,4 @@ build/
 node_modules/
 dist/
 .astro/
+tests/.tmp-dist/
