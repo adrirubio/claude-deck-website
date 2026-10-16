@@ -51,3 +51,16 @@ test('every link to the docs opens a page', async ({ page }) => {
     expect((await page.request.get(url)).status(), h).toBe(200)
   }
 })
+
+for (const [path, name] of PAGES) {
+  test(`${name}: nothing shifts while the page loads, even when the fonts arrive late`, async ({ browser }) => {
+    const page = await browser.newPage({ viewport: { width: 390, height: 844 } })
+    await page.route(/\.woff2$/, async (r) => { await new Promise((ok) => setTimeout(ok, 400)); await r.continue() })
+    await page.addInitScript(() => {
+      (window as any).__cls = 0
+      new PerformanceObserver((l) => { for (const e of l.getEntries() as any[]) if (!e.hadRecentInput) (window as any).__cls += e.value }).observe({ type: 'layout-shift', buffered: true })
+    })
+    await page.goto(path); await page.waitForTimeout(2500)
+    expect(await page.evaluate(() => (window as any).__cls)).toBeLessThan(0.02)
+  })
+}

@@ -1,5 +1,12 @@
 ---
 import '../styles/tokens.css'
+import serif400 from '@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url'
+import sans400 from '@fontsource/instrument-sans/files/instrument-sans-latin-400-normal.woff2?url'
+import sans500 from '@fontsource/instrument-sans/files/instrument-sans-latin-500-normal.woff2?url'
+import sans600 from '@fontsource/instrument-sans/files/instrument-sans-latin-600-normal.woff2?url'
+// Self-hosted fonts, preloaded. "optional": a font that arrives late is not swapped in, so the page never shifts.
+const FONTS = [['Instrument Serif', 400, serif400], ['Instrument Sans', 400, sans400], ['Instrument Sans', 500, sans500], ['Instrument Sans', 600, sans600]] as const
+const faces = FONTS.map(([family, weight, url]) => `@font-face{font-family:"${family}";font-style:normal;font-weight:${weight};font-display:optional;src:url(${url}) format("woff2")}`).join('')
 interface Props { title: string; description?: string }
 const { title, description = '' } = Astro.props
 ---
@@ -12,6 +19,8 @@ const { title, description = '' } = Astro.props
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <link rel="icon" href="/favicon.ico" />
+    {FONTS.map(([, , url]) => <link rel="preload" href={url} as="font" type="font/woff2" crossorigin />)}
+    <style set:html={faces} />
   </head>
   <body><slot /></body>
 </html>
