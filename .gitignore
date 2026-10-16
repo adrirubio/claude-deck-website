@@ -48,3 +48,6 @@ build/
 # Temporary files
 *.tmp
 .temp/
+node_modules/
+dist/
+.astro/

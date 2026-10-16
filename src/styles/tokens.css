@@ -1,0 +1,16 @@
+@import '@fontsource/instrument-serif/400.css';
+@import '@fontsource/instrument-serif/400-italic.css';
+@import '@fontsource/instrument-sans/400.css';
+@import '@fontsource/instrument-sans/500.css';
+@import '@fontsource/instrument-sans/600.css';
+
+:root {
+  --fog: #ECEFF1; --graphite: #1C2A31; --steel: #9DAEB6; --muted: #56666E;
+  --ai: #1E8C76; --ai-top: #5FC1A9; --human: #E3962B;
+  --feat-blue: #2E7DD7; --feat-violet: #8E5BD8; --feat-rose: #D0577B;
+}
+*, *::before, *::after { box-sizing: border-box }
+html, body { margin: 0 }
+body { background: var(--fog); color: var(--graphite); font-family: "Instrument Sans", system-ui, sans-serif; font-size: 18px; line-height: 1.55 }
+h1, h2 { font-family: "Instrument Serif", serif; font-weight: 400; letter-spacing: -.015em }
+:focus-visible { outline: 2px solid var(--ai); outline-offset: 3px; border-radius: 4px }
