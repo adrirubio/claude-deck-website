@@ -64,3 +64,12 @@ for (const [path, name] of PAGES) {
     expect(await page.evaluate(() => (window as any).__cls)).toBeLessThan(0.02)
   })
 }
+
+for (const [path, name] of PAGES) {
+  test(`${name}: headings never skip a level`, async ({ page }) => {
+    await page.goto(path)
+    const levels = await page.locator('main :is(h1,h2,h3,h4)').evaluateAll((hs) => hs.map((h) => +h.tagName[1]))
+    expect(levels[0]).toBe(1)
+    levels.slice(1).forEach((l, i) => expect(l - levels[i], `heading ${i + 2}`).toBeLessThanOrEqual(1))
+  })
+}

@@ -60,7 +60,8 @@ const WORDS = [
 
   <InsideScene client:load label="AI teams take features from plan to finished work at their own pace. Each feature has its own team and colour." />
 
-  <section class="wrap steps" aria-label="The steps">
+  <section class="wrap steps" aria-labelledby="steps-h">
+    <h2 id="steps-h" class="sr-only">The steps</h2>
     {STEPS.map((s, i) => (
       <article class="pair">
         <div>
@@ -113,7 +114,7 @@ const WORDS = [
 <style>
   .intro { padding-top: 24px }
   .steps { padding-top: 24px }
-  .n { color: var(--ai) }
+  .n { color: var(--ai-text) }
   .back { margin-top: 8px; padding: 18px 20px; background: #E3E8EB; border-radius: 10px; max-width: none }
   .highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 56px; margin-top: 24px }
   .highlights > div { border-top: 3px solid var(--ai); padding-top: 14px }

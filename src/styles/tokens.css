@@ -2,7 +2,7 @@
 
 :root {
   --fog: #ECEFF1; --graphite: #1C2A31; --steel: #9DAEB6; --muted: #56666E;
-  --ai: #1E8C76; --ai-top: #5FC1A9; --human: #E3962B;
+  --ai: #1E8C76; --ai-text: #13695A; --ai-top: #5FC1A9; --human: #E3962B;
   --feat-blue: #2E7DD7; --feat-violet: #8E5BD8; --feat-rose: #D0577B;
 }
 *, *::before, *::after { box-sizing: border-box }

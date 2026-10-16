@@ -36,6 +36,7 @@ const STOPS = [
     <p>You, the Director, write your features in GitHub and mark them ready. These pictures show different example items inside Deck.</p>
   </section>
 
+  <h2 class="sr-only">The six stops</h2>
   <ol class="wrap stops" aria-label="The six stops">
     {STOPS.map((s, i) => (
       <li class="pair">
@@ -62,7 +63,7 @@ const STOPS = [
 <style>
   .intro { padding-top: 24px }
   .stops { list-style: none; margin-top: 16px }
-  .n { color: var(--ai) }
+  .n { color: var(--ai-text) }
   .share { font-family: "Instrument Serif", serif; font-size: 28px; line-height: 1.2; max-width: 30ch }
   .share a { text-decoration-color: var(--human); text-decoration-thickness: 2px; text-underline-offset: 5px }
 </style>
