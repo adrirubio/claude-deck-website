@@ -84,7 +84,7 @@ export function GroundLine({ o, x1, y1, x2, y2, color, className }: { o: Origin;
 }
 
 /** A label joined to a point in the scene by a short line. */
-export function Callout({ o, x, y, z, text, dx, dy, small, className }: At & { z: number; text: string; dx: number; dy: number; small?: boolean; className?: string }) {
+export function Callout({ o, x, y, z, text, dx, dy, small, n, className }: At & { z: number; text: string; dx: number; dy: number; small?: boolean; n?: number; className?: string }) {
   const [ax, ay] = project(o, x, y, z)
   const bx = ax + dx, by = ay + dy
   return (
@@ -92,6 +92,12 @@ export function Callout({ o, x, y, z, text, dx, dy, small, className }: At & { z
       <line x1={ax} y1={ay} x2={bx} y2={by - 5} stroke="#56666E" strokeWidth={1.2} />
       <circle cx={ax} cy={ay} r={2.5} fill="#56666E" />
       <text x={bx} y={by + 12} textAnchor={dx < 0 ? 'end' : 'start'} className={small ? 'iso-label-s' : 'iso-label'}>{text}</text>
+      {n !== undefined && (
+        <g className="iso-number" aria-hidden="true">
+          <circle cx={ax} cy={ay} r={17} fill="#1C2A31" />
+          <text x={ax} y={ay + 7} textAnchor="middle">{n}</text>
+        </g>
+      )}
     </g>
   )
 }

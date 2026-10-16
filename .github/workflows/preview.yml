@@ -27,6 +27,8 @@ jobs:
       - run: npm run build
       - run: npm test
       - run: npm run check
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e
       - name: Deploy the preview
         uses: cloudflare/wrangler-action@v3
         with:

@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
 const labels = ['GitHub holds your feature lists', 'Your AI helper prepares them', 'You, the Director',
   'Deck sets up and runs your AI teams', 'The factory: several AI teams at work', 'Finished work flows back']
 
@@ -17,7 +17,7 @@ test('reduced motion shows the final state with no timeline', async ({ browser }
   await page.goto('/scenes/')
   const scene = page.locator('[data-scene="outside"]')
   await expect(scene).toHaveAttribute('data-state', 'still')
-  for (const l of labels) await expect(scene.getByText(l)).toBeVisible()
+  for (const l of labels) await expect(scene.locator('svg').getByText(l)).toBeVisible()
 })
 
 test('no overflow at 390 px', async ({ browser }) => {
@@ -30,4 +30,57 @@ test('no overflow at 390 px', async ({ browser }) => {
 test('the scene is not linked from the home page', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('a[href^="/scenes"]')).toHaveCount(0)
+})
+
+const linkSel = '[data-scene="outside"] .b2-link line, [data-scene="outside"] .b3-link line, [data-scene="outside"] .b4-link line, [data-scene="outside"] .b5-link line, [data-scene="outside"] .b6-link line'
+const lengths = (page: Page) => page.$$eval(linkSel, (ls) => ls.map((l) => Math.hypot(Number(l.getAttribute('x2')) - Number(l.getAttribute('x1')), Number(l.getAttribute('y2')) - Number(l.getAttribute('y1')))))
+async function scrollScene(page: Page, f: number) {
+  const top = await page.evaluate(() => document.querySelector('[data-scene="outside"]')!.getBoundingClientRect().top + scrollY)
+  await page.evaluate(([t, f]: number[]) => scrollTo(0, t + innerHeight * 1.5 * f), [top, f]); await page.waitForTimeout(1200)
+}
+
+test('the dashed links draw in during their beats', async ({ page }) => {
+  await page.goto('/scenes/'); await page.waitForTimeout(800)
+  await scrollScene(page, 0)
+  expect(Math.max(...await lengths(page))).toBeLessThan(1)
+  await scrollScene(page, 1.05)
+  expect(Math.min(...await lengths(page))).toBeGreaterThan(10)
+})
+
+test('flow items hide again when you scroll back', async ({ page }) => {
+  await page.goto('/scenes/'); await page.waitForTimeout(800)
+  await scrollScene(page, 1.05); await page.waitForTimeout(1500)
+  await scrollScene(page, 0.2)
+  const op = await page.$$eval('[data-scene="outside"] .b5-item, [data-scene="outside"] .b6-item', (els) => els.map((e) => +getComputedStyle(e).opacity))
+  expect(Math.max(...op)).toBe(0)
+})
+
+test('without JavaScript the whole drawing sits inside its frame', async ({ browser }) => {
+  for (const width of [1440, 390]) {
+    const page = await browser.newPage({ javaScriptEnabled: false, viewport: { width, height: 900 } })
+    await page.goto('/scenes/')
+    const fit = await page.locator('[data-scene="outside"] svg').evaluate((s: SVGSVGElement) => {
+      const b = s.getBBox(), v = s.viewBox.baseVal
+      return { left: b.x - v.x, top: b.y - v.y, right: v.x + v.width - (b.x + b.width), bottom: v.y + v.height - (b.y + b.height) }
+    })
+    for (const [side, gap] of Object.entries(fit)) expect(gap, `${width}px ${side}`).toBeGreaterThanOrEqual(0)
+    await page.close()
+  }
+})
+
+test('the frame does not change once the page has loaded (no layout shift)', async ({ page }) => {
+  await page.goto('/scenes/')
+  const before = await page.locator('[data-scene="outside"] svg').getAttribute('viewBox')
+  await page.waitForTimeout(1500)
+  expect(await page.locator('[data-scene="outside"] svg').getAttribute('viewBox')).toBe(before)
+})
+
+test('on a phone the labels are a readable list', async ({ browser }) => {
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } })
+  await page.goto('/scenes/')
+  const list = page.locator('[data-scene="outside"] .scene-labels')
+  await expect(list).toBeVisible()
+  for (const l of labels) await expect(list.getByText(l)).toBeVisible()
+  const size = await list.locator('li').first().evaluate((li) => parseFloat(getComputedStyle(li).fontSize))
+  expect(size).toBeGreaterThanOrEqual(15)
 })

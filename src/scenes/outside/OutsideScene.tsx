@@ -1,19 +1,24 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin'
 import { Agent, Box, Callout, GroundLine, Person, WorkItem } from '../iso/shapes'
 import { groundOffset, type Origin } from '../iso/project'
 import { AI, AI_TOP, FEATURES, GRAPHITE, GROUND, HUMAN, PAPER, STEEL } from '../iso/palette'
-import { fitViewBox } from '../iso/fit'
 import '../scenes.css'
 
 const o: Origin = { x: 330, y: 120, k: 1.18 }
 // The factory, in world units.
 const F = { x: 330, y: 0, w: 230, d: 330 }
 const TEAMS = [{ y: F.y + 30, feature: 0 as const, name: 'AI team, project A' }, { y: F.y + 180, feature: 2 as const, name: 'AI team, project B' }]
+// The frame fitted to the drawing and its labels (measured with getBBox at 1440 px, plus a margin), fixed so the page never shifts.
+const VIEWBOX = '-176 20 1430 740'
 const IN = { x1: 150, y1: 46, x2: 330, y2: 46 }
 const OUT = { x1: 330, y1: 106, x2: 150, y2: 106 }
+
+const LABELS = [
+  'GitHub holds your feature lists', 'Your AI helper prepares them', 'You, the Director', 'Deck sets up and runs your AI teams',
+  'The factory: several AI teams at work', 'Ready features flow in', 'Finished work flows back',
+]
 
 export default function OutsideScene() {
   const root = useRef<HTMLDivElement>(null)
@@ -22,13 +27,18 @@ export default function OutsideScene() {
 
   useEffect(() => {
     if (!svg.current || !root.current) return
-    fitViewBox(svg.current)
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin)
+    gsap.registerPlugin(ScrollTrigger)
     setState('animated')
     const q = gsap.utils.selector(root.current)
     const loops: gsap.core.Tween[] = []
     const ctx = gsap.context(() => {
+      // A dashed line grows from its start point (DrawSVG would replace the dash pattern).
+      const grow = (lines: Element[]) => {
+        const g = gsap.timeline()
+        lines.forEach((l) => g.from(l, { attr: { x2: +l.getAttribute('x1')!, y2: +l.getAttribute('y1')! }, duration: 0.06, ease: 'none' }, 0))
+        return g
+      }
       const tl = gsap.timeline({
         defaults: { ease: 'power2.out', duration: 0.1 },
         scrollTrigger: { trigger: root.current, start: 'top top', end: '+=150%', scrub: 0.6, pin: true },
@@ -40,23 +50,23 @@ export default function OutsideScene() {
         .from(q('.c1'), { opacity: 0 }, 0.12)
       // Beat 2: the AI helper prepares a list.
         .from(q('.b2-helper'), { opacity: 0, scale: 0.6, transformOrigin: '50% 100%', ease: 'back.out(2)' }, 0.15)
-        .from(q('.b2-link'), { drawSVG: '0%', ease: 'none' }, 0.2)
+        .add(grow(q('.b2-link line')), 0.2)
         .from(q('.c2'), { opacity: 0 }, 0.26)
       // Beat 3: you, the Director.
         .from(q('.b3-person'), { opacity: 0, y: 20 }, 0.3)
-        .from(q('.b3-link'), { drawSVG: '0%', ease: 'none', stagger: 0.03 }, 0.35)
+        .add(grow(q('.b3-link line')), 0.35)
         .from(q('.c3'), { opacity: 0 }, 0.41)
       // Beat 4: Deck lights up; the factory and its AI teams appear.
         .from(q('.b4-screen'), { opacity: 0.2 }, 0.45)
         .from(q('.b4-floor'), { opacity: 0 }, 0.47)
         .from(q('.b4-wall'), { opacity: 0, y: 14, ease: 'power3.out', stagger: 0.02 }, 0.49)
         .from(q('.b4-agent'), { opacity: 0, scale: 0.6, transformOrigin: '50% 100%', ease: 'back.out(2)', stagger: 0.02 }, 0.52)
-        .from(q('.b4-link'), { drawSVG: '0%', ease: 'none' }, 0.56)
+        .add(grow(q('.b4-link line')), 0.56)
         .from(q('.c4'), { opacity: 0 }, 0.58)
       // Beats 5 and 6: features flow in, finished work flows back.
-        .from(q('.b5-link'), { drawSVG: '0%', ease: 'none' }, 0.62)
+        .add(grow(q('.b5-link line')), 0.62)
         .from(q('.c5'), { opacity: 0 }, 0.7)
-        .from(q('.b6-link'), { drawSVG: '0%', ease: 'none' }, 0.8)
+        .add(grow(q('.b6-link line')), 0.8)
         .from(q('.c6'), { opacity: 0 }, 0.88)
         .to({}, { duration: 0.02 }, 0.98)
       // The flows loop on their own once beat 5 is reached.
@@ -72,17 +82,25 @@ export default function OutsideScene() {
       }
       move('.b5-item', IN)
       move('.b6-item', OUT)
-      tl.eventCallback('onUpdate', () => {
-        const on = tl.progress() > 0.62
-        loops.forEach((t) => (on ? t.play() : t.pause()))
-      })
+      let visible = true
+      const sync = () => {
+        const on = visible && tl.progress() > 0.62
+        loops.forEach((t) => {
+          if (on) { if (t.paused()) t.play() }
+          else if (tl.progress() <= 0.62) { t.pause(0); gsap.set(t.targets(), { opacity: 0 }) }
+          else t.pause()
+        })
+      }
+      tl.eventCallback('onUpdate', sync)
+      ScrollTrigger.create({ trigger: root.current, start: 'top bottom', end: 'bottom top',
+        onToggle: (self) => { visible = self.isActive; sync() } })
     }, root)
     return () => { loops.forEach((t) => t.kill()); ctx.revert() }
   }, [])
 
   return (
     <div ref={root} className="scene" data-scene="outside" data-state={state}>
-      <svg ref={svg} viewBox="-30 40 760 560" role="img" aria-label="The factory from outside. You and your AI helper prepare your features in GitHub. You set up and run your AI teams in Deck. Ready features flow into the factory, where several AI teams work, and finished work flows back to GitHub.">
+      <svg ref={svg} viewBox={VIEWBOX} role="img" aria-label="The factory from outside. You and your AI helper prepare your features in GitHub. You set up and run your AI teams in Deck. Ready features flow into the factory, where several AI teams work, and finished work flows back to GitHub.">
         <g className="b1-ground"><Box o={o} x={-40} y={-40} z={-12} w={640} d={420} h={12} color={GROUND} /></g>
 
         {/* GitHub, a system that holds the feature lists */}
@@ -127,15 +145,16 @@ export default function OutsideScene() {
         {[0, 1, 2].map((i) => <g key={'out' + i} className="b6-item"><WorkItem o={o} x={OUT.x1} y={OUT.y1 - 6} z={1} /></g>)}
 
         {/* Labels, beside their objects */}
-        <g className="c1"><Callout o={o} x={0} y={60} z={46} text="GitHub holds your feature lists" dx={-60} dy={-40} /></g>
-        <g className="c2"><Callout o={o} x={32} y={190} z={40} text="Your AI helper prepares them" dx={-70} dy={10} /></g>
-        <g className="c3"><Callout o={o} x={192} y={212} z={40} text="You, the Director" dx={-150} dy={-30} /></g>
-        <g className="c4"><Callout o={o} x={170} y={300} z={14} text="Deck sets up and runs your AI teams" dx={-50} dy={40} /></g>
-        <g className="c4"><Callout o={o} x={F.x + F.w} y={F.y} z={16} text="The factory: several AI teams at work" dx={20} dy={-50} /></g>
+        <g className="c1"><Callout o={o} x={0} y={60} z={46} text="GitHub holds your feature lists" n={1} dx={-60} dy={-40} /></g>
+        <g className="c2"><Callout o={o} x={32} y={190} z={40} text="Your AI helper prepares them" n={2} dx={-70} dy={10} /></g>
+        <g className="c3"><Callout o={o} x={192} y={212} z={40} text="You, the Director" n={3} dx={-150} dy={-30} /></g>
+        <g className="c4"><Callout o={o} x={170} y={300} z={14} text="Deck sets up and runs your AI teams" n={4} dx={-50} dy={40} /></g>
+        <g className="c4"><Callout o={o} x={F.x + F.w} y={F.y} z={16} text="The factory: several AI teams at work" n={5} dx={20} dy={-50} /></g>
         {TEAMS.map((t) => <g key={'l' + t.name} className="c4"><Callout o={o} x={F.x + 200} y={t.y + 8} z={9} text={t.name} dx={16} dy={18} small /></g>)}
-        <g className="c5"><Callout o={o} x={250} y={40} z={2} text="Ready features flow in" dx={10} dy={-56} small /></g>
-        <g className="c6"><Callout o={o} x={250} y={100} z={2} text="Finished work flows back" dx={70} dy={46} small /></g>
+        <g className="c5"><Callout o={o} x={250} y={40} z={2} text="Ready features flow in" n={6} dx={10} dy={-56} small /></g>
+        <g className="c6"><Callout o={o} x={250} y={100} z={2} text="Finished work flows back" n={7} dx={70} dy={46} small /></g>
       </svg>
+      <ol className="scene-labels">{LABELS.map((l) => <li key={l}>{l}</li>)}</ol>
     </div>
   )
 }

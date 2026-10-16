@@ -31,3 +31,17 @@ test('backlog on the home page is found, on other pages it is allowed', () => {
   write('index.html', page('Your backlog')); write('how/index.html', page('Your backlog'))
   expect(checkDist(root).map((f) => [f.rule, f.file])).toEqual([['no-backlog-home', 'index.html']])
 })
+test('requests the old rules missed are found', () => {
+  write('index.html', page(
+    '<img srcset="https://cdn.example/a.png 2x"><svg><image href="https://x.example/i.png"/><image xlink:href="//y.example/j.png"/></svg>' +
+    '<embed src="https://x.example/e.swf"><object data="https://x.example/o.pdf"></object><video poster="https://x.example/p.jpg"></video>',
+    '<meta name="robots" content="noindex, nofollow"><link href="https://fonts.example/a.css" rel="stylesheet"><link rel="preconnect" href="https://fonts.example"><link rel="preload stylesheet" href="https://x.example/b.css">'))
+  write('style.css', '@import "https://fonts.example/c.css";')
+  expect(rules()).toEqual(Array(10).fill('external-request'))
+})
+test('svg, json, webmanifest and txt files are scanned too', () => {
+  write('index.html', page('x'))
+  write('logo.svg', '<svg><image href="https://x.example/i.png"/><title>Claude</title></svg>')
+  write('site.webmanifest', '{"name":"Claude Deck"}')
+  expect(rules()).toEqual(['external-request', 'no-claude', 'no-claude'])
+})
