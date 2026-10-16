@@ -2,8 +2,6 @@
 import Base from '../../layouts/Base.astro'
 import OutsideScene from '../../scenes/outside/OutsideScene'
 import InsideScene from '../../scenes/inside/InsideScene'
-import RolesScene from '../../scenes/roles/RolesScene'
-import FactoryScene from '../../scenes/factory/FactoryScene'
 ---
 <Base title="Deck scenes (draft)">
   <main>
@@ -16,12 +14,6 @@ import FactoryScene from '../../scenes/factory/FactoryScene'
     </section>
     <section aria-label="Inside the factory">
       <InsideScene client:load />
-    </section>
-    <section aria-label="Who does what">
-      <RolesScene client:load />
-    </section>
-    <section aria-label="What the factory is">
-      <FactoryScene client:load />
     </section>
     <div style="height:60vh"></div>
   </main>

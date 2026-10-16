@@ -1,7 +1,14 @@
 import { expect, test, type Page } from '@playwright/test'
-const labels = ['GitHub holds your feature lists', 'You, the Director, and your AI helper groom the features',
-  'In Deck, you choose your AI team roster', 'Deck runs your AI teams', 'The factory: Deck, the Supervisor and your AI teams',
-  'Ready features flow in', 'Finished work flows back']
+// Each part: a title, and what it is.
+const parts = [
+  ['GitHub', 'holds the features and finished work, outside the factory'],
+  ['You (as the factory Director) and your AI assistants', 'own the features, prepare team rosters, perform factory supervision'],
+  ['Deck', 'the factory infrastructure, team communication, production dashboard'],
+  ['AI Teams', 'your selection of team roles, each with your selection of AI harnesses and AI models'],
+]
+const flows = ['Ready features flow in', 'Finished work flows back']
+const labels = [...parts.flat(), ...flows]
+const listItems = [...parts.map(([t, d]) => `${t}: ${d}`), ...flows]
 
 test('the gallery shows the outside scene with every label and no foreign request', async ({ page }) => {
   const foreign: string[] = []
@@ -9,7 +16,7 @@ test('the gallery shows the outside scene with every label and no foreign reques
   await page.goto('/scenes/')
   const scene = page.locator('[data-scene="outside"] svg')
   await scene.scrollIntoViewIfNeeded()
-  for (const l of labels) await expect(scene.getByText(l)).toBeAttached()
+  for (const l of labels) await expect(scene.getByText(l, { exact: true })).toBeAttached()
   expect(foreign).toEqual([])
 })
 
@@ -18,7 +25,7 @@ test('reduced motion shows the final state with no timeline', async ({ browser }
   await page.goto('/scenes/')
   const scene = page.locator('[data-scene="outside"]')
   await expect(scene).toHaveAttribute('data-state', 'still')
-  for (const l of labels) await expect(scene.locator('svg').getByText(l)).toBeVisible()
+  for (const l of labels) await expect(scene.locator('svg').getByText(l, { exact: true })).toBeVisible()
 })
 
 test('no overflow at 390 px', async ({ browser }) => {
@@ -90,7 +97,7 @@ test('on a phone the labels are a readable list', async ({ browser }) => {
   await page.goto('/scenes/')
   const list = page.locator('[data-scene="outside"] .scene-labels')
   await expect(list).toBeVisible()
-  for (const l of labels) await expect(list.getByText(l)).toBeVisible()
+  for (const l of listItems) await expect(list.getByText(l, { exact: true })).toBeVisible()
   const size = await list.locator('li').first().evaluate((li) => parseFloat(getComputedStyle(li).fontSize))
   expect(size).toBeGreaterThanOrEqual(15)
 })
@@ -107,17 +114,17 @@ test('you and your AI helper stand in the left corner, and the roster is chosen 
   await expect(page.locator('[data-scene="outside"] .groom-link line')).toHaveCount(2)
 })
 
-test('the factory holds Deck, the Supervisor and the AI teams; you, your helper and GitHub stay outside', async ({ page }) => {
+test('the factory holds Deck and the AI teams; you, your two AI assistants and GitHub stay outside', async ({ page }) => {
   await page.goto('/scenes/')
   const box = async (sel: string) => (await page.locator(`[data-scene="outside"] ${sel}`).first().boundingBox())!
   const inside = (b: { x: number; y: number; width: number; height: number }, f: { x: number; y: number; width: number; height: number }) =>
     b.x >= f.x && b.x + b.width <= f.x + f.width && b.y >= f.y && b.y + b.height <= f.y + f.height
   const floor = await box('.b4-floor')
   expect(inside(await box('.deck'), floor)).toBe(true)
-  await expect(page.locator('[data-scene="outside"] [data-role="supervisor"]')).toHaveCount(1)
-  expect(inside(await box('[data-role="supervisor"]'), floor)).toBe(true)
-  for (const sel of ['[data-role="person"]', '.helper', '.github']) expect(inside(await box(sel), floor), sel).toBe(false)
-  await expect(page.locator('[data-scene="outside"] svg').getByText('The factory: Deck, the Supervisor and your AI teams')).toBeAttached()
+  // Supervision is yours, with an AI assistant, from outside: no Supervisor stands in the factory.
+  await expect(page.locator('[data-scene="outside"] [data-role="supervisor"]')).toHaveCount(0)
+  for (const sel of ['[data-role="person"]', '.helper', '.supervising', '.github']) expect(inside(await box(sel), floor), sel).toBe(false)
+  await expect(page.locator('[data-scene="outside"] .supervise-link line')).toHaveCount(1)
 })
 
 test.describe('the hero version plays on its own', () => {
@@ -146,6 +153,6 @@ test.describe('the hero version plays on its own', () => {
     const page = await browser.newPage({ reducedMotion: 'reduce' })
     await page.goto('/scenes/hero/')
     await expect(page.locator(hero)).toHaveAttribute('data-state', 'still')
-    for (const l of labels) await expect(page.locator(`${hero} svg`).getByText(l)).toBeVisible()
+    for (const l of labels) await expect(page.locator(`${hero} svg`).getByText(l, { exact: true })).toBeVisible()
   })
 })
