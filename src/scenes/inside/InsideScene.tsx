@@ -11,7 +11,7 @@ import '../scenes.css'
 
 const o: Origin = { x: 340, y: 90, k: 1 }
 // The frame fitted to the drawing and its labels (measured with getBBox at 1440 px, plus a margin), fixed so the page never shifts.
-const VIEWBOX = '-139 -45 1441 792'
+const VIEWBOX = '-208 -45 1514 832'
 // Belts run along x, one AI team per feature; the stations stand in front of each belt.
 const L = 720
 const ST = [80, 200, 320, 440, 560, 680]
@@ -98,10 +98,10 @@ export default function InsideScene() {
   ))
   return (
     <div ref={root} className="scene" data-scene="inside" data-state={state}>
-      <svg viewBox={VIEWBOX} role="img" aria-label="Inside the factory. Inside the factory, each feature gets its own AI team, shown in its own colour, and the teams work at their own pace. Deck, outside the factory, runs every team. Each feature passes six stations in order: the agent owner plans, the AI Leader approves, the agent owner builds, an AI reviewer checks, the AI Leader and the Supervisor check, and the work is merged and goes back to GitHub. Sometimes work is sent back a step: a plan back to planning, or a build back from review.">
+      <svg viewBox={VIEWBOX} role="img" aria-label="Inside the factory. Inside the factory, each feature gets its own AI team, shown in its own colour, and the teams work at their own pace. Deck, inside the factory, runs every team. Each feature passes six stations in order: the agent owner plans, the AI Leader approves, the agent owner builds, an AI reviewer checks, the AI Leader and the Supervisor check, and the work is merged and goes back to GitHub. Sometimes work is sent back a step: a plan back to planning, or a build back from review.">
         <SplitDefs />
         <g className="floor">
-          <Box o={o} x={-170} y={-60} z={-12} w={L + 340} d={420} h={12} color={GROUND} />
+          <Box o={o} x={-170} y={-60} z={-12} w={L + 340} d={500} h={12} color={GROUND} />
           <Box o={o} x={-34} y={-32} w={L + 52} d={FRONT_Y - -32 + 8} h={4} color="#E9EEF0" />
         </g>
         <g className="wall factory-wall"><Box o={o} x={-34} y={-32} z={4} w={L + 52} d={8} h={44} color={WALL} /></g>
@@ -138,7 +138,7 @@ export default function InsideScene() {
         {frontWall}
         <g className="wall factory-wall front-wall"><Box o={o} x={-34} y={FRONT_Y} z={4} w={L + 52} d={8} h={14} color="#B7C4CA" /></g>
 
-        {/* Deck, outside the factory, runs every team */}
+        {/* Deck, inside the factory, runs every team */}
         <g className="deck">
           <Box o={o} x={DECK.x} y={DECK.y} w={DECK.w} d={DECK.d} h={DECK.h} color={STEEL} />
           <Box o={o} x={DECK.x + 16} y={DECK.y + 6} z={DECK.h} w={84} d={10} h={30} color={GRAPHITE} />
@@ -152,7 +152,7 @@ export default function InsideScene() {
         <g className="cap-factory"><Callout o={o} x={L - 240} y={-32} z={48} text={CAPTIONS[0]} dx={40} dy={-100} /></g>
         <g className="cap-gate"><Callout o={o} x={-34} y={13} z={48} text={CAPTIONS[1]} dx={-20} dy={-44} /></g>
         <g className="cap-deck"><Callout o={o} x={DECK.x + DECK.w} y={DECK.y + DECK.d} z={0} text={CAPTIONS[3]} dx={16} dy={40} /></g>
-        <g className="cap-teams"><Callout o={o} x={360} y={FRONT_Y + 8} z={14} text={CAPTIONS[2]} dx={-150} dy={250} anchor="start" /></g>
+        <g className="cap-teams"><Callout o={o} x={360} y={FRONT_Y + 8} z={14} text={CAPTIONS[2]} dx={-150} dy={120} anchor="start" /></g>
         <g className="cap-out"><Callout o={o} x={L + 120} y={89} z={1} text={CAPTIONS[4]} dx={20} dy={50} /></g>
       </svg>
       <ol className="scene-labels">{STEPS.map((st) => <li key={st.title}>{st.title}: {st.sub}</li>)}</ol>

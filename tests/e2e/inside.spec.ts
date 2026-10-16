@@ -105,13 +105,14 @@ test('a feature sent back moves backwards along its belt', async ({ page }) => {
   expect(back).toBe(true)
 })
 
-test('the factory is a building, and Deck stands outside it with a line to every team', async ({ page }) => {
+test('the factory is a building, and Deck stands inside it with a line to every team', async ({ page }) => {
   await page.goto('/scenes/')
   await expect(page.locator(`${S} .factory-wall`).first()).toBeAttached()
   await expect(page.locator(`${S} .deck`)).toHaveCount(1)
   await expect(page.locator(`${S} .deck .team-bar`)).toHaveCount(3)
   await expect(page.locator(`${S} .run-link line`)).toHaveCount(3)
   await expect(page.locator(`${S} .front-wall`)).toHaveCount(1)
+  expect(await page.locator(`${S} svg`).getAttribute('aria-label')).toContain('Deck, inside the factory, runs every team')
 })
 
 test('the lines from Deck draw in during the story', async ({ page }) => {

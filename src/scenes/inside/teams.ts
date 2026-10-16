@@ -15,6 +15,6 @@ export const TEAMS: Team[] = [
 ]
 
 /** The factory's front wall runs along this y, 8 deep. */
-export const FRONT_Y = 222
-/** The Deck console stands outside the factory, in front of its front wall, with a line to each team's first station. */
+export const FRONT_Y = 354
+/** The Deck console stands inside the factory, in front of the teams, with a line to each team's first station. */
 export const DECK = { x: 0, y: 262, w: 116, d: 70, h: 26 }

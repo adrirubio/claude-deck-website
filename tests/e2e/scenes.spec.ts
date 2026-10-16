@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 const labels = ['GitHub holds your feature lists', 'You, the Director, and your AI helper groom the features',
-  'In Deck, you choose your AI team roster', 'Deck runs your AI teams', 'The factory: several AI teams at work',
+  'In Deck, you choose your AI team roster', 'Deck runs your AI teams', 'The factory: Deck, the Supervisor and your AI teams',
   'Ready features flow in', 'Finished work flows back']
 
 test('the gallery shows the outside scene with every label and no foreign request', async ({ page }) => {
@@ -105,6 +105,19 @@ test('you and your AI helper stand in the left corner, and the roster is chosen 
   expect(Math.abs(helper.x - you.x)).toBeLessThan(120)
   await expect(page.locator('[data-scene="outside"] .roster [data-role="agent"]')).toHaveCount(3)
   await expect(page.locator('[data-scene="outside"] .groom-link line')).toHaveCount(2)
+})
+
+test('the factory holds Deck, the Supervisor and the AI teams; you, your helper and GitHub stay outside', async ({ page }) => {
+  await page.goto('/scenes/')
+  const box = async (sel: string) => (await page.locator(`[data-scene="outside"] ${sel}`).first().boundingBox())!
+  const inside = (b: { x: number; y: number; width: number; height: number }, f: { x: number; y: number; width: number; height: number }) =>
+    b.x >= f.x && b.x + b.width <= f.x + f.width && b.y >= f.y && b.y + b.height <= f.y + f.height
+  const floor = await box('.b4-floor')
+  expect(inside(await box('.deck'), floor)).toBe(true)
+  await expect(page.locator('[data-scene="outside"] [data-role="supervisor"]')).toHaveCount(1)
+  expect(inside(await box('[data-role="supervisor"]'), floor)).toBe(true)
+  for (const sel of ['[data-role="person"]', '.helper', '.github']) expect(inside(await box(sel), floor), sel).toBe(false)
+  await expect(page.locator('[data-scene="outside"] svg').getByText('The factory: Deck, the Supervisor and your AI teams')).toBeAttached()
 })
 
 test.describe('the hero version plays on its own', () => {

@@ -14,8 +14,9 @@ describe('the teams inside the factory', () => {
     expect(steps).toContain('3>2')
     expect(steps).toContain('1>0')
   })
-  it('Deck stands outside the factory, beyond its front wall', () => {
-    expect(DECK.y).toBeGreaterThan(FRONT_Y + 8)
+  it('Deck stands inside the factory: in front of the teams, behind the front wall', () => {
+    expect(DECK.y).toBeGreaterThan(Math.max(...TEAMS.map((t) => t.y)) + 60)
+    expect(DECK.y + DECK.d).toBeLessThan(FRONT_Y)
   })
   it('each team works at its own pace', () => {
     expect(new Set(TEAMS.map((t) => t.pace)).size).toBe(TEAMS.length)
