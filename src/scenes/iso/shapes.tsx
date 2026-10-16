@@ -17,9 +17,9 @@ export function Box({ o, x, y, z = 0, w, d, h, color, className }: At & { z?: nu
 }
 
 /** A person: a rounded body and a head, in amber by default. */
-export function Person({ o, x, y, color = HUMAN, className }: At & { color?: string; className?: string }) {
+export function Person({ o, x, y, z = 0, color = HUMAN, className }: At & { z?: number; color?: string; className?: string }) {
   const k = o.k
-  const [bx, by] = project(o, x, y, 0), [, ty] = project(o, x, y, 34), [hx, hy] = project(o, x, y, 46)
+  const [bx, by] = project(o, x, y, z), [, ty] = project(o, x, y, z + 34), [hx, hy] = project(o, x, y, z + 46)
   return (
     <g className={className} data-role="person">
       <ellipse cx={bx} cy={by} rx={9 * k} ry={4.5 * k} fill={shade(color, 0.7)} />
@@ -84,7 +84,7 @@ export function GroundLine({ o, x1, y1, x2, y2, color, className }: { o: Origin;
 }
 
 /** A label joined to a point in the scene by a short line. */
-export function Callout({ o, x, y, z, text, dx, dy, small, n, anchor, className }: At & { z: number; text: string; dx: number; dy: number; small?: boolean; n?: number; anchor?: 'start' | 'end'; className?: string }) {
+export function Callout({ o, x, y, z, text, sub, dx, dy, small, n, anchor, className }: At & { z: number; text: string; sub?: string; dx: number; dy: number; small?: boolean; n?: number; anchor?: 'start' | 'end'; className?: string }) {
   const [ax, ay] = project(o, x, y, z)
   const bx = ax + dx, by = ay + dy
   return (
@@ -92,6 +92,7 @@ export function Callout({ o, x, y, z, text, dx, dy, small, n, anchor, className 
       <line x1={ax} y1={ay} x2={bx} y2={by - 5} stroke="#56666E" strokeWidth={1.2} />
       <circle cx={ax} cy={ay} r={2.5} fill="#56666E" />
       <text x={bx} y={by + 12} textAnchor={anchor ?? (dx < 0 ? 'end' : 'start')} className={small ? 'iso-label-s' : 'iso-label'}>{text}</text>
+      {sub && <text x={bx} y={by + 31} textAnchor={anchor ?? (dx < 0 ? 'end' : 'start')} className="iso-label-s">{sub}</text>}
       {n !== undefined && (
         <g className="iso-number" aria-hidden="true">
           <circle cx={ax} cy={ay} r={17} fill="#1C2A31" />
@@ -113,9 +114,9 @@ export function SplitDefs() {
 }
 
 /** The Supervisor: a person's shape, half amber and half verdigris. Needs <SplitDefs /> in the drawing. */
-export function Supervisor({ o, x, y, className }: At & { className?: string }) {
+export function Supervisor({ o, x, y, z = 0, className }: At & { z?: number; className?: string }) {
   const k = o.k
-  const [bx, by] = project(o, x, y, 0), [, ty] = project(o, x, y, 34), [hx, hy] = project(o, x, y, 46)
+  const [bx, by] = project(o, x, y, z), [, ty] = project(o, x, y, z + 34), [hx, hy] = project(o, x, y, z + 46)
   return (
     <g className={className} data-role="supervisor">
       <ellipse cx={bx} cy={by} rx={9 * k} ry={4.5 * k} fill="url(#iso-split-d)" />
