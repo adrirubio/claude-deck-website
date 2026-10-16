@@ -1,0 +1,75 @@
+---
+import Page from '../../layouts/Page.astro'
+// Copy: content/copy/technical-information.md
+const NEXT = [
+  ['/docs/', 'Docs home'], ['/docs/guide/installation', 'Installation guide'], ['/docs/guide/quick-start', 'Quick start'],
+  ['/docs/features/harnesses', 'Harness guide'], ['/docs/features/agent-teams', 'Teams guide'], ['/docs/autonomy', 'Autonomy guide'],
+]
+---
+<Page title="Deck — Technical information" current="/technical-information/">
+  <section class="wrap intro">
+    <h1>Technical information</h1>
+    <p class="lede">For the person who installs Deck and keeps it running.</p>
+  </section>
+
+  <section class="block wrap" aria-labelledby="need-h">
+    <h2 id="need-h">What you need</h2>
+    <p>Deck must run in the same environment as your agent tools and the sign-ins they use. Do not run Deck in Docker; Docker is not supported.</p>
+    <p>You need:</p>
+    <ul>
+      <li>Python 3.11 or newer</li>
+      <li>Node.js 22.12 or newer</li>
+      <li>At least one supported agent tool installed in that same environment</li>
+    </ul>
+    <p>The Python and Node.js versions above are general minimums. A tool you choose may need a newer version or extra preparation, so check its notes in the <a href="/docs/guide/installation">installation guide</a>.</p>
+  </section>
+
+  <section class="block wrap" aria-labelledby="install-h">
+    <h2 id="install-h">Install Deck</h2>
+    <p>At a glance:</p>
+    <ol>
+      <li>Get a copy of Deck's source code.</li>
+      <li>Run the install script. It prepares what Deck needs to run.</li>
+      <li>Start Deck, then open it in your browser.</li>
+      <li>Run the checks in the guide to confirm the installation.</li>
+    </ol>
+    <p>The full guide gives the exact commands for each step.</p>
+    <p><a class="quiet" href="/docs/guide/installation">Read the installation guide</a></p>
+  </section>
+
+  <section class="block wrap" aria-labelledby="harness-h">
+    <h2 id="harness-h">Connect your AI harnesses and models</h2>
+    <p>A harness is the agent tool a team member runs. Deck works with six harnesses.</p>
+    <p>Install a harness in the same environment as Deck first. Then choose the harness and AI model for each role on your AI teams.</p>
+    <p>The harness guide explains what Deck can show and set up for each choice.</p>
+    <p><a class="quiet" href="/docs/features/harnesses">Read the harness guide</a></p>
+  </section>
+
+  <section class="block wrap" aria-labelledby="teams-h">
+    <h2 id="teams-h">Turn on your AI teams</h2>
+    <p>Autonomy stays off until you turn it on for a team. To get ready:</p>
+    <ol>
+      <li>Give Deck access to GitHub from the environment where it runs.</li>
+      <li>Prepare each team roster, choose its AI Leader, and launch the Leader as the guide explains.</li>
+      <li>Choose the GitHub repository Deck should watch.</li>
+      <li>Mark your features ready in GitHub when they can start.</li>
+      <li>Choose how finished work may merge, and set finite limits for automated work.</li>
+    </ol>
+    <p>When the rosters and watched repositories are ready, turn autonomy on. You can pause a watched repository separately.</p>
+    <div class="actions"><a class="quiet" href="/docs/autonomy">Read the autonomy guide</a><a class="quiet" href="/docs/features/agent-teams">Read the Teams guide</a></div>
+  </section>
+
+  <section class="block wrap" aria-labelledby="next-h">
+    <h2 id="next-h">Where to go next</h2>
+    <p>Start at the docs home for the full guides. For the source code, choose “View product source” there.</p>
+    <ul class="next">{NEXT.map(([href, label]) => <li><a href={href}>{label}</a></li>)}</ul>
+  </section>
+</Page>
+
+<style>
+  .intro { padding-top: 24px }
+  ul, ol { margin: 0 0 14px; padding-left: 1.4em; max-width: 62ch }
+  li { margin: 4px 0 }
+  .next { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 28px }
+  .next a { font-weight: 600; text-decoration-color: var(--human); text-decoration-thickness: 2px; text-underline-offset: 5px }
+</style>

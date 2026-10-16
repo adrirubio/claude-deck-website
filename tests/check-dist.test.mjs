@@ -45,3 +45,8 @@ test('svg, json, webmanifest and txt files are scanned too', () => {
   write('site.webmanifest', '{"name":"Claude Deck"}')
   expect(rules()).toEqual(['external-request', 'no-claude', 'no-claude'])
 })
+test('a link without .html resolves to the .html page, as Cloudflare Pages serves it', () => {
+  write('index.html', page('<a href="/docs/guide/installation">Install</a><a href="/docs/missing">x</a>'))
+  write('docs/guide/installation.html', page('Install'))
+  expect(checkDist(root).map((f) => [f.rule, f.detail])).toEqual([['local-link', '/docs/missing']])
+})

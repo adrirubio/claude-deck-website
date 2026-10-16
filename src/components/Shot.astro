@@ -1,0 +1,12 @@
+---
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+// A seeded Deck screenshot: the "Example data" label is part of the image; the caption sits under it.
+// The picture links to its full size, for small screens.
+interface Props { src: ImageMetadata; alt: string; caption: string }
+const { src, alt, caption } = Astro.props
+---
+<figure class="shot">
+  <a href={src.src} title="Open the full-size picture"><Image src={src} alt={alt} widths={[600, 900, 1200]} sizes="(max-width: 900px) 100vw, 620px" loading="lazy" decoding="async" /></a>
+  <figcaption>{caption}</figcaption>
+</figure>

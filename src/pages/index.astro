@@ -1,9 +1,58 @@
 ---
-import Base from '../layouts/Base.astro'
+import Page from '../layouts/Page.astro'
+import OutsideScene from '../scenes/outside/OutsideScene'
+import InsideScene from '../scenes/inside/InsideScene'
+// Copy: content/copy/home.md
 ---
-<Base title="Deck">
-  <main style="max-width:1240px;margin:0 auto;padding:64px 40px">
-    <h1 style="font-size:72px;line-height:.95;margin:0">Your features.<br />Your AI teams.<br />Finished products.</h1>
-    <p>Draft site in progress.</p>
-  </main>
-</Base>
+<Page title="Deck — Your features. Your AI teams. Finished products." current="/">
+  <section class="hero wrap">
+    <div class="hero-text">
+      <h1>Your features.<br />Your AI teams.<br />Finished products.</h1>
+      <div>
+        <p class="lede">Choose what to build. Let your AI teams get to work.</p>
+        <div class="actions">
+          <a class="btn" href="/quick-tour/">Take the quick tour</a>
+          <a class="quiet" href="/how-it-works/">How it works</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <OutsideScene client:load play="auto" label="Ready features flow from GitHub into Deck and its AI teams. Finished work returns to GitHub. You and your AI assistants supervise from outside the factory." />
+    </div>
+  </section>
+
+  <section class="block inside" aria-labelledby="inside-h">
+    <div class="wrap">
+      <h2 id="inside-h">Inside the factory</h2>
+      <p class="lede">Step inside to see how your AI teams turn features into finished work.</p>
+    </div>
+    <InsideScene client:load label="AI teams take features from plan to finished work at their own pace. Each feature has its own team and colour." />
+  </section>
+
+  <section class="block wrap" aria-labelledby="yours-h">
+    <h2 id="yours-h">What stays yours</h2>
+    <div class="yours">
+      <p>You, the Director, choose the features and who builds them.</p>
+      <p>You supervise the factory with your AI assistants.</p>
+      <p>You decide whether the results meet your goals.</p>
+    </div>
+  </section>
+
+  <section class="block wrap closing">
+    <p class="lede">Ready to watch your features become finished products? Start with the tour.</p>
+    <div class="actions"><a class="btn" href="/quick-tour/">Take the quick tour</a></div>
+  </section>
+</Page>
+
+<style>
+  /* The heading, then the scene under it at full width: beside the heading, its labels are too small to read. */
+  .hero { padding-top: 16px; padding-bottom: 24px }
+  .hero-text { display: grid; grid-template-columns: 7fr 5fr; gap: 16px 48px; align-items: end }
+  .hero-text h1 { margin: 0 }
+  .hero-text .lede { margin-bottom: 18px }
+  .hero-art { margin-top: 32px }
+  .hero-art :global(.scene) { min-height: auto; padding: 0 }
+  .inside .wrap { padding-bottom: 8px }
+  .closing { text-align: left }
+  @media (max-width: 900px) { .hero-text { grid-template-columns: 1fr } }
+</style>

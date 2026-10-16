@@ -34,7 +34,8 @@ export function checkDist(root) {
         const clean = v.split(/[?#]/)[0]
         let target = clean.startsWith('/') ? join(root, clean) : join(dirname(path), clean)
         if (clean.endsWith('/')) target = join(target, 'index.html')
-        if (!existsSync(target)) add(rel, 'local-link', v)
+        // Cloudflare Pages serves /a/b from a/b.html.
+        if (!existsSync(target) && !(extname(clean) === '' && existsSync(target + '.html'))) add(rel, 'local-link', v)
       }
     }
     if (isDocs(rel)) continue

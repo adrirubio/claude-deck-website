@@ -43,10 +43,13 @@ const PARTS = [
 ] as const
 const FLOWS = ['Ready features flow in', 'Finished work flows back'] as const
 
+const DESCRIPTION = "The factory from outside. GitHub holds the features and finished work, outside the factory. You, as the factory Director, and your AI assistants own the features, prepare the team rosters in Deck and supervise the factory. Inside the factory, Deck is the factory infrastructure, the team communication and the production dashboard, and runs your AI teams: your selection of team roles, each with your selection of AI harnesses and AI models. Ready features flow into the factory, and finished work flows back to GitHub."
+
 // The hero plays the story once on its own, in this many seconds; elsewhere scroll drives it.
 const AUTO_SECONDS = 8
 
-export default function OutsideScene({ play = 'scroll' }: { play?: 'scroll' | 'auto' }) {
+// `label` replaces the drawing's built-in description, for a page that words it its own way.
+export default function OutsideScene({ play = 'scroll', label }: { play?: 'scroll' | 'auto'; label?: string }) {
   const root = useRef<HTMLDivElement>(null)
   const [state, setState] = useState<'still' | 'animated'>('still')
 
@@ -122,7 +125,7 @@ export default function OutsideScene({ play = 'scroll' }: { play?: 'scroll' | 'a
   const line = (p: Path, color: string) => <GroundLine o={o} x1={p.x1} y1={p.y1} x2={p.x2} y2={p.y2} color={color} />
   return (
     <div ref={root} className="scene" data-scene="outside" data-play={play} data-state={state}>
-      <svg viewBox={VIEWBOX} role="img" aria-label="The factory from outside. GitHub holds the features and finished work, outside the factory. You, as the factory Director, and your AI assistants own the features, prepare the team rosters in Deck and supervise the factory. Inside the factory, Deck is the factory infrastructure, the team communication and the production dashboard, and runs your AI teams: your selection of team roles, each with your selection of AI harnesses and AI models. Ready features flow into the factory, and finished work flows back to GitHub.">
+      <svg viewBox={VIEWBOX} role="img" aria-label={label ?? DESCRIPTION}>
         <g className="b1-ground"><Box o={o} x={-40} y={-40} z={-12} w={650} d={500} h={12} color={GROUND} /></g>
 
         {/* GitHub, a system that holds the feature lists */}

@@ -29,7 +29,10 @@ const at = (s: number) => groundOffset(o, ST[s] - 11 - START, 0)
 // At pace 1, in seconds: the move between stations and the stay at each one.
 const MOVE = 0.6, HOLD = 0.9
 
-export default function InsideScene() {
+const DESCRIPTION = "Inside the factory. Each feature gets its own AI team, shown in its own colour, and the teams work at their own pace. Deck, inside the factory, runs every team. Each feature passes six stations in order: the agent owner plans, the AI Leader approves, the agent owner builds, an AI reviewer checks, the AI Leader checks under your supervision, and the work is merged and goes back to GitHub. Sometimes work is sent back a step: a plan back to planning, or a build back from review."
+
+// `label` replaces the drawing's built-in description, for a page that words it its own way.
+export default function InsideScene({ label }: { label?: string }) {
   const root = useRef<HTMLDivElement>(null)
   const [state, setState] = useState<'still' | 'animated'>('still')
 
@@ -101,7 +104,7 @@ export default function InsideScene() {
   ))
   return (
     <div ref={root} className="scene" data-scene="inside" data-state={state}>
-      <svg viewBox={VIEWBOX} role="img" aria-label="Inside the factory. Inside the factory, each feature gets its own AI team, shown in its own colour, and the teams work at their own pace. Deck, inside the factory, runs every team. Each feature passes six stations in order: the agent owner plans, the AI Leader approves, the agent owner builds, an AI reviewer checks, the AI Leader checks under your supervision, and the work is merged and goes back to GitHub. Sometimes work is sent back a step: a plan back to planning, or a build back from review.">
+      <svg viewBox={VIEWBOX} role="img" aria-label={label ?? DESCRIPTION}>
         <g className="floor">
           <Box o={o} x={-170} y={-60} z={-12} w={L + 340} d={500} h={12} color={GROUND} />
           <Box o={o} x={-34} y={-32} w={L + 52} d={FRONT_Y - -32 + 8} h={4} color="#E9EEF0" />

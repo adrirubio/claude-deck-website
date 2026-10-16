@@ -1,0 +1,126 @@
+---
+import Page from '../../layouts/Page.astro'
+import Shot from '../../components/Shot.astro'
+import InsideScene from '../../scenes/inside/InsideScene'
+import overview from '../../assets/tour/overview.png'
+import teams from '../../assets/tour/teams.png'
+import workActive from '../../assets/tour/work-active.png'
+import workReview from '../../assets/tour/work-review.png'
+import workMerged from '../../assets/tour/work-merged.png'
+// Copy: content/copy/how-it-works.md
+const STEPS = [
+  { title: 'You write the features and mark them ready',
+    text: 'Start with the features you want. Give each one a clear result, put them in order, and mark the ones that are ready to build.',
+    call: 'the goals, the order, and what is ready.' },
+  { title: 'The AI teams work on their own',
+    text: 'From there, the teams work through the ready features without you steering every step. They follow your goals and limits, and pause work that needs your decision and bring it to you.',
+    call: 'pause the work, or change the limits, whenever you like.',
+    shot: { src: overview, caption: 'The Overview, with example data: what needs you comes first.' } },
+  { title: 'The agent owner plans',
+    text: 'Each ready feature goes to one agent owner. The owner studies it and writes a short plan: what will change, and how it will be checked.',
+    call: 'the outcome and the limits — not each plan.',
+    shot: { src: teams, caption: 'A team roster, with example data: its AI Leader and team members.' } },
+  { title: 'The AI Leader approves',
+    text: 'The AI Leader reads the plan and says yes, or sends it back with questions. Building starts only after that yes.',
+    call: 'nothing at this gate — the AI Leader approves inside the limits you set.',
+    shot: { src: overview, caption: 'The Overview, with example data: campaign progress and team summaries.' } },
+  { title: 'The agent owner builds',
+    text: 'The agent owner builds the feature in its own working copy, checks its own work as it goes, and runs the agreed checks before sharing the change for review.',
+    call: 'nothing here, unless the team needs a decision only you can make.',
+    shot: { src: workActive, caption: 'Work in progress, with example data: each feature shows its owner and state.' } },
+  { title: 'An AI reviewer checks',
+    text: 'An AI reviewer who did not build the feature gives it a fresh, independent check. Their questions and suggested changes go back to the agent owner.',
+    call: 'if your own rules ask you to review as well, that review is yours.',
+    shot: { src: workReview, caption: "Waiting for human review, with example data: under this team's rules, this item waits for a person." } },
+  { title: 'The AI Leader checks',
+    text: 'The AI Leader checks the finished work against the approved plan. You and your AI assistants supervise from outside the factory, and anything reserved for you waits for your word.',
+    call: 'publication, budgets, AI models, and safety stops stay yours.',
+    shot: { src: overview, caption: 'Team summaries, with example data: progress, and the decisions that need you.' } },
+  { title: 'Merged, and back to GitHub',
+    text: "Once the required reviews and checks are complete, the work can be merged under your project's rules and returned to GitHub. In our example, the merged help note becomes part of the welcome page.",
+    call: 'you decide whether the results meet your goals, and when to publish.',
+    shot: { src: workMerged, caption: 'Work, with example data: a merged item shown with the All filter.' } },
+]
+const WORDS = [
+  ['Feature', 'something you want built, with a clear result.'],
+  ['AI team', 'the AI agents working on your features.'],
+  ['Agent owner', 'the AI agent who plans and builds one feature.'],
+  ['AI Leader', 'the AI agent who approves the plans and checks the finished work.'],
+  ['AI reviewer', 'an AI agent who checks work they did not build.'],
+  ['Harness', 'the agent tool a team member runs.'],
+  ['Factory', 'Deck and your AI teams, working together.'],
+  ['Merged', "finished work joined into the project's shared version on GitHub."],
+]
+---
+<Page title="Deck — How it works" current="/how-it-works/">
+  <section class="wrap intro">
+    <h1>How it works</h1>
+    <p class="lede">Follow one feature through the factory, from ready to finished. Our example: adding a short help note to a welcome page. The pictures use different example items to show each stage.</p>
+  </section>
+
+  <InsideScene client:load label="AI teams take features from plan to finished work at their own pace. Each feature has its own team and colour." />
+
+  <section class="wrap steps" aria-label="The steps">
+    {STEPS.map((s, i) => (
+      <article class="pair">
+        <div>
+          <h3><span class="n">{i + 1}.</span> {s.title}</h3>
+          <p>{s.text}</p>
+          <p class="yours"><strong>Your call:</strong> {s.call}</p>
+        </div>
+        {s.shot && <Shot src={s.shot.src} alt={s.shot.caption} caption={s.shot.caption} />}
+      </article>
+    ))}
+    <p class="back">Work does not always travel in a straight line. A review can send work back for changes. A question about the plan can send it back to planning. The team works within the limits you set.</p>
+  </section>
+
+  <section class="block wrap" aria-labelledby="teams-h">
+    <h2 id="teams-h">Several AI teams at once</h2>
+    <p>One feature, one team. With several features on the go, several AI teams work side by side — on different features, or different projects — each moving at its own pace. One Deck runs them all.</p>
+  </section>
+
+  <section class="block wrap" aria-labelledby="you-h">
+    <h2 id="you-h">You and your AI assistants</h2>
+    <p>You run the factory from outside it. You own the features, prepare the team rosters in Deck — who is on each team, and which agent tools and models they use — and supervise the work as it flows.</p>
+    <p>Your AI assistants can help with all of it, from drafting features to keeping watch. The decisions stay yours.</p>
+  </section>
+
+  <section class="block wrap" aria-labelledby="hl-h">
+    <h2 id="hl-h">Highlights: what makes Deck different</h2>
+    <div class="highlights">
+      <div><h3>Many AI harnesses, your choice of models.</h3><p>Deck works with six different AI harnesses — the agent tools your team members run. Every role in a team gets its own harness and its own model, so a team can mix model families.</p></div>
+      <div><h3>Adversarial reviews.</h3><p>The AI reviewer is a different agent from the one who built the work — another agent whose job is to challenge it. And because each role carries its own model choice, you can give the reviewer role a different model family from the builder's, for a second perspective on the same work.</p></div>
+      <div><h3>Team communication.</h3><p>Your AI team members talk to each other through Deck as they work — asking questions, sharing context, and handing work over. When a decision is yours, they can reach you the same way.</p></div>
+      <div><h3>The production dashboard.</h3><p>One overview keeps the whole factory in view: what needs you first, and how every team's work is going.</p></div>
+    </div>
+    <div class="dash"><Shot src={overview} alt="The Overview, with example data: what needs you comes first." caption="The Overview, with example data: what needs you comes first." /></div>
+  </section>
+
+  <section class="block wrap" aria-labelledby="words-h">
+    <h2 id="words-h">Words on this page</h2>
+    <dl class="words">
+      {WORDS.map(([w, d]) => <div><dt>{w}</dt><dd>— {d}</dd></div>)}
+    </dl>
+  </section>
+
+  <section class="block wrap" aria-labelledby="next-h">
+    <h2 id="next-h">Next</h2>
+    <p>See it in action on the Quick tour, or go deeper in Technical information.</p>
+    <div class="actions"><a class="btn" href="/quick-tour/">Quick tour</a><a class="quiet" href="/technical-information/">Technical information</a></div>
+  </section>
+</Page>
+
+<style>
+  .intro { padding-top: 24px }
+  .steps { padding-top: 24px }
+  .n { color: var(--ai) }
+  .back { margin-top: 8px; padding: 18px 20px; background: #E3E8EB; border-radius: 10px; max-width: none }
+  .highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 56px; margin-top: 24px }
+  .highlights > div { border-top: 3px solid var(--ai); padding-top: 14px }
+  .dash { max-width: 760px; margin-top: 36px }
+  .words { margin: 16px 0 0; display: grid; gap: 10px }
+  .words div { display: flex; gap: 8px; flex-wrap: wrap }
+  .words dt { font-weight: 600 }
+  .words dd { margin: 0 }
+  @media (max-width: 900px) { .highlights { grid-template-columns: 1fr } }
+</style>
