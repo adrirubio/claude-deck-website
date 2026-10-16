@@ -2,7 +2,7 @@ import { expect, test, type Page } from '@playwright/test'
 const S = '[data-scene="inside"]'
 const steps = ['Plan', 'Approve', 'Build', 'Review', 'Check', 'Merged']
 const roles = ['agent owner', 'AI Leader', 'agent owner', 'AI reviewer', 'AI Leader and Supervisor', 'back to GitHub']
-const captions = ['Each feature gets its own team', 'Teams work at their own pace, on different features or projects', 'Merged work goes back to GitHub']
+const captions = ['Inside the factory: your AI teams at work', 'Each feature gets its own team', 'Teams work at their own pace, on different features or projects', 'Deck runs every team', 'Merged work goes back to GitHub']
 
 // The scene loads when it comes into view, as it does for a reader scrolling down; then jump within it.
 async function enterScene(page: Page) { await page.goto('/scenes/'); await page.waitForTimeout(800); await scrollScene(page, 0) }
@@ -103,4 +103,22 @@ test('a feature sent back moves backwards along its belt', async ({ page }) => {
     await page.waitForTimeout(100)
   }
   expect(back).toBe(true)
+})
+
+test('the factory is a building, and Deck stands outside it with a line to every team', async ({ page }) => {
+  await page.goto('/scenes/')
+  await expect(page.locator(`${S} .factory-wall`).first()).toBeAttached()
+  await expect(page.locator(`${S} .deck`)).toHaveCount(1)
+  await expect(page.locator(`${S} .deck .team-bar`)).toHaveCount(3)
+  await expect(page.locator(`${S} .run-link line`)).toHaveCount(3)
+  await expect(page.locator(`${S} .front-wall`)).toHaveCount(1)
+})
+
+test('the lines from Deck draw in during the story', async ({ page }) => {
+  await enterScene(page)
+  const len = () => page.$$eval(`${S} .run-link line`, (ls) => ls.map((l) => Math.hypot(+l.getAttribute('x2')! - +l.getAttribute('x1')!, +l.getAttribute('y2')! - +l.getAttribute('y1')!)))
+  await expect(page.locator(`${S} .run-link line`)).toHaveCount(3)
+  expect(Math.max(...await len())).toBeLessThan(1)
+  await scrollScene(page, 1.05)
+  expect(Math.min(...await len())).toBeGreaterThan(10)
 })

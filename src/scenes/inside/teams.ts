@@ -13,3 +13,8 @@ export const TEAMS: Team[] = [
   { y: 76, f: 1, pace: 1.25, route: [0, 1, 0, 1, 2, 3, 4, 5] },
   { y: 152, f: 2, pace: 0.8, route: [0, 1, 2, 3, 4, 5] },
 ]
+
+/** The factory's front wall runs along this y, 8 deep. */
+export const FRONT_Y = 222
+/** The Deck console stands outside the factory, in front of its front wall, with a line to each team's first station. */
+export const DECK = { x: 0, y: 262, w: 116, d: 70, h: 26 }

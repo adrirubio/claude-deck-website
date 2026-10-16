@@ -3,14 +3,14 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Agent, Box, Callout, GroundLine, SplitDefs, StepLabel, Supervisor, WorkItem } from '../iso/shapes'
 import { groundOffset, project, type Origin } from '../iso/project'
-import { AI, FEATURES, GROUND, HUMAN, STEEL } from '../iso/palette'
+import { AI, AI_TOP, FEATURES, GRAPHITE, GROUND, HUMAN, STEEL } from '../iso/palette'
 import { makeLoops } from '../iso/loops'
-import { TEAMS } from './teams'
+import { DECK, FRONT_Y, TEAMS } from './teams'
 import '../scenes.css'
 
 const o: Origin = { x: 340, y: 90, k: 1 }
 // The frame fitted to the drawing and its labels (measured with getBBox at 1440 px, plus a margin), fixed so the page never shifts.
-const VIEWBOX = '-35 -35 1335 722'
+const VIEWBOX = '-139 -45 1441 792'
 // Belts run along x, one AI team per feature; the stations stand in front of each belt.
 const L = 720
 const ST = [80, 200, 320, 440, 560, 680]
@@ -18,7 +18,8 @@ const STEPS = [
   { title: 'Plan', sub: 'agent owner' }, { title: 'Approve', sub: 'AI Leader' }, { title: 'Build', sub: 'agent owner' },
   { title: 'Review', sub: 'AI reviewer' }, { title: 'Check', sub: 'AI Leader and Supervisor' }, { title: 'Merged', sub: 'back to GitHub' },
 ]
-const CAPTIONS = ['Each feature gets its own team', 'Teams work at their own pace, on different features or projects', 'Merged work goes back to GitHub']
+const CAPTIONS = ['Inside the factory: your AI teams at work', 'Each feature gets its own team', 'Teams work at their own pace, on different features or projects', 'Deck runs every team', 'Merged work goes back to GitHub']
+const WALL = '#C3CED3'
 // Where each feature rests in the still frame: in parallel, at different stations.
 const STILL_AT = [3, 2, 0]
 // A feature enters here, inside the doorway.
@@ -39,6 +40,12 @@ export default function InsideScene() {
     const q = gsap.utils.selector(root.current)
     let loops: ReturnType<typeof makeLoops> | undefined
     const ctx = gsap.context(() => {
+      // A dashed line grows from its start point.
+      const grow = (lines: Element[]) => {
+        const g = gsap.timeline()
+        lines.forEach((l) => g.from(l, { attr: { x2: +l.getAttribute('x1')!, y2: +l.getAttribute('y1')! }, duration: 0.06, ease: 'none' }, 0))
+        return g
+      }
       const pop = { opacity: 0, scale: 0.6, transformOrigin: '50% 100%', ease: 'back.out(2)' }
       const tl = gsap.timeline({
         defaults: { ease: 'power2.out', duration: 0.1 },
@@ -50,14 +57,17 @@ export default function InsideScene() {
         .from(q('.wall'), { opacity: 0, y: 14, ease: 'power3.out', stagger: 0.01 }, 0.04)
         .from(q('.belt'), { opacity: 0, stagger: 0.03 }, 0.08)
         .from(q('.in-link'), { opacity: 0 }, 0.12)
-        .from(q('.cap-gate'), { opacity: 0 }, 0.14)
+        .from(q('.cap-gate, .cap-factory'), { opacity: 0 }, 0.14)
       // Beat 2: the stations, one column at a time, each with its step name and role.
       STEPS.forEach((_, s) => {
         tl.from(q(`.col-${s}`), { ...pop, stagger: 0.015 }, 0.2 + s * 0.06)
           .from(q(`.step-${s}`), { opacity: 0, y: 8 }, 0.23 + s * 0.06)
       })
       // Beats 3 and 4: the teams work through their features; merged work leaves for GitHub.
-      tl.from(q('.cap-teams'), { opacity: 0 }, 0.64)
+      tl.from(q('.deck'), { opacity: 0, y: 24 }, 0.6)
+        .add(grow(q('.run-link line')), 0.63)
+        .from(q('.cap-deck'), { opacity: 0 }, 0.68)
+        .from(q('.cap-teams'), { opacity: 0 }, 0.7)
         .from(q('.out-link'), { opacity: 0 }, 0.72)
         .from(q('.cap-out'), { opacity: 0 }, 0.8)
         .to({}, { duration: 0.02 }, 0.98)
@@ -83,20 +93,28 @@ export default function InsideScene() {
     return () => { loops?.kill(); ctx.revert() }
   }, [])
 
-  const wallX = (x: number) => [[-24, -4], [30, 72], [106, 148], [182, 200]].map(([y1, y2]) => (
-    <g key={`${x}-${y1}`} className="wall"><Box o={o} x={x} y={y1} z={4} w={8} d={y2 - y1} h={14} color={STEEL} /></g>
+  // A cut-away building: tall walls at the back, with a doorway for each team's belt; low walls at the front.
+  const doors = [[-24, -4], [30, 72], [106, 148], [182, FRONT_Y]]
+  const backWall = doors.map(([y1, y2]) => (
+    <g key={`b${y1}`} className="wall factory-wall"><Box o={o} x={-34} y={y1} z={4} w={8} d={y2 - y1} h={44} color={WALL} /></g>
+  ))
+  const frontWall = doors.map(([y1, y2]) => (
+    <g key={`f${y1}`} className="wall factory-wall"><Box o={o} x={L + 10} y={y1} z={4} w={8} d={y2 - y1} h={14} color="#B7C4CA" /></g>
   ))
   return (
     <div ref={root} className="scene" data-scene="inside" data-state={state}>
-      <svg viewBox={VIEWBOX} role="img" aria-label="Inside the factory. Each feature gets its own AI team, shown in its own colour, and the teams work at their own pace. Each feature passes six stations in order: the agent owner plans, the AI Leader approves, the agent owner builds, an AI reviewer checks, the AI Leader and the Supervisor check, and the work is merged and goes back to GitHub. Sometimes work is sent back a step: a plan back to planning, or a build back from review.">
+      <svg viewBox={VIEWBOX} role="img" aria-label="Inside the factory. Inside the factory, each feature gets its own AI team, shown in its own colour, and the teams work at their own pace. Deck, outside the factory, runs every team. Each feature passes six stations in order: the agent owner plans, the AI Leader approves, the agent owner builds, an AI reviewer checks, the AI Leader and the Supervisor check, and the work is merged and goes back to GitHub. Sometimes work is sent back a step: a plan back to planning, or a build back from review.">
         <SplitDefs />
         <g className="floor">
-          <Box o={o} x={-170} y={-40} z={-12} w={L + 340} d={280} h={12} color={GROUND} />
-          <Box o={o} x={-34} y={-24} w={L + 52} d={224} h={4} color="#E9EEF0" />
+          <Box o={o} x={-170} y={-60} z={-12} w={L + 340} d={420} h={12} color={GROUND} />
+          <Box o={o} x={-34} y={-32} w={L + 52} d={FRONT_Y - -32 + 8} h={4} color="#E9EEF0" />
         </g>
-        {wallX(-34)}
+        <g className="wall factory-wall"><Box o={o} x={-34} y={-32} z={4} w={L + 52} d={8} h={44} color={WALL} /></g>
+        {backWall}
         <g className="in-link"><GroundLine o={o} x1={-160} y1={89} x2={-50} y2={89} color={AI} /></g>
 
+        {/* Deck's lines run along the floor, under the belts, to each team's first station */}
+        {TEAMS.map((team, i) => <g key={'run' + i} className="run-link"><GroundLine o={o} x1={DECK.x + 30 + i * 28} y1={DECK.y} x2={ST[0] - 14} y2={team.y + 52} color={GRAPHITE} /></g>)}
         {TEAMS.map((team, i) => {
           const [sx, sy] = at(STILL_AT[i])
           return (
@@ -122,14 +140,25 @@ export default function InsideScene() {
             </g>
           )
         })}
-        {wallX(L + 10)}
+        {frontWall}
+        <g className="wall factory-wall front-wall"><Box o={o} x={-34} y={FRONT_Y} z={4} w={L + 52} d={8} h={14} color="#B7C4CA" /></g>
+
+        {/* Deck, outside the factory, runs every team */}
+        <g className="deck">
+          <Box o={o} x={DECK.x} y={DECK.y} w={DECK.w} d={DECK.d} h={DECK.h} color={STEEL} />
+          <Box o={o} x={DECK.x + 16} y={DECK.y + 6} z={DECK.h} w={84} d={10} h={30} color={GRAPHITE} />
+          <Box o={o} x={DECK.x + 20} y={DECK.y + 8} z={DECK.h + 4} w={76} d={2} h={22} color={AI_TOP} />
+          {TEAMS.map((team, i) => <g key={i} className="team-bar"><Box o={o} x={DECK.x + 26} y={DECK.y + 7} z={DECK.h + 20 - i * 7} w={[52, 36, 60][i]} d={2} h={4} color={FEATURES[team.f].color} /></g>)}
+        </g>
         <g className="out-link"><GroundLine o={o} x1={L + 30} y1={89} x2={L + 150} y2={89} color={HUMAN} /></g>
 
         {/* Labels: the steps along the back, the captions beside what they describe */}
         {STEPS.map((st, s) => <g key={s} className={`step-${s}`}><StepLabel o={o} x={ST[s]} y={14} z={86} n={s + 1} title={st.title} sub={st.sub} /></g>)}
-        <g className="cap-gate"><Callout o={o} x={-34} y={13} z={18} text={CAPTIONS[0]} dx={-30} dy={-70} /></g>
-        <g className="cap-teams"><Callout o={o} x={480} y={215} z={0} text={CAPTIONS[1]} dx={-60} dy={90} /></g>
-        <g className="cap-out"><Callout o={o} x={L + 120} y={89} z={1} text={CAPTIONS[2]} dx={20} dy={50} /></g>
+        <g className="cap-factory"><Callout o={o} x={L - 240} y={-32} z={48} text={CAPTIONS[0]} dx={40} dy={-100} /></g>
+        <g className="cap-gate"><Callout o={o} x={-34} y={13} z={48} text={CAPTIONS[1]} dx={-20} dy={-44} /></g>
+        <g className="cap-deck"><Callout o={o} x={DECK.x + DECK.w} y={DECK.y + DECK.d} z={0} text={CAPTIONS[3]} dx={16} dy={40} /></g>
+        <g className="cap-teams"><Callout o={o} x={360} y={FRONT_Y + 8} z={14} text={CAPTIONS[2]} dx={-150} dy={250} anchor="start" /></g>
+        <g className="cap-out"><Callout o={o} x={L + 120} y={89} z={1} text={CAPTIONS[4]} dx={20} dy={50} /></g>
       </svg>
       <ol className="scene-labels">{STEPS.map((st) => <li key={st.title}>{st.title}: {st.sub}</li>)}</ol>
       <ul className="scene-labels">{CAPTIONS.map((c) => <li key={c}>{c}</li>)}</ul>

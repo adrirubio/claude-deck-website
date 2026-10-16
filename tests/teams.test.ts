@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { TEAMS } from '../src/scenes/inside/teams'
+import { DECK, FRONT_Y, TEAMS } from '../src/scenes/inside/teams'
 
 describe('the teams inside the factory', () => {
   it('every feature starts at Plan, ends at Merged, and moves one station at a time', () => {
@@ -13,6 +13,9 @@ describe('the teams inside the factory', () => {
     const steps = TEAMS.flatMap((t) => t.route.slice(1).map((s, i) => `${t.route[i]}>${s}`))
     expect(steps).toContain('3>2')
     expect(steps).toContain('1>0')
+  })
+  it('Deck stands outside the factory, beyond its front wall', () => {
+    expect(DECK.y).toBeGreaterThan(FRONT_Y + 8)
   })
   it('each team works at its own pace', () => {
     expect(new Set(TEAMS.map((t) => t.pace)).size).toBe(TEAMS.length)
