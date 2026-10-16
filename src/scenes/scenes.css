@@ -1,0 +1,5 @@
+.scene { width: 100%; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px }
+.scene svg { width: 100%; max-width: 1200px; height: auto; display: block; overflow: visible }
+.iso-label { font-family: "Instrument Sans", sans-serif; font-weight: 600; font-size: 17px; fill: var(--graphite); paint-order: stroke; stroke: var(--fog); stroke-width: 5px; stroke-linejoin: round }
+.iso-label-s { font-family: "Instrument Sans", sans-serif; font-weight: 400; font-size: 14px; fill: var(--muted); paint-order: stroke; stroke: var(--fog); stroke-width: 4px; stroke-linejoin: round }
+@media (max-width: 700px) { .iso-label { font-size: 22px } .iso-label-s { font-size: 19px } }
