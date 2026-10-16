@@ -5,6 +5,7 @@ import { Agent, Box, Callout, GroundLine, Person, WorkItem } from '../iso/shapes
 import { groundOffset, project, type Origin } from '../iso/project'
 import { AI, AI_TOP, FEATURES, GRAPHITE, GROUND, HUMAN, PAPER, STEEL } from '../iso/palette'
 import { makeLoops } from '../iso/loops'
+import { grow } from '../iso/motion'
 import '../scenes.css'
 
 const o: Origin = { x: 330, y: 120, k: 1.18 }
@@ -51,12 +52,6 @@ export default function OutsideScene({ play = 'scroll' }: { play?: 'scroll' | 'a
     const q = gsap.utils.selector(root.current)
     let loops: ReturnType<typeof makeLoops> | undefined
     const ctx = gsap.context(() => {
-      // A dashed line grows from its start point (DrawSVG would replace the dash pattern).
-      const grow = (lines: Element[]) => {
-        const g = gsap.timeline()
-        lines.forEach((l) => g.from(l, { attr: { x2: +l.getAttribute('x1')!, y2: +l.getAttribute('y1')! }, duration: 0.06, ease: 'none' }, 0))
-        return g
-      }
       const pop = { opacity: 0, scale: 0.6, transformOrigin: '50% 100%', ease: 'back.out(2)' }
       const tl = gsap.timeline(play === 'auto'
         ? { defaults: { ease: 'power2.out', duration: 0.1 }, paused: true }

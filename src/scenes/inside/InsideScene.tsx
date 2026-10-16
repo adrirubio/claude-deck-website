@@ -5,6 +5,7 @@ import { Agent, Box, Callout, GroundLine, SplitDefs, StepLabel, Supervisor, Work
 import { groundOffset, project, type Origin } from '../iso/project'
 import { AI, AI_TOP, FEATURES, GRAPHITE, GROUND, HUMAN, STEEL } from '../iso/palette'
 import { makeLoops } from '../iso/loops'
+import { grow } from '../iso/motion'
 import { DECK, FRONT_Y, TEAMS } from './teams'
 import '../scenes.css'
 
@@ -40,12 +41,6 @@ export default function InsideScene() {
     const q = gsap.utils.selector(root.current)
     let loops: ReturnType<typeof makeLoops> | undefined
     const ctx = gsap.context(() => {
-      // A dashed line grows from its start point.
-      const grow = (lines: Element[]) => {
-        const g = gsap.timeline()
-        lines.forEach((l) => g.from(l, { attr: { x2: +l.getAttribute('x1')!, y2: +l.getAttribute('y1')! }, duration: 0.06, ease: 'none' }, 0))
-        return g
-      }
       const pop = { opacity: 0, scale: 0.6, transformOrigin: '50% 100%', ease: 'back.out(2)' }
       const tl = gsap.timeline({
         defaults: { ease: 'power2.out', duration: 0.1 },
