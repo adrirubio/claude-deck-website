@@ -36,7 +36,8 @@ test('the scene is not linked from the home page', async ({ page }) => {
 const linkSel = ['groom-link', 'roster-link', 'run-link', 'b5-link', 'b6-link'].map((c) => `[data-scene="outside"] .${c} line`).join(', ')
 const lengths = (page: Page) => page.$$eval(linkSel, (ls) => ls.map((l) => Math.hypot(Number(l.getAttribute('x2')) - Number(l.getAttribute('x1')), Number(l.getAttribute('y2')) - Number(l.getAttribute('y1')))))
 async function scrollScene(page: Page, f: number) {
-  const top = await page.evaluate(() => document.querySelector('[data-scene="outside"]')!.getBoundingClientRect().top + scrollY)
+  // Measure the pin's placeholder when there is one: the pinned scene itself moves down once its story ends.
+  const top = await page.evaluate(() => { const el = document.querySelector('[data-scene="outside"]')!, pin = el.parentElement!; return (pin.classList.contains('pin-spacer') ? pin : el).getBoundingClientRect().top + scrollY })
   await page.evaluate(([t, f]: number[]) => scrollTo(0, t + innerHeight * 1.5 * f), [top, f]); await page.waitForTimeout(1200)
 }
 
@@ -48,9 +49,17 @@ test('the dashed links draw in during their beats', async ({ page }) => {
   expect(Math.min(...await lengths(page))).toBeGreaterThan(10)
 })
 
+test('at the end of the story the flows keep moving', async ({ page }) => {
+  await page.goto('/scenes/'); await page.waitForTimeout(800)
+  await scrollScene(page, 1.05); await page.waitForTimeout(2500)
+  const op = await page.$$eval('[data-scene="outside"] .b5-item, [data-scene="outside"] .b6-item', (els) => els.map((e) => +getComputedStyle(e).opacity))
+  expect(Math.max(...op)).toBeGreaterThan(0)
+})
+
 test('flow items hide again when you scroll back', async ({ page }) => {
   await page.goto('/scenes/'); await page.waitForTimeout(800)
   await scrollScene(page, 1.05); await page.waitForTimeout(1500)
+  expect(Math.max(...await page.$$eval('[data-scene="outside"] .b5-item, [data-scene="outside"] .b6-item', (els) => els.map((e) => +getComputedStyle(e).opacity)))).toBeGreaterThan(0)
   await scrollScene(page, 0.2)
   const op = await page.$$eval('[data-scene="outside"] .b5-item, [data-scene="outside"] .b6-item', (els) => els.map((e) => +getComputedStyle(e).opacity))
   expect(Math.max(...op)).toBe(0)

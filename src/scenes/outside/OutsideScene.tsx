@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Agent, Box, Callout, GroundLine, Person, WorkItem } from '../iso/shapes'
 import { groundOffset, project, type Origin } from '../iso/project'
 import { AI, AI_TOP, FEATURES, GRAPHITE, GROUND, HUMAN, PAPER, STEEL } from '../iso/palette'
+import { makeLoops } from '../iso/loops'
 import '../scenes.css'
 
 const o: Origin = { x: 330, y: 120, k: 1.18 }
@@ -48,7 +49,7 @@ export default function OutsideScene({ play = 'scroll' }: { play?: 'scroll' | 'a
     gsap.registerPlugin(ScrollTrigger)
     setState('animated')
     const q = gsap.utils.selector(root.current)
-    const loops: { tween: gsap.core.Tween; from: number }[] = []
+    let loops: ReturnType<typeof makeLoops> | undefined
     const ctx = gsap.context(() => {
       // A dashed line grows from its start point (DrawSVG would replace the dash pattern).
       const grow = (lines: Element[]) => {
@@ -61,6 +62,7 @@ export default function OutsideScene({ play = 'scroll' }: { play?: 'scroll' | 'a
         ? { defaults: { ease: 'power2.out', duration: 0.1 }, paused: true }
         : { defaults: { ease: 'power2.out', duration: 0.1 },
             scrollTrigger: { trigger: root.current, start: 'top top', end: '+=150%', scrub: 0.6, pin: true } })
+      const lp = (loops = makeLoops(root.current!, tl))
       // Beat 1: the ground and GitHub with its feature lists.
       tl.from(q('.b1-ground'), { opacity: 0, y: 12 }, 0)
         .from(q('.github'), { opacity: 0, y: 40, ease: 'back.out(1.4)' }, 0.04)
@@ -94,34 +96,22 @@ export default function OutsideScene({ play = 'scroll' }: { play?: 'scroll' | 'a
         const [dx, dy] = groundOffset(o, p.x2 - p.x1, p.y2 - p.y1)
         q(sel).forEach((el, i) => {
           gsap.set(el, { opacity: 0 })
-          loops.push({ from, tween: gsap.fromTo(el, { x: 0, y: 0, opacity: 0 }, {
+          lp.add(gsap.fromTo(el, { x: 0, y: 0, opacity: 0 }, {
             keyframes: [{ opacity: 1, duration: 0.5 }, { x: dx, y: dy, duration: 3.2, ease: 'none' }, { opacity: 0, duration: 0.5 }],
             repeat: -1, delay: i * 1.4, paused: true,
-          }) })
+          }), from, el)
         })
       }
       move('.groom-you-item', GROOM_YOU, 0.27)
       move('.groom-helper-item', GROOM_HELPER, 0.27)
       move('.b5-item', IN, 0.62)
       move('.b6-item', OUT, 0.8)
-      let visible = true
-      const sync = () => {
-        const p = tl.progress()
-        loops.forEach(({ tween, from }) => {
-          if (visible && p > from) { if (tween.paused()) tween.play() }
-          else if (p <= from) { tween.pause(0); gsap.set(tween.targets(), { opacity: 0 }) }
-          else tween.pause()
-        })
-      }
-      tl.eventCallback('onUpdate', sync)
-      ScrollTrigger.create({ trigger: root.current, start: 'top bottom', end: 'bottom top',
-        onToggle: (self) => { visible = self.isActive; sync() } })
       if (play === 'auto') {
         tl.timeScale(1 / AUTO_SECONDS)
         ScrollTrigger.create({ trigger: root.current, start: 'top 80%', once: true, onEnter: () => tl.play() })
       }
     }, root)
-    return () => { loops.forEach(({ tween }) => tween.kill()); ctx.revert() }
+    return () => { loops?.kill(); ctx.revert() }
   }, [play])
 
   const line = (p: Path, color: string) => <GroundLine o={o} x1={p.x1} y1={p.y1} x2={p.x2} y2={p.y2} color={color} />
