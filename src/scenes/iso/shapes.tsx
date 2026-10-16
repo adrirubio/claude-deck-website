@@ -101,3 +101,42 @@ export function Callout({ o, x, y, z, text, dx, dy, small, n, anchor, className 
     </g>
   )
 }
+
+/** Fills for the Supervisor, who may be a person (amber) or an AI agent (verdigris). Render once per drawing. */
+export function SplitDefs() {
+  const grad = (id: string, f: number) => (
+    <linearGradient id={id} x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0.5" stopColor={shade(HUMAN, f)} /><stop offset="0.5" stopColor={shade(AI, f)} />
+    </linearGradient>
+  )
+  return <defs>{grad('iso-split', 1)}{grad('iso-split-d', 0.85)}</defs>
+}
+
+/** The Supervisor: a person's shape, half amber and half verdigris. Needs <SplitDefs /> in the drawing. */
+export function Supervisor({ o, x, y, className }: At & { className?: string }) {
+  const k = o.k
+  const [bx, by] = project(o, x, y, 0), [, ty] = project(o, x, y, 34), [hx, hy] = project(o, x, y, 46)
+  return (
+    <g className={className} data-role="supervisor">
+      <ellipse cx={bx} cy={by} rx={9 * k} ry={4.5 * k} fill="url(#iso-split-d)" />
+      <rect x={bx - 9 * k} y={ty} width={18 * k} height={by - ty} fill="url(#iso-split-d)" />
+      <ellipse cx={bx} cy={ty} rx={9 * k} ry={4.5 * k} fill="url(#iso-split)" />
+      <circle cx={hx} cy={hy} r={7.5 * k} fill="url(#iso-split)" />
+    </g>
+  )
+}
+
+/** A numbered step name with its role underneath, centred on a point; on phones only the number shows. */
+export function StepLabel({ o, x, y, z = 0, n, title, sub, className }: At & { z?: number; n: number; title: string; sub: string; className?: string }) {
+  const [tx, ty] = project(o, x, y, z)
+  return (
+    <g className={className} data-role="callout">
+      <text x={tx} y={ty} textAnchor="middle" className="iso-label">{`${n}  ${title}`}</text>
+      <text x={tx} y={ty + 19} textAnchor="middle" className="iso-label-s">{sub}</text>
+      <g className="iso-number" aria-hidden="true">
+        <circle cx={tx} cy={ty + 2} r={17} fill="#1C2A31" />
+        <text x={tx} y={ty + 9} textAnchor="middle">{n}</text>
+      </g>
+    </g>
+  )
+}
