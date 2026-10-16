@@ -52,3 +52,5 @@ node_modules/
 dist/
 .astro/
 tests/.tmp-dist/
+test-results/
+playwright-report/
