@@ -1,38 +1,73 @@
-.wrap { max-width: 1240px; margin: 0 auto; padding: 0 40px }
+/* Direction A: editorial, calm, hairline rules, with terminal green as the signature. */
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 48px }
 a { color: inherit }
 .skip { position: absolute; left: -9999px; top: 8px; background: var(--graphite); color: #fff; padding: 8px 12px; border-radius: 6px; z-index: 10 }
 .skip:focus { left: 8px }
-.site-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 26px; padding-bottom: 26px }
-.brand { font-family: "Instrument Serif", serif; font-size: 32px; line-height: 1; letter-spacing: -.01em; text-decoration: none }
-.site-header nav, .site-footer nav { display: flex; flex-wrap: wrap; gap: 8px 28px }
-.site-header nav a, .site-footer nav a { text-decoration: none; font-weight: 500; font-size: 16px; color: var(--muted) }
-.site-header nav a:hover, .site-footer nav a:hover, nav a[aria-current="page"] { color: var(--graphite) }
-nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--human); text-decoration-thickness: 2px; text-underline-offset: 6px }
-.site-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; padding-top: 40px; padding-bottom: 56px; border-top: 1px solid #d3dade; margin-top: 64px }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0 }
 
-h1 { font-size: clamp(48px, 6.4vw, 92px); line-height: .96; margin: 0 0 24px }
-h2 { font-size: clamp(36px, 4vw, 56px); line-height: 1.02; margin: 0 0 16px }
-h3 { font-size: 22px; line-height: 1.25; margin: 0 0 10px; font-weight: 600 }
-p { margin: 0 0 14px; max-width: 62ch }
-.lede { font-size: 21px; color: #2E3D44; max-width: 36ch }
-.btn { display: inline-block; background: var(--graphite); color: #fff; font-weight: 600; text-decoration: none; padding: 15px 24px; border-radius: 10px; font-size: 17px }
-.btn:hover { background: #2E3D44 }
-.quiet { font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--human); padding-bottom: 2px }
+/* The bar: the wordmark with its terminal cursor, the links, one button */
+.site-header { border-bottom: 1px solid var(--rule); background: rgba(251, 251, 250, .92); position: sticky; top: 0; z-index: 5; backdrop-filter: blur(6px) }
+.bar { display: flex; align-items: center; gap: 32px; min-height: 68px }
+.site-header nav { display: flex; gap: 28px; margin-left: auto }
+.site-header .btn-sm { margin-left: 8px }
+.brand { font-family: var(--serif); font-size: 30px; line-height: 1; letter-spacing: -.02em; color: var(--graphite); text-decoration: none; display: inline-flex; align-items: center }
+.cursor { display: inline-block; width: .42em; height: .78em; margin-left: .12em; background: var(--green); animation: blink 1.1s steps(1) infinite }
+@keyframes blink { 50% { opacity: 0 } }
+@media (prefers-reduced-motion: reduce) { .cursor { animation: none } }
+.site-header nav a, .site-footer nav a { text-decoration: none; font-weight: 500; font-size: 16px; color: var(--muted); padding: 4px 0; border-bottom: 2px solid transparent }
+.site-header nav a:hover, .site-footer nav a:hover { color: var(--graphite); border-bottom-color: var(--green) }
+nav a[aria-current="page"] { color: var(--graphite); border-bottom-color: var(--graphite) }
+.site-footer { border-top: 1px solid var(--rule); margin-top: 96px; padding: 28px 0 48px }
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-left: auto }
+
+/* Type */
+h1 { font-size: clamp(44px, 5.6vw, 76px); line-height: 1.04; margin: 0 0 22px }
+h2 { font-size: clamp(34px, 3.6vw, 48px); line-height: 1.1; margin: 0 0 16px }
+h3 { font-size: 21px; line-height: 1.3; margin: 0 0 10px; font-weight: 600 }
+p { margin: 0 0 14px; max-width: 64ch }
+.lede { font-size: 20px; color: var(--body); max-width: 40ch }
+
+/* Actions: graphite buttons with a green ring on hover; plain links underline in green */
+.btn { display: inline-flex; align-items: center; gap: 8px; background: var(--graphite); color: #fff; font-weight: 600; text-decoration: none; padding: 14px 22px; border-radius: 6px; font-size: 17px; transition: box-shadow .15s, background .15s }
+.btn:hover { background: #24282d; box-shadow: 0 0 0 3px var(--green-wash), 0 0 0 4px var(--green) }
+.btn-sm { padding: 9px 16px; font-size: 15px }
+.quiet { font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--rule); padding-bottom: 2px }
+.quiet:hover { border-bottom-color: var(--green) }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-top: 8px }
-section.block { padding-top: 72px }
-.yours { border-left: 4px solid var(--human); padding: 4px 0 4px 18px; margin: 12px 0 0 }
+
+/* Sections, separated by hairline rules */
+section.block { padding-top: 88px }
+.ruled { border-top: 1px solid var(--rule) }
+.yours { border-left: 3px solid var(--human); padding: 4px 0 4px 18px; margin: 12px 0 0 }
+.yours strong { color: var(--human-text) }
+
+/* A terminal-green status line: Deck at work */
+.status { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 999px; background: var(--green-wash); color: var(--green-ink); border: 1px solid rgba(34, 197, 94, .35); font-size: 14px; font-weight: 500 }
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px rgba(34, 197, 94, .18) }
+
+/* A drawing set in a frame, like a plate in a book */
+.plate { background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden }
+.plate-head, .plate-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; padding: 12px 20px; font-size: 14px; color: var(--muted) }
+.plate-head { border-bottom: 1px solid var(--rule) }
+.plate-foot { border-top: 1px solid var(--rule); background: var(--surface); justify-content: center; text-align: center }
+.key { display: flex; flex-wrap: wrap; gap: 6px 18px }
+.key span { display: inline-flex; align-items: center; gap: 7px }
+.key i { width: 10px; height: 10px; border-radius: 3px; display: inline-block }
 
 /* Seeded screenshots */
 .shot { margin: 0 }
-.shot img { display: block; width: 100%; height: auto; border-radius: 10px; box-shadow: 0 1px 0 #c9d3d8, 0 12px 30px -18px rgba(28, 42, 49, .35) }
+.shot img { display: block; width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--rule) }
 .shot figcaption { font-size: 15px; color: var(--muted); margin-top: 10px; max-width: 62ch }
 
 /* Text beside a picture, stacking on narrow screens */
-.pair { display: grid; grid-template-columns: 5fr 7fr; gap: 24px 56px; align-items: start; padding: 48px 0; border-top: 1px solid #d3dade }
+.pair { display: grid; grid-template-columns: 5fr 7fr; gap: 24px 56px; align-items: start; padding: 52px 0; border-top: 1px solid var(--rule) }
 .pair:first-of-type { border-top: 0 }
 @media (max-width: 900px) {
   .wrap { padding: 0 20px }
-  .site-header { flex-wrap: wrap }
+  .bar { gap: 16px; flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px }
+  .site-header { position: static }
+  .site-header nav { margin-left: 0; order: 3; width: 100% }
+  .site-header .btn-sm { margin-left: auto }
   .pair { grid-template-columns: 1fr; padding: 36px 0 }
+  section.block { padding-top: 64px }
 }
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0 }

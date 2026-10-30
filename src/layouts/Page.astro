@@ -7,17 +7,22 @@ const NAV = [['/', 'Home'], ['/how-it-works/', 'How it works'], ['/technical-inf
 ---
 <Base title={title} description={description}>
   <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header wrap">
-    <a class="brand" href="/">Deck</a>
-    <nav aria-label="Main">
-      {NAV.map(([href, label]) => <a href={href} aria-current={current === href ? 'page' : undefined}>{label}</a>)}
-    </nav>
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="brand" href="/" aria-label="Deck, home">Deck<span class="cursor" aria-hidden="true"></span></a>
+      <nav aria-label="Main">
+        {NAV.map(([href, label]) => <a href={href} aria-current={current === href ? 'page' : undefined}>{label}</a>)}
+      </nav>
+      <a class="btn btn-sm" href="/how-it-works/">See how it works</a>
+    </div>
   </header>
   <main id="main"><slot /></main>
-  <footer class="site-footer wrap">
-    <a class="brand" href="/">Deck</a>
-    <nav aria-label="Footer">
-      {NAV.slice(1).map(([href, label]) => <a href={href}>{label}</a>)}
-    </nav>
+  <footer class="site-footer">
+    <div class="wrap bar">
+      <a class="brand" href="/" aria-label="Deck, home">Deck<span class="cursor" aria-hidden="true"></span></a>
+      <nav aria-label="Footer">
+        {NAV.slice(1).map(([href, label]) => <a href={href}>{label}</a>)}
+      </nav>
+    </div>
   </footer>
 </Base>

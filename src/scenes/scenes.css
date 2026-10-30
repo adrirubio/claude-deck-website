@@ -1,11 +1,11 @@
 .scene { width: 100%; display: flex; align-items: center; justify-content: center; padding: 24px }
 .scene svg { width: 100%; max-width: 1200px; height: auto; display: block; overflow: visible }
-.iso-label { font-family: "Instrument Sans", sans-serif; font-weight: 600; font-size: 17px; fill: var(--graphite); paint-order: stroke; stroke: var(--fog); stroke-width: 5px; stroke-linejoin: round }
-.iso-label-s { font-family: "Instrument Sans", sans-serif; font-weight: 400; font-size: 14px; fill: var(--muted); paint-order: stroke; stroke: var(--fog); stroke-width: 4px; stroke-linejoin: round }
+.iso-label { font-family: var(--sans); font-weight: 600; font-size: 19px; fill: var(--graphite); paint-order: stroke; stroke: var(--fog); stroke-width: 5px; stroke-linejoin: round }
+.iso-label-s { font-family: var(--sans); font-weight: 400; font-size: 15.5px; fill: var(--muted); paint-order: stroke; stroke: var(--fog); stroke-width: 4px; stroke-linejoin: round }
 .scene { flex-direction: column }
 .scene-labels { display: none }
 .iso-number { display: none }
-.iso-number text { font-family: "Instrument Sans", sans-serif; font-weight: 600; font-size: 20px; fill: #fff }
+.iso-number text { font-family: var(--sans); font-weight: 600; font-size: 20px; fill: #fff }
 /* On phones the drawing is too small for its labels: show numbers in the drawing and the labels as a list. */
 @media (max-width: 700px) {
   .scene [data-role="callout"] > text, .scene [data-role="callout"] > line { display: none }

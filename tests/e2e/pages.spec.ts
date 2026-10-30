@@ -21,7 +21,7 @@ for (const [path, name] of PAGES) {
 test('the home page: the slogan, the outside scene playing on its own, and the main button leads to How it works', async ({ page }) => {
   await page.goto('/')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Scale product velocity with self-directing AI teams.')
-  await expect(page.locator('.hero [data-scene="outside"]')).toHaveAttribute('data-state', 'animated')
+  await expect(page.locator('.hero-plate [data-scene="outside"]')).toHaveAttribute('data-state', 'animated')
   // The inside of the factory is shown on How it works only.
   await expect(page.locator('[data-scene="inside"]')).toHaveCount(0)
   await page.getByRole('link', { name: 'See how it works' }).first().click()

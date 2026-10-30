@@ -12,7 +12,7 @@ const o: Origin = { x: 330, y: 120, k: 1.18 }
 const F = { x: 330, y: 0, w: 240, d: 410 }
 const TEAMS = [{ y: F.y + 30, feature: 0 as const, name: 'AI team, project A' }, { y: F.y + 180, feature: 2 as const, name: 'AI team, project B' }]
 // The frame fitted to the drawing and its labels (measured with getBBox at 1440 px, plus a margin), fixed so the page never shifts.
-const VIEWBOX = '-265 18 1631 767'
+const VIEWBOX = '-315 18 1737 767'
 // You and your AI assistants, in the left corner of the ground: one helps you groom the features, one helps you supervise the factory.
 const YOU = { x: 10, y: 330 }
 const HELPER = { x: 58, y: 292 }
@@ -171,7 +171,7 @@ export default function OutsideScene({ label }: { label?: string }) {
 
         {/* Labels, beside their objects */}
         <g className="c1"><Callout o={o} x={0} y={60} z={46} text={PARTS[0][0]} sub={PARTS[0][1]} n={1} dx={-60} dy={-60} /></g>
-        <g className="c2"><Callout o={o} x={YOU.x} y={YOU.y} z={40} text={PARTS[1][0]} sub={PARTS[1][1]} n={2} dx={-250} dy={-130} anchor="start" /></g>
+        <g className="c2"><Callout o={o} x={YOU.x} y={YOU.y} z={40} text={PARTS[1][0]} sub={PARTS[1][1]} n={2} dx={-300} dy={-130} anchor="start" /></g>
         <g className="c3"><Callout o={o} x={DECK.x} y={DECK.y + DECK.d} z={DECK.h} text={PARTS[2][0]} sub={PARTS[2][1]} n={3} dx={-118} dy={186} anchor="start" /></g>
         <g className="c4"><Callout o={o} x={F.x + F.w} y={F.y + 120} z={16} text={PARTS[3][0]} sub={PARTS[3][1]} n={4} dx={30} dy={-10} /></g>
         {TEAMS.map((t) => <g key={'l' + t.name} className="c4"><Callout o={o} x={F.x + 200} y={t.y + 8} z={9} text={t.name} dx={16} dy={18} small /></g>)}

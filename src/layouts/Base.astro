@@ -1,11 +1,11 @@
 ---
 import '../styles/tokens.css'
-import serif400 from '@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url'
-import sans400 from '@fontsource/instrument-sans/files/instrument-sans-latin-400-normal.woff2?url'
-import sans500 from '@fontsource/instrument-sans/files/instrument-sans-latin-500-normal.woff2?url'
-import sans600 from '@fontsource/instrument-sans/files/instrument-sans-latin-600-normal.woff2?url'
+import serif400 from '@fontsource/newsreader/files/newsreader-latin-400-normal.woff2?url'
+import sans400 from '@fontsource/hanken-grotesk/files/hanken-grotesk-latin-400-normal.woff2?url'
+import sans500 from '@fontsource/hanken-grotesk/files/hanken-grotesk-latin-500-normal.woff2?url'
+import sans600 from '@fontsource/hanken-grotesk/files/hanken-grotesk-latin-600-normal.woff2?url'
 // Self-hosted fonts, preloaded. "optional": a font that arrives late is not swapped in, so the page never shifts.
-const FONTS = [['Instrument Serif', 400, serif400], ['Instrument Sans', 400, sans400], ['Instrument Sans', 500, sans500], ['Instrument Sans', 600, sans600]] as const
+const FONTS = [['Newsreader', 400, serif400], ['Hanken Grotesk', 400, sans400], ['Hanken Grotesk', 500, sans500], ['Hanken Grotesk', 600, sans600]] as const
 const faces = FONTS.map(([family, weight, url]) => `@font-face{font-family:"${family}";font-style:normal;font-weight:${weight};font-display:optional;src:url(${url}) format("woff2")}`).join('')
 interface Props { title: string; description?: string }
 const { title, description = '' } = Astro.props

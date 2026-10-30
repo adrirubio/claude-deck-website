@@ -1,12 +1,17 @@
 /* The fonts are declared and preloaded in layouts/Base.astro. */
 
 :root {
-  --fog: #ECEFF1; --graphite: #1C2A31; --steel: #9DAEB6; --muted: #56666E;
-  --ai: #1E8C76; --ai-text: #13695A; --ai-top: #5FC1A9; --human: #E3962B;
+  /* Direction A, "Atelier Precision" (the Director's choice, 2026-10-30), with a touch of terminal green. */
+  --fog: #FBFBFA; --surface: #F4F4F1; --paper: #FFFFFF; --rule: #E4E4DF;
+  --graphite: #111315; --body: #2C3036; --muted: #5F646B; --steel: #9DAEB6;
+  --ai: #0D9488; --ai-text: #0B7A70; --ai-top: #5FC1A9; --human: #D97706; --human-text: #A35A04; --human-wash: #FEF6E4;
+  --green: #22C55E; --green-ink: #0B3D20; --green-text: #15803D; --green-wash: #EAF8EF;
   --feat-blue: #2E7DD7; --feat-violet: #8E5BD8; --feat-rose: #D0577B;
+  --serif: "Newsreader", Georgia, serif; --sans: "Hanken Grotesk", system-ui, sans-serif;
 }
 *, *::before, *::after { box-sizing: border-box }
 html, body { margin: 0 }
-body { background: var(--fog); color: var(--graphite); font-family: "Instrument Sans", system-ui, sans-serif; font-size: 18px; line-height: 1.55 }
-h1, h2 { font-family: "Instrument Serif", serif; font-weight: 400; letter-spacing: -.015em }
-:focus-visible { outline: 2px solid var(--ai); outline-offset: 3px; border-radius: 4px }
+body { background: var(--fog); color: var(--body); font-family: var(--sans); font-size: 18px; line-height: 1.6 }
+h1, h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -.02em; color: var(--graphite) }
+h3 { color: var(--graphite) }
+:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 4px }

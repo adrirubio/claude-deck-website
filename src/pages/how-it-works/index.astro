@@ -57,7 +57,19 @@ const WORDS = [
     <p class="lede">Follow one feature through the factory, from ready to finished. Our example: adding a short help note to a welcome page. The pictures use different example items to show each stage.</p>
   </section>
 
-  <InsideScene client:load label="AI teams take features from plan to finished work at their own pace. Each feature has its own team and colour." />
+  <div class="wide">
+    <figure class="plate">
+      <div class="plate-head">
+        <span>Inside the factory</span>
+        <span class="key" aria-hidden="true">
+          <span><i style="background:var(--ai)"></i>AI agents</span>
+          <span><i style="background:var(--feat-blue)"></i><i style="background:var(--feat-violet)"></i><i style="background:var(--feat-rose)"></i>One colour per feature</span>
+          <span><i style="background:#9DAEB6"></i>Deck</span>
+        </span>
+      </div>
+      <InsideScene client:load label="AI teams take features from plan to finished work at their own pace. Each feature has its own team and colour." />
+    </figure>
+  </div>
 
   <section class="wrap steps" aria-labelledby="steps-h">
     <h2 id="steps-h" class="sr-only">The steps</h2>
@@ -66,7 +78,7 @@ const WORDS = [
         <div>
           <h3><span class="n">{i + 1}.</span> {s.title}</h3>
           <p>{s.text}</p>
-          <p class="yours"><strong>Your call:</strong> {s.call}</p>
+          <p class="call"><strong>Your call:</strong> {s.call}</p>
         </div>
         {s.shot && <Shot src={s.shot.src} alt={s.shot.caption} caption={s.shot.caption} />}
       </article>
@@ -117,14 +129,18 @@ const WORDS = [
 </Page>
 
 <style>
-  .intro { padding-top: 24px }
+  .intro { padding-top: 72px; padding-bottom: 40px }
+  .wide { max-width: 1400px; margin: 0 auto; padding: 0 24px }
+  .plate { margin: 0 }
+  .call { background: var(--human-wash); border: 1px solid rgba(217, 119, 6, .28); border-radius: 6px; padding: 12px 16px; font-size: 16px; max-width: 46ch }
+  .call strong { color: var(--human-text) }
   .steps { padding-top: 24px }
   .n { color: var(--ai-text) }
-  .back { margin-top: 8px; padding: 18px 20px; background: #E3E8EB; border-radius: 10px; max-width: none }
+  .back { margin-top: 8px; padding: 18px 20px; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; max-width: none }
   .highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 56px; margin-top: 24px }
   .highlights > div { border-top: 3px solid var(--ai); padding-top: 14px }
-  .share { font-family: "Instrument Serif", serif; font-size: 28px; line-height: 1.2; max-width: 30ch }
-  .share a { text-decoration-color: var(--human); text-decoration-thickness: 2px; text-underline-offset: 5px }
+  .share { font-family: var(--serif); font-size: 28px; line-height: 1.2; max-width: 30ch }
+  .share a { text-decoration-color: var(--green); text-decoration-thickness: 2px; text-underline-offset: 5px }
   .words { margin: 16px 0 0; display: grid; gap: 10px }
   .words div { display: flex; gap: 8px; flex-wrap: wrap }
   .words dt { font-weight: 600 }
