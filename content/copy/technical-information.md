@@ -20,7 +20,7 @@ Page copy:
 
 > Deck
 >
-> Home · How it works · Quick tour · Technical information
+> Home · How it works · Technical information
 
 Placement note: as on the home page. "Deck" links to `/`; the four links go to `/`, `/how-it-works/`, `/quick-tour/` and `/technical-information/`, in that order.
 
@@ -145,7 +145,7 @@ Page copy:
 
 > Deck
 >
-> How it works · Quick tour · Technical information
+> How it works · Technical information
 
 Placement note: as on the home page. "Deck" links to `/`; the three links go to `/how-it-works/`, `/quick-tour/` and `/technical-information/`, in that order.
 

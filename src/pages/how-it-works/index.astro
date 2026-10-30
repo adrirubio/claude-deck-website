@@ -22,8 +22,7 @@ const STEPS = [
     shot: { src: teams, caption: 'A team roster, with example data: its AI Leader and team members.' } },
   { title: 'The AI Leader approves',
     text: 'The AI Leader reads the plan and says yes, or sends it back with questions. Building starts only after that yes.',
-    call: 'nothing at this gate — the AI Leader approves inside the limits you set.',
-    shot: { src: overview, caption: 'The Overview, with example data: campaign progress and team summaries.' } },
+    call: 'nothing at this gate — the AI Leader approves inside the limits you set.' },
   { title: 'The agent owner builds',
     text: 'The agent owner builds the feature in its own working copy, checks its own work as it goes, and runs the agreed checks before sharing the change for review.',
     call: 'nothing here, unless the team needs a decision only you can make.',
@@ -94,7 +93,6 @@ const WORDS = [
       <div><h3>Team communication.</h3><p>Your AI team members talk to each other through Deck as they work — asking questions, sharing context, and handing work over. When a decision is yours, they can reach you the same way.</p></div>
       <div><h3>The production dashboard.</h3><p>One overview keeps the whole factory in view: what needs you first, and how every team's work is going.</p></div>
     </div>
-    <div class="dash"><Shot src={overview} alt="The Overview, with example data: what needs you comes first." caption="The Overview, with example data: what needs you comes first." /></div>
   </section>
 
   <section class="block wrap" aria-labelledby="words-h">
@@ -104,10 +102,17 @@ const WORDS = [
     </dl>
   </section>
 
+  <section class="block wrap" aria-labelledby="share-h">
+    <h2 id="share-h">Share this page</h2>
+    <p>Send it to a colleague:</p>
+    <p class="share"><a href="/how-it-works/">"Worth a look: Deck — your features, built and checked by AI teams."</a></p>
+    <p>Prefer to watch? A short video of Deck in action will join this page later.</p>
+  </section>
+
   <section class="block wrap" aria-labelledby="next-h">
     <h2 id="next-h">Next</h2>
-    <p>See it in action on the Quick tour, or go deeper in Technical information.</p>
-    <div class="actions"><a class="btn" href="/quick-tour/">Quick tour</a><a class="quiet" href="/technical-information/">Technical information</a></div>
+    <p>Setting up? Try Technical information.</p>
+    <div class="actions"><a class="btn" href="/technical-information/">Technical information</a></div>
   </section>
 </Page>
 
@@ -118,7 +123,8 @@ const WORDS = [
   .back { margin-top: 8px; padding: 18px 20px; background: #E3E8EB; border-radius: 10px; max-width: none }
   .highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 56px; margin-top: 24px }
   .highlights > div { border-top: 3px solid var(--ai); padding-top: 14px }
-  .dash { max-width: 760px; margin-top: 36px }
+  .share { font-family: "Instrument Serif", serif; font-size: 28px; line-height: 1.2; max-width: 30ch }
+  .share a { text-decoration-color: var(--human); text-decoration-thickness: 2px; text-underline-offset: 5px }
   .words { margin: 16px 0 0; display: grid; gap: 10px }
   .words div { display: flex; gap: 8px; flex-wrap: wrap }
   .words dt { font-weight: 600 }

@@ -1,5 +1,7 @@
 # How it works — final page copy
 
+**Director changes, 2026-10-30** (after the draft review): How it works and the Quick tour are one page now, called How it works. The inside-the-factory scene plays on its own. Each screenshot appears at most twice (step 4 and the dashboard highlight no longer repeat the Overview), and the Quick tour's "Share" section closes this page. The navigation is Home, How it works, Technical information.
+
 For: issue #779, page 2 of 4 under parent issue #777.
 
 This file is the complete copy for the How it works page, in page order, ready for the Supervisor to build from on the preview branch. Text under a **Page copy** heading is the exact text for the page. Placement notes, screenshot requests and evidence notes are guidance for the build; they do not appear on the page.
@@ -20,7 +22,7 @@ Page copy:
 
 > Deck
 >
-> Home · How it works · Quick tour · Technical information
+> Home · How it works · Technical information
 
 Placement note: as on the home page. "Deck" links to `/`; the four links go to `/`, `/how-it-works/`, `/quick-tour/` and `/technical-information/`, in that order.
 
@@ -98,9 +100,7 @@ Page copy:
 >
 > **Your call:** nothing at this gate — the AI Leader approves inside the limits you set.
 
-Screenshot: Overview. Seeded state: campaign progress and team summaries. Caption and alt text:
-
-> The Overview, with example data: campaign progress and team summaries.
+Screenshot: none (2026-10-30: the Overview already shows at steps 2 and 7).
 
 Evidence: the Leader approves plans and selects the next work — `docs/guide/operating-model.md:89`. Campaign progress and team summaries on Overview — `docs/plans/2026-10-15-director-website/01-audit.md:37`, with the same builder note as step 2.
 
@@ -216,7 +216,7 @@ Page copy:
 >
 > **The production dashboard.** One overview keeps the whole factory in view: what needs you first, and how every team's work is going.
 
-Placement note: this section carries no screenshot of its own. For "The production dashboard", reuse the step 2 Overview capture; do not build a second dashboard image.
+Placement note: this section carries no screenshot of its own (2026-10-30: the dashboard picture is at step 2).
 
 Evidence: six harness cards — `docs/features/harnesses.md:3`. Each team slot stores its own provider, launch mode and provider options — `docs/features/agent-teams.md:39-50`; each role carries your selection of AI harnesses and AI models — `docs/superpowers/specs/2026-10-16-website-build-design.md:85`. Review is a separate role from building — `docs/guide/operating-model.md:18` and `:27`. Team communication through structured mailboxes for context requests, handoffs and replies — `docs/features/agent-mail.md:3`; "Deck — team communication, production dashboard" — `docs/superpowers/specs/2026-10-16-website-build-design.md:84`. "Needs you" and team summaries on Overview — `docs/plans/2026-10-15-director-website/01-audit.md:37`, with the counts at `docs/features/dashboard.md:7`. Builder note: the copy states that a different model family is a choice you can make for the reviewer role; it makes no claim about how many more problems any review finds.
 
@@ -237,19 +237,33 @@ Page copy:
 
 Evidence: each entry restates, in one plain sentence, a word the copy above uses, with the evidence already given for that word's claim.
 
-## 7. Next
+## 7. Share this page
+
+From the Quick tour's "Share the tour" (2026-10-30), worded for this page.
+
+Page copy:
+
+> ## Share this page
+>
+> Send it to a colleague:
+>
+> "Worth a look: Deck — your features, built and checked by AI teams."
+>
+> Prefer to watch? A short video of Deck in action will join this page later.
+
+Placement note: the quoted line links to `/how-it-works/`.
+
+## 8. Next
 
 Page copy:
 
 > ## Next
 >
-> See it in action on the Quick tour, or go deeper in Technical information.
->
-> [Link] Quick tour
+> Setting up? Try Technical information.
 >
 > [Link] Technical information
 
-Placement note: the links go to `/quick-tour/` and `/technical-information/`.
+Placement note: the link goes to `/technical-information/`.
 
 ## Footer
 
@@ -257,7 +271,7 @@ Page copy:
 
 > Deck
 >
-> How it works · Quick tour · Technical information
+> How it works · Technical information
 
 Placement note: as on the home page. "Deck" links to `/`; the three links go to `/how-it-works/`, `/quick-tour/` and `/technical-information/`, in that order.
 

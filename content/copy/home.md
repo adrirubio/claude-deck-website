@@ -1,5 +1,7 @@
 # Home — final page copy
 
+**Director changes, 2026-10-30** (after the draft review): the new slogan "Scale product velocity with self-directing AI teams."; the main button is "See how it works" (the Quick tour is part of How it works); the inside-the-factory scene and its section move to How it works only; the navigation is Home, How it works, Technical information.
+
 For: issue #778, page 1 of 4 under parent issue #777.
 
 This file is the complete copy for the home page, in page order, ready for the Supervisor to build from on the preview branch. Text under a **Page copy** heading is the exact text for the page. Placement notes and evidence notes are guidance for the build; they do not appear on the page.
@@ -19,7 +21,7 @@ The page uses the two approved scenes and no screenshots. The scenes carry their
 
 Page copy:
 
-> Deck — Your features. Your AI teams. Finished products.
+> Deck — Scale product velocity with self-directing AI teams.
 
 ## Navigation (top of page)
 
@@ -27,7 +29,7 @@ Page copy:
 
 > Deck
 >
-> Home · How it works · Quick tour · Technical information
+> Home · How it works · Technical information
 
 Placement note: "Deck" is the brand text and links to `/`. The four links go to `/`, `/how-it-works/`, `/quick-tour/` and `/technical-information/`, in that order.
 
@@ -35,13 +37,11 @@ Placement note: "Deck" is the brand text and links to `/`. The four links go to 
 
 Page copy:
 
-> # Your features. Your AI teams. Finished products.
+> # Scale product velocity with self-directing AI teams.
 >
 > Choose what to build. Let your AI teams get to work.
 >
-> [Main button] Take the quick tour
->
-> [Secondary link] How it works
+> [Main button] See how it works
 
 Placement note: the main button links to `/quick-tour/`; the secondary link goes to `/how-it-works/`. The hero scene, "the factory from outside", sits beside the heading on wide screens and under it on narrow ones. It plays on its own when it comes into view, as approved. Its fixed labels stay as they are.
 
@@ -50,22 +50,6 @@ Alt text for the hero scene:
 > Ready features flow from GitHub into Deck and its AI teams. Finished work returns to GitHub. You and your AI assistants supervise from outside the factory.
 
 Evidence: you choose and order the features and mark them ready — `docs/guide/operating-model.md:17` and `:53-57`. AI teams then do the work under an AI Leader — `docs/guide/operating-model.md:27` and `:89`.
-
-## 2. Inside the factory
-
-Page copy:
-
-> ## Inside the factory
->
-> Step inside to see how your AI teams turn features into finished work.
-
-Placement note: the second scene, "inside the factory", sits under this lead-in and plays as the reader scrolls, as approved. Its fixed captions and six step labels stay as they are.
-
-Alt text for the inside scene:
-
-> AI teams take features from plan to finished work at their own pace. Each feature has its own team and colour.
-
-Evidence: the scene, its six steps, and work sometimes being sent back a step are the Director's approved scene decisions — `docs/superpowers/specs/2026-10-16-website-build-design.md:44-46` and `:86`. Several teams in one Deck, each on its own features — `docs/features/repositories.md:3` and `docs/features/work.md:3`.
 
 ## 3. What stays yours
 
@@ -87,9 +71,9 @@ Evidence: you choose the features and who builds them — you own the outcome an
 
 Page copy:
 
-> Ready to watch your features become finished products? Start with the tour.
+> Ready to watch your features become finished products? See how it works.
 >
-> [Main button] Take the quick tour
+> [Main button] See how it works
 
 Placement note: the button links to `/quick-tour/`, the same destination as the main button on the first screen.
 
@@ -101,7 +85,7 @@ Page copy:
 
 > Deck
 >
-> How it works · Quick tour · Technical information
+> How it works · Technical information
 
 Placement note: "Deck" links to `/`. The three links go to `/how-it-works/`, `/quick-tour/` and `/technical-information/`, in that order.
 

@@ -1,9 +1,9 @@
 ---
 import Base from './Base.astro'
 import '../styles/site.css'
-interface Props { title: string; description?: string; current?: '/' | '/how-it-works/' | '/quick-tour/' | '/technical-information/' }
+interface Props { title: string; description?: string; current?: '/' | '/how-it-works/' | '/technical-information/' }
 const { title, description, current } = Astro.props
-const NAV = [['/', 'Home'], ['/how-it-works/', 'How it works'], ['/quick-tour/', 'Quick tour'], ['/technical-information/', 'Technical information']] as const
+const NAV = [['/', 'Home'], ['/how-it-works/', 'How it works'], ['/technical-information/', 'Technical information']] as const
 ---
 <Base title={title} description={description}>
   <a class="skip" href="#main">Skip to content</a>

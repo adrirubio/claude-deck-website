@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-const PAGES = [['/', 'Home'], ['/how-it-works/', 'How it works'], ['/quick-tour/', 'Quick tour'], ['/technical-information/', 'Technical information']] as const
+const PAGES = [['/', 'Home'], ['/how-it-works/', 'How it works'], ['/technical-information/', 'Technical information']] as const
 
 for (const [path, name] of PAGES) {
   test(`${name}: loads with no failed or foreign request, marks itself in the navigation, and fits a phone`, async ({ browser }) => {
@@ -11,24 +11,26 @@ for (const [path, name] of PAGES) {
     await page.goto(path); await page.waitForTimeout(600)
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
     const nav = page.getByRole('navigation', { name: 'Main' })
-    await expect(nav.getByRole('link')).toHaveCount(4)
+    await expect(nav.getByRole('link')).toHaveCount(3)
     await expect(nav.getByRole('link', { name, exact: true })).toHaveAttribute('aria-current', 'page')
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390)
     expect(bad).toEqual([])
   })
 }
 
-test('the home hero plays the outside scene on its own, and the main button leads to the quick tour', async ({ page }) => {
+test('the home page: the slogan, the outside scene playing on its own, and the main button leads to How it works', async ({ page }) => {
   await page.goto('/')
-  await expect(page.locator('.hero [data-scene="outside"]')).toHaveAttribute('data-play', 'auto')
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Scale product velocity with self-directing AI teams.')
   await expect(page.locator('.hero [data-scene="outside"]')).toHaveAttribute('data-state', 'animated')
-  await page.getByRole('link', { name: 'Take the quick tour' }).first().click()
-  await expect(page).toHaveURL(/\/quick-tour\/$/)
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Quick tour')
+  // The inside of the factory is shown on How it works only.
+  await expect(page.locator('[data-scene="inside"]')).toHaveCount(0)
+  await page.getByRole('link', { name: 'See how it works' }).first().click()
+  await expect(page).toHaveURL(/\/how-it-works\/$/)
+  await expect(page.locator('[data-scene="inside"]')).toHaveCount(1)
 })
 
 test('every screenshot opens at full size, and carries alt text and a caption', async ({ page }) => {
-  for (const path of ['/how-it-works/', '/quick-tour/']) {
+  for (const path of ['/how-it-works/']) {
     await page.goto(path)
     const shots = page.locator('figure.shot')
     expect(await shots.count()).toBeGreaterThan(0)
@@ -73,3 +75,10 @@ for (const [path, name] of PAGES) {
     levels.slice(1).forEach((l, i) => expect(l - levels[i], `heading ${i + 2}`).toBeLessThanOrEqual(1))
   })
 }
+
+test('How it works shows each screenshot no more than twice', async ({ page }) => {
+  await page.goto('/how-it-works/')
+  const srcs = await page.locator('figure.shot img').evaluateAll((is) => is.map((i) => (i as HTMLImageElement).currentSrc.split('/').pop()!.split('.')[0]))
+  const counts = srcs.reduce((m, s) => m.set(s, (m.get(s) ?? 0) + 1), new Map<string, number>())
+  expect(Math.max(...counts.values())).toBeLessThanOrEqual(2)
+})

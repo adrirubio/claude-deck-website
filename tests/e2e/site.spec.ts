@@ -4,7 +4,7 @@ test('the home page loads with no request to another origin', async ({ page }) =
   const foreign: string[] = []
   page.on('request', (r) => { if (!r.url().startsWith('http://127.0.0.1:4321')) foreign.push(r.url()) })
   await page.goto('/')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Your features.')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Scale product velocity')
   expect(foreign).toEqual([])
 })
 

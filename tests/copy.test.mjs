@@ -2,7 +2,7 @@ import { readFileSync, existsSync } from 'node:fs'
 import { expect, test } from 'vitest'
 
 // Every quoted line of approved copy (page text, captions, alt text, the page title) must appear on its built page.
-const PAGES = { home: 'index.html', 'how-it-works': 'how-it-works/index.html', 'quick-tour': 'quick-tour/index.html', 'technical-information': 'technical-information/index.html' }
+const PAGES = { home: 'index.html', 'how-it-works': 'how-it-works/index.html', 'technical-information': 'technical-information/index.html' }
 const norm = (s) => s.replace(/[“”]/g, '"').replace(/[‘’]/g, "'").replace(/\s+/g, ' ').trim().toLowerCase()
 const decode = (s) => s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;|&#x27;/g, "'").replace(/&nbsp;/g, ' ')
 
