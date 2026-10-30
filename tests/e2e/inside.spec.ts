@@ -4,13 +4,9 @@ const steps = ['Plan', 'Approve', 'Build', 'Review', 'Check', 'Merged']
 const roles = ['agent owner', 'AI Leader', 'agent owner', 'AI reviewer', 'AI Leader, with your supervision', 'back to GitHub']
 const captions = ['Inside the factory: your AI teams at work', 'Each feature gets its own team', 'Teams work at their own pace, on different features or projects', 'Deck runs every team', 'Merged work goes back to GitHub']
 
-// The scene loads when it comes into view, as it does for a reader scrolling down; then jump within it.
-async function enterScene(page: Page) { await page.goto('/scenes/'); await page.waitForTimeout(800); await scrollScene(page, 0) }
-async function scrollScene(page: Page, f: number) {
-  // Measure the pin's placeholder when there is one: the pinned scene itself moves down once its story ends.
-  const top = await page.evaluate((s) => { const el = document.querySelector(s)!, pin = el.parentElement!; return (pin.classList.contains('pin-spacer') ? pin : el).getBoundingClientRect().top + scrollY }, S)
-  await page.evaluate(([t, f]: number[]) => scrollTo(0, t + innerHeight * 1.5 * f), [top, f]); await page.waitForTimeout(1200)
-}
+// The scene plays on its own once it comes into view: bring it into view, as a reader scrolling down would.
+async function showScene(page: Page) { await page.goto('/scenes/'); await page.waitForTimeout(500); await page.locator(S).scrollIntoViewIfNeeded(); await page.waitForTimeout(300) }
+const deckLines = (page: Page) => page.$$eval(`${S} .run-link line`, (ls) => ls.map((l) => Math.hypot(+l.getAttribute('x2')! - +l.getAttribute('x1')!, +l.getAttribute('y2')! - +l.getAttribute('y1')!)))
 const itemXs = (page: Page) => page.$$eval(`${S} .team-item`, (els) => els.map((e) => Math.round(e.getBoundingClientRect().x)))
 
 test('the gallery shows the inside scene with every step, role and caption', async ({ page }) => {
@@ -41,10 +37,10 @@ test('the still frame shows the three features at different stations, in paralle
   for (const c of captions) await expect(page.locator(`${S} svg`).getByText(c)).toBeVisible()
 })
 
-test('once the teams start, features move from station to station on their own', async ({ page }) => {
-  await enterScene(page)
+test('once the story has played, features move from station to station on their own', async ({ page }) => {
+  await showScene(page)
   await expect(page.locator(S)).toHaveAttribute('data-state', 'animated')
-  await scrollScene(page, 1.05)
+  await page.waitForTimeout(9000)
   const a = await itemXs(page)
   await page.waitForTimeout(1500)
   expect(await itemXs(page)).not.toEqual(a)
@@ -53,13 +49,16 @@ test('once the teams start, features move from station to station on their own',
   expect(lit).toBeGreaterThan(0)
 })
 
-test('scrolling back before the teams start hides the features again', async ({ page }) => {
-  await enterScene(page)
-  await scrollScene(page, 1.05); await page.waitForTimeout(1500)
-  expect(Math.max(...await page.$$eval(`${S} .team-item`, (els) => els.map((e) => +getComputedStyle(e).opacity)))).toBeGreaterThan(0)
-  await scrollScene(page, 0.3)
-  // The scrub eases the story back, so wait for it to pass the teams' start rather than for a fixed time.
-  await expect.poll(async () => Math.max(...await page.$$eval(`${S} .team-item`, (els) => els.map((e) => +getComputedStyle(e).opacity))), { timeout: 5000 }).toBe(0)
+test('the scene waits for you, then plays from the start on its own, without pinning the page', async ({ page }) => {
+  await page.goto('/scenes/'); await page.waitForTimeout(3000)
+  await page.locator(S).scrollIntoViewIfNeeded(); await page.waitForTimeout(300)
+  await expect(page.locator(`${S} .run-link line`)).toHaveCount(3)
+  expect(Math.max(...await deckLines(page))).toBeLessThan(1)
+  const y = await page.evaluate(() => scrollY)
+  await page.waitForTimeout(9000)
+  expect(Math.min(...await deckLines(page))).toBeGreaterThan(10)
+  expect(await page.evaluate(() => scrollY)).toBe(y)
+  await expect(page.locator('.pin-spacer')).toHaveCount(0)
 })
 
 test('without JavaScript the inside drawing sits inside its frame', async ({ browser }) => {
@@ -92,12 +91,12 @@ test('the scene never says "lane": Deck uses the word for something else', async
 })
 
 test('a feature sent back moves backwards along its belt', async ({ page }) => {
-  await enterScene(page)
-  await scrollScene(page, 1.05)
+  await showScene(page)
+  await page.waitForTimeout(6000)
   // The violet team's plan goes back from Approve to Plan early in its trip.
   const item = page.locator(`${S} .team-1 .team-item`)
   let last = -Infinity, back = false
-  for (let i = 0; i < 70 && !back; i++) {
+  for (let i = 0; i < 90 && !back; i++) {
     const [x, op] = await item.evaluate((e) => [e.getBoundingClientRect().x, +getComputedStyle(e).opacity])
     if (op > 0.9 && x < last - 2) back = true
     last = op > 0.9 ? x : -Infinity
@@ -116,11 +115,3 @@ test('the factory is a building, and Deck stands inside it with a line to every 
   expect(await page.locator(`${S} svg`).getAttribute('aria-label')).toContain('Deck, inside the factory, runs every team')
 })
 
-test('the lines from Deck draw in during the story', async ({ page }) => {
-  await enterScene(page)
-  const len = () => page.$$eval(`${S} .run-link line`, (ls) => ls.map((l) => Math.hypot(+l.getAttribute('x2')! - +l.getAttribute('x1')!, +l.getAttribute('y2')! - +l.getAttribute('y1')!)))
-  await expect(page.locator(`${S} .run-link line`)).toHaveCount(3)
-  expect(Math.max(...await len())).toBeLessThan(1)
-  await scrollScene(page, 1.05)
-  expect(Math.min(...await len())).toBeGreaterThan(10)
-})

@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Agent, Box, Callout, GroundLine, Person, WorkItem } from '../iso/shapes'
 import { groundOffset, project, type Origin } from '../iso/project'
 import { AI, AI_TOP, FEATURES, GRAPHITE, GROUND, HUMAN, PAPER, STEEL } from '../iso/palette'
 import { makeLoops } from '../iso/loops'
-import { grow, refreshPriority } from '../iso/motion'
+import { grow, playOnView } from '../iso/motion'
 import '../scenes.css'
 
 const o: Origin = { x: 330, y: 120, k: 1.18 }
@@ -45,27 +44,24 @@ const FLOWS = ['Ready features flow in', 'Finished work flows back'] as const
 
 const DESCRIPTION = "The factory from outside. GitHub holds the features and finished work, outside the factory. You, as the factory Director, and your AI assistants own the features, prepare the team rosters in Deck and supervise the factory. Inside the factory, Deck is the factory infrastructure, the team communication and the production dashboard, and runs your AI teams: your selection of team roles, each with your selection of AI harnesses and AI models. Ready features flow into the factory, and finished work flows back to GitHub."
 
-// The hero plays the story once on its own, in this many seconds; elsewhere scroll drives it.
-const AUTO_SECONDS = 8
+// The story plays once on its own, in this many seconds, when the scene comes into view.
+const PLAY_SECONDS = 8
 
 // `label` replaces the drawing's built-in description, for a page that words it its own way.
-export default function OutsideScene({ play = 'scroll', label }: { play?: 'scroll' | 'auto'; label?: string }) {
+export default function OutsideScene({ label }: { label?: string }) {
   const root = useRef<HTMLDivElement>(null)
   const [state, setState] = useState<'still' | 'animated'>('still')
 
   useEffect(() => {
     if (!root.current) return
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    gsap.registerPlugin(ScrollTrigger)
     setState('animated')
     const q = gsap.utils.selector(root.current)
     let loops: ReturnType<typeof makeLoops> | undefined
+    let stop: (() => void) | undefined
     const ctx = gsap.context(() => {
       const pop = { opacity: 0, scale: 0.6, transformOrigin: '50% 100%', ease: 'back.out(2)' }
-      const tl = gsap.timeline(play === 'auto'
-        ? { defaults: { ease: 'power2.out', duration: 0.1 }, paused: true }
-        : { defaults: { ease: 'power2.out', duration: 0.1 },
-            scrollTrigger: { trigger: root.current, start: 'top top', end: '+=150%', scrub: 0.6, pin: true, refreshPriority: refreshPriority(root.current!) } })
+      const tl = gsap.timeline({ defaults: { ease: 'power2.out', duration: 0.1 }, paused: true })
       const lp = (loops = makeLoops(root.current!, tl))
       // Beat 1: the ground and GitHub with its feature lists.
       tl.from(q('.b1-ground'), { opacity: 0, y: 12 }, 0)
@@ -111,20 +107,14 @@ export default function OutsideScene({ play = 'scroll', label }: { play?: 'scrol
       move('.groom-helper-item', GROOM_HELPER, 0.27)
       move('.b5-item', IN, 0.62)
       move('.b6-item', OUT, 0.8)
-      if (play === 'auto') {
-        tl.timeScale(1 / AUTO_SECONDS)
-        ScrollTrigger.create({ trigger: root.current, start: 'top 80%', once: true, refreshPriority: refreshPriority(root.current!), onEnter: () => tl.play() })
-      }
+      stop = playOnView(root.current!, tl, PLAY_SECONDS)
     }, root)
-    // Scenes load in any order; a pinned scene adds space above the ones below it, so every trigger is measured again, top to bottom.
-    ScrollTrigger.sort()
-    ScrollTrigger.refresh()
-    return () => { loops?.kill(); ctx.revert() }
-  }, [play])
+    return () => { stop?.(); loops?.kill(); ctx.revert() }
+  }, [])
 
   const line = (p: Path, color: string) => <GroundLine o={o} x1={p.x1} y1={p.y1} x2={p.x2} y2={p.y2} color={color} />
   return (
-    <div ref={root} className="scene" data-scene="outside" data-play={play} data-state={state}>
+    <div ref={root} className="scene" data-scene="outside" data-state={state}>
       <svg viewBox={VIEWBOX} role="img" aria-label={label ?? DESCRIPTION}>
         <g className="b1-ground"><Box o={o} x={-40} y={-40} z={-12} w={650} d={500} h={12} color={GROUND} /></g>
 

@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Agent, Box, Callout, GroundLine, StepLabel, WorkItem } from '../iso/shapes'
 import { groundOffset, project, type Origin } from '../iso/project'
 import { AI, AI_TOP, FEATURES, GRAPHITE, GROUND, HUMAN, STEEL } from '../iso/palette'
 import { makeLoops } from '../iso/loops'
-import { grow, refreshPriority } from '../iso/motion'
+import { grow, playOnView } from '../iso/motion'
 import { DECK, FRONT_Y, TEAMS } from './teams'
 import '../scenes.css'
 
@@ -32,6 +31,9 @@ const MOVE = 0.6, HOLD = 0.9
 const DESCRIPTION = "Inside the factory. Each feature gets its own AI team, shown in its own colour, and the teams work at their own pace. Deck, inside the factory, runs every team. Each feature passes six stations in order: the agent owner plans, the AI Leader approves, the agent owner builds, an AI reviewer checks, the AI Leader checks under your supervision, and the work is merged and goes back to GitHub. Sometimes work is sent back a step: a plan back to planning, or a build back from review."
 
 // `label` replaces the drawing's built-in description, for a page that words it its own way.
+// The story plays once on its own, in this many seconds, when the scene comes into view.
+const PLAY_SECONDS = 8
+
 export default function InsideScene({ label }: { label?: string }) {
   const root = useRef<HTMLDivElement>(null)
   const [state, setState] = useState<'still' | 'animated'>('still')
@@ -39,16 +41,13 @@ export default function InsideScene({ label }: { label?: string }) {
   useEffect(() => {
     if (!root.current) return
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    gsap.registerPlugin(ScrollTrigger)
     setState('animated')
     const q = gsap.utils.selector(root.current)
     let loops: ReturnType<typeof makeLoops> | undefined
+    let stop: (() => void) | undefined
     const ctx = gsap.context(() => {
       const pop = { opacity: 0, scale: 0.6, transformOrigin: '50% 100%', ease: 'back.out(2)' }
-      const tl = gsap.timeline({
-        defaults: { ease: 'power2.out', duration: 0.1 },
-        scrollTrigger: { trigger: root.current, start: 'top top', end: '+=150%', scrub: 0.6, pin: true, refreshPriority: refreshPriority(root.current!) },
-      })
+      const tl = gsap.timeline({ defaults: { ease: 'power2.out', duration: 0.1 }, paused: true })
       const lp = (loops = makeLoops(root.current!, tl))
       // Beat 1: the factory floor, its walls and three empty belts.
       tl.from(q('.floor'), { opacity: 0, y: 12 }, 0)
@@ -87,11 +86,9 @@ export default function InsideScene({ label }: { label?: string }) {
         t.to([item, rings[ST.length - 1]], { opacity: 0, duration: 0.4, ease: 'none' })
         lp.add(t, 0.58, [item, ...rings])
       })
+      stop = playOnView(root.current!, tl, PLAY_SECONDS)
     }, root)
-    // Scenes load in any order; a pinned scene adds space above the ones below it, so every trigger is measured again, top to bottom.
-    ScrollTrigger.sort()
-    ScrollTrigger.refresh()
-    return () => { loops?.kill(); ctx.revert() }
+    return () => { stop?.(); loops?.kill(); ctx.revert() }
   }, [])
 
   // A cut-away building: tall walls at the back, with a doorway for each team's belt; low walls at the front.

@@ -11,7 +11,12 @@ export function grow(lines: Element[]) {
 }
 
 /**
- * Pinned triggers must be measured top to bottom, but scenes load in any order. A scene's triggers take
- * this priority (the higher on the page, the earlier it is measured); then all are sorted and measured again.
+ * Every scene plays its story on its own: the timeline waits, paused, until the scene comes into view,
+ * then plays once over `seconds`. Scrolling never drives it.
  */
-export const refreshPriority = (el: Element) => -[...document.querySelectorAll('[data-scene]')].indexOf(el)
+export function playOnView(el: Element, tl: gsap.core.Timeline, seconds: number) {
+  tl.pause().timeScale(1 / seconds)
+  const seen = new IntersectionObserver(([e]) => { if (e.isIntersecting) { tl.play(); seen.disconnect() } }, { threshold: 0.25 })
+  seen.observe(el)
+  return () => seen.disconnect()
+}

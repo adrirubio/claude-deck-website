@@ -42,34 +42,15 @@ test('the scene is not linked from the home page', async ({ page }) => {
 
 const linkSel = ['groom-link', 'roster-link', 'run-link', 'b5-link', 'b6-link'].map((c) => `[data-scene="outside"] .${c} line`).join(', ')
 const lengths = (page: Page) => page.$$eval(linkSel, (ls) => ls.map((l) => Math.hypot(Number(l.getAttribute('x2')) - Number(l.getAttribute('x1')), Number(l.getAttribute('y2')) - Number(l.getAttribute('y1')))))
-async function scrollScene(page: Page, f: number) {
-  // Measure the pin's placeholder when there is one: the pinned scene itself moves down once its story ends.
-  const top = await page.evaluate(() => { const el = document.querySelector('[data-scene="outside"]')!, pin = el.parentElement!; return (pin.classList.contains('pin-spacer') ? pin : el).getBoundingClientRect().top + scrollY })
-  await page.evaluate(([t, f]: number[]) => scrollTo(0, t + innerHeight * 1.5 * f), [top, f]); await page.waitForTimeout(1200)
-}
-
-test('the dashed links draw in during their beats', async ({ page }) => {
-  await page.goto('/scenes/'); await page.waitForTimeout(800)
-  await scrollScene(page, 0)
-  expect(Math.max(...await lengths(page))).toBeLessThan(1)
-  await scrollScene(page, 1.05)
+test('the dashed links draw in on their own, then the flows keep moving', async ({ page }) => {
+  await page.goto('/scenes/'); await page.waitForTimeout(600)
+  const run = () => page.$$eval('[data-scene="outside"] .run-link line', (ls) => ls.map((l) => Math.hypot(Number(l.getAttribute('x2')) - Number(l.getAttribute('x1')), Number(l.getAttribute('y2')) - Number(l.getAttribute('y1')))))
+  expect(Math.max(...await run())).toBeLessThan(1)
+  await page.waitForTimeout(9500)
   expect(Math.min(...await lengths(page))).toBeGreaterThan(10)
-})
-
-test('at the end of the story the flows keep moving', async ({ page }) => {
-  await page.goto('/scenes/'); await page.waitForTimeout(800)
-  await scrollScene(page, 1.05); await page.waitForTimeout(2500)
   const op = await page.$$eval('[data-scene="outside"] .b5-item, [data-scene="outside"] .b6-item', (els) => els.map((e) => +getComputedStyle(e).opacity))
   expect(Math.max(...op)).toBeGreaterThan(0)
-})
-
-test('flow items hide again when you scroll back', async ({ page }) => {
-  await page.goto('/scenes/'); await page.waitForTimeout(800)
-  await scrollScene(page, 1.05); await page.waitForTimeout(1500)
-  expect(Math.max(...await page.$$eval('[data-scene="outside"] .b5-item, [data-scene="outside"] .b6-item', (els) => els.map((e) => +getComputedStyle(e).opacity)))).toBeGreaterThan(0)
-  await scrollScene(page, 0.2)
-  // The scrub eases the story back, so wait for it to pass the flows' start rather than for a fixed time.
-  await expect.poll(async () => Math.max(...await page.$$eval('[data-scene="outside"] .b5-item, [data-scene="outside"] .b6-item', (els) => els.map((e) => +getComputedStyle(e).opacity))), { timeout: 5000 }).toBe(0)
+  expect(await page.evaluate(() => scrollY)).toBe(0)
 })
 
 test('without JavaScript the whole drawing sits inside its frame', async ({ browser }) => {
@@ -125,34 +106,4 @@ test('the factory holds Deck and the AI teams; you, your two AI assistants and G
   await expect(page.locator('[data-scene="outside"] [data-role="supervisor"]')).toHaveCount(0)
   for (const sel of ['[data-role="person"]', '.helper', '.supervising', '.github']) expect(inside(await box(sel), floor), sel).toBe(false)
   await expect(page.locator('[data-scene="outside"] .supervise-link line')).toHaveCount(1)
-})
-
-test.describe('the hero version plays on its own', () => {
-  const hero = '[data-scene="outside"][data-play="auto"]'
-  const heroLinks = (page: Page, cls: string) => page.$$eval(`${hero} .${cls} line`, (ls) => ls.map((l) => Math.hypot(Number(l.getAttribute('x2')) - Number(l.getAttribute('x1')), Number(l.getAttribute('y2')) - Number(l.getAttribute('y1')))))
-
-  test('the story builds without scrolling, then the flows keep moving', async ({ page }) => {
-    await page.goto('/scenes/hero/')
-    await expect(page.locator(hero)).toHaveAttribute('data-state', 'animated')
-    await page.waitForTimeout(1000)
-    expect(Math.max(...await heroLinks(page, 'run-link'))).toBeLessThan(1)
-    await page.waitForTimeout(9000)
-    for (const cls of ['groom-link', 'roster-link', 'run-link', 'b5-link', 'b6-link']) expect(Math.min(...await heroLinks(page, cls))).toBeGreaterThan(10)
-    expect(await page.evaluate(() => scrollY)).toBe(0)
-    const op = await page.$$eval(`${hero} .b5-item, ${hero} .b6-item`, (els) => els.map((e) => +getComputedStyle(e).opacity))
-    expect(Math.max(...op)).toBeGreaterThan(0)
-  })
-
-  test('it does not pin the page', async ({ page }) => {
-    await page.goto('/scenes/hero/'); await page.waitForTimeout(800)
-    await expect(page.locator(hero)).toBeVisible()
-    await expect(page.locator('.pin-spacer')).toHaveCount(0)
-  })
-
-  test('reduced motion shows the final state', async ({ browser }) => {
-    const page = await browser.newPage({ reducedMotion: 'reduce' })
-    await page.goto('/scenes/hero/')
-    await expect(page.locator(hero)).toHaveAttribute('data-state', 'still')
-    for (const l of labels) await expect(page.locator(`${hero} svg`).getByText(l, { exact: true })).toBeVisible()
-  })
 })
