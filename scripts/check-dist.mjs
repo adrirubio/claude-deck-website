@@ -54,7 +54,9 @@ export function checkDist(root) {
     if (ext === '.html' && rel === 'index.html' && /backlog/i.test(visibleText(text))) add(rel, 'no-backlog-home', 'the word backlog is on the home page')
     for (const m of text.matchAll(/url\(\s*["']?([^"')]+)/gi)) if (external(m[1])) add(rel, 'external-request', m[1])
     for (const m of text.matchAll(/@import\s+["']([^"']+)["']/gi)) if (external(m[1])) add(rel, 'external-request', m[1])
-    if (/claude/i.test(text)) add(rel, 'no-claude', 'the word Claude')
+    // "Claude" may appear only as the Claude Code harness name and in the link to Deck's source repository.
+    const named = text.replace(/Claude Code/g, '').replace(/https:\/\/github\.com\/adrirubio\/claude-deck(?=["'])/g, '')
+    if (/claude/i.test(named)) add(rel, 'no-claude', 'the word Claude')
   }
   return out
 }

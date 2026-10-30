@@ -50,3 +50,11 @@ test('a link without .html resolves to the .html page, as Cloudflare Pages serve
   write('docs/guide/installation.html', page('Install'))
   expect(checkDist(root).map((f) => [f.rule, f.detail])).toEqual([['local-link', '/docs/missing']])
 })
+test('Claude is allowed only as the Claude Code harness name and in the link to Deck\'s source', () => {
+  write('index.html', page('<p>Claude Code, Codex and more</p><a href="https://github.com/adrirubio/claude-deck">GitHub</a>'))
+  expect(rules()).toEqual([])
+  write('index.html', page('<p>Claude Deck</p>'))
+  expect(rules()).toEqual(['no-claude'])
+  write('index.html', page('<a href="https://github.com/adrirubio/claude-deck-other">x</a>'))
+  expect(rules()).toEqual(['no-claude'])
+})

@@ -1,5 +1,7 @@
 # Technical information — final page copy
 
+**Director changes, 2026-10-30:** the navigation is Home, How it works, Technical information. Second review: the harnesses are named (more on the way), with your own subscriptions; a new section on Agent Mail and Agent Bridge, linking to their guides (`docs/features/agent-mail.md:3`, `docs/features/agent-bridge.md:3-17`).
+
 For: issue #781, page 4 of 4 under parent issue #777.
 
 This file is the complete copy for the Technical information page, in page order, ready for the Supervisor to build from on the preview branch. Text under a **Page copy** heading is the exact text for the page. Placement notes and evidence notes are guidance for the build; they do not appear on the page.
@@ -79,7 +81,7 @@ Page copy:
 
 > ## Connect your AI harnesses and models
 >
-> A harness is the agent tool a team member runs. Deck works with six harnesses.
+> A harness is the agent tool a team member runs. Deck works with Claude Code, Codex, GitHub Copilot, OpenCode, Pi and Muse Code today, with more on the way. Each one runs signed in with your own subscriptions.
 >
 > Install a harness in the same environment as Deck first. Then choose the harness and AI model for each role on your AI teams.
 >
@@ -94,6 +96,14 @@ Evidence: six harness choices — `docs/features/harnesses.md:3`. At least one s
 ## 5. Turn on your AI teams
 
 Page copy:
+
+> ## See how your agents work
+>
+> Two features show you how your AI teams operate. Agent Mail keeps every message the team members send each other: questions, context and handovers. Agent Bridge shows each agent's live session, with a live preview of its work.
+>
+> [Link] Read the Agent Mail guide
+>
+> [Link] Read the Agent Bridge guide
 
 > ## Turn on your AI teams
 >

@@ -2,6 +2,8 @@
 
 **Director changes, 2026-10-30** (after the draft review): the new slogan "Scale product velocity with self-directing AI teams."; the main button is "See how it works" (the Quick tour is part of How it works); the inside-the-factory scene and its section move to How it works only; the navigation is Home, How it works, Technical information.
 
+**Director changes, 2026-10-30 (second review):** the header's button becomes an "Open source" link to GitHub; a new section names the six harnesses (more on the way) and says Deck works with your own subscriptions; the features are written in GitHub.
+
 For: issue #778, page 1 of 4 under parent issue #777.
 
 This file is the complete copy for the home page, in page order, ready for the Supervisor to build from on the preview branch. Text under a **Page copy** heading is the exact text for the page. Placement notes and evidence notes are guidance for the build; they do not appear on the page.
@@ -55,9 +57,13 @@ Evidence: you choose and order the features and mark them ready — `docs/guide/
 
 Page copy:
 
+> ## Your harnesses, your subscriptions
+>
+> Deck works with the AI harnesses you already use: Claude Code, Codex, GitHub Copilot, OpenCode, Pi and Muse Code today, with more on the way. Each one runs on your machine, signed in with your own subscriptions.
+
 > ## What stays yours
 >
-> You, the Director, choose the features and who builds them.
+> You, the Director, write the features in GitHub and choose who builds them.
 >
 > You supervise the factory with your AI assistants.
 >

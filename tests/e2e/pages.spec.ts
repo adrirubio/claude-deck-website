@@ -82,3 +82,32 @@ test('How it works shows each screenshot no more than twice', async ({ page }) =
   const counts = srcs.reduce((m, s) => m.set(s, (m.get(s) ?? 0) + 1), new Map<string, number>())
   expect(Math.max(...counts.values())).toBeLessThanOrEqual(2)
 })
+
+const HARNESSES = ['Claude Code', 'Codex', 'GitHub Copilot', 'OpenCode', 'Pi', 'Muse Code']
+const REPO = 'https://github.com/adrirubio/claude-deck'
+
+for (const [path, name] of PAGES) {
+  test(`${name}: the header links to Deck's open source on GitHub, not twice to How it works`, async ({ page }) => {
+    await page.goto(path)
+    const header = page.locator('header.site-header')
+    await expect(header.getByRole('link', { name: /how it works/i })).toHaveCount(1)
+    await expect(header.locator(`a[href="${REPO}"]`)).toHaveCount(1)
+    await expect(page.locator(`footer a[href="${REPO}"]`)).toHaveCount(1)
+  })
+}
+
+for (const path of ['/', '/how-it-works/', '/technical-information/']) {
+  test(`${path}: says Deck works with your own harnesses and subscriptions, and names all six, with more to come`, async ({ page }) => {
+    await page.goto(path)
+    const text = await page.locator('main').innerText()
+    for (const h of HARNESSES) expect(text, h).toContain(h)
+    expect(text).toMatch(/your own subscriptions/i)
+    expect(text).toMatch(/more on the way/i)
+  })
+}
+
+test('How it works: you write the features in GitHub, and the loop ends when every feature is merged back into GitHub', async ({ page }) => {
+  await page.goto('/how-it-works/')
+  await expect(page.getByRole('heading', { name: '1. You write the features in GitHub and mark them ready' })).toBeVisible()
+  await expect(page.locator('main')).toContainText('merged back into GitHub')
+})

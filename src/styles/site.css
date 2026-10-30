@@ -9,7 +9,8 @@ a { color: inherit }
 .site-header { border-bottom: 1px solid var(--rule); background: rgba(251, 251, 250, .92); position: sticky; top: 0; z-index: 5; backdrop-filter: blur(6px) }
 .bar { display: flex; align-items: center; gap: 32px; min-height: 68px }
 .site-header nav { display: flex; gap: 28px; margin-left: auto }
-.site-header .btn-sm { margin-left: 8px }
+.gh { display: inline-flex; align-items: center; gap: 8px; margin-left: 8px; padding: 7px 14px; border: 1px solid var(--rule); border-radius: 999px; text-decoration: none; font-weight: 600; font-size: 15px; color: var(--graphite); background: var(--paper) }
+.gh:hover { border-color: var(--green); box-shadow: 0 0 0 3px var(--green-wash) }
 .brand { font-family: var(--serif); font-size: 30px; line-height: 1; letter-spacing: -.02em; color: var(--graphite); text-decoration: none; display: inline-flex; align-items: center }
 .cursor { display: inline-block; width: .42em; height: .78em; margin-left: .12em; background: var(--green); animation: blink 1.1s steps(1) infinite }
 @keyframes blink { 50% { opacity: 0 } }
@@ -67,7 +68,7 @@ section.block { padding-top: 88px }
   .bar { gap: 16px; flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px }
   .site-header { position: static }
   .site-header nav { margin-left: 0; order: 3; width: 100% }
-  .site-header .btn-sm { margin-left: auto }
+  .gh { margin-left: auto }
   .pair { grid-template-columns: 1fr; padding: 36px 0 }
   section.block { padding-top: 64px }
 }

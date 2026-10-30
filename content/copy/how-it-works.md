@@ -2,6 +2,8 @@
 
 **Director changes, 2026-10-30** (after the draft review): How it works and the Quick tour are one page now, called How it works. The inside-the-factory scene plays on its own. Each screenshot appears at most twice (step 4 and the dashboard highlight no longer repeat the Overview), and the Quick tour's "Share" section closes this page. The navigation is Home, How it works, Technical information.
 
+**Director changes, 2026-10-30 (second review):** features are written in GitHub; the loop ends when every ready feature is merged back into GitHub; the harness highlight names the six harnesses (more on the way) and your own subscriptions; Agent Mail and Agent Bridge become two highlights on seeing how the agents work. Evidence: `docs/features/agent-mail.md:3` (durable participants, structured mailboxes), `docs/features/agent-bridge.md:3-17` (live sessions, live preview).
+
 For: issue #779, page 2 of 4 under parent issue #777.
 
 This file is the complete copy for the How it works page, in page order, ready for the Supervisor to build from on the preview branch. Text under a **Page copy** heading is the exact text for the page. Placement notes, screenshot requests and evidence notes are guidance for the build; they do not appear on the page.
@@ -48,7 +50,7 @@ Alt text for the inside scene:
 
 Page copy:
 
-> ### 1. You write the features and mark them ready
+> ### 1. You write the features in GitHub and mark them ready
 >
 > Start with the features you want. Give each one a clear result, put them in order, and mark the ones that are ready to build.
 >
@@ -173,6 +175,8 @@ Evidence: human review and merge follow repository policy — `docs/guide/index.
 Page copy:
 
 > Work does not always travel in a straight line. A review can send work back for changes. A question about the plan can send it back to planning. The team works within the limits you set.
+>
+> The factory keeps working through your backlog. The loop ends when every ready feature has been merged back into GitHub.
 
 Evidence: work is sometimes sent back a step (review to build, approval to plan) — `docs/superpowers/specs/2026-10-16-website-build-design.md:86`; work runs under chosen merge policy and finite budgets — `docs/autonomy.md:11`.
 
@@ -196,7 +200,7 @@ Page copy:
 >
 > You run the factory from outside it. You own the features, prepare the team rosters in Deck — who is on each team, and which agent tools and models they use — and supervise the work as it flows.
 >
-> Your AI assistants can help with all of it, from drafting features to keeping watch. The decisions stay yours.
+> Your AI assistants can help with all of it, from drafting features in GitHub to keeping watch. The decisions stay yours.
 
 Placement note: plain text only; no scene or screenshot sits in this section.
 
@@ -208,11 +212,13 @@ Page copy:
 
 > ## Highlights: what makes Deck different
 >
-> **Many AI harnesses, your choice of models.** Deck works with six different AI harnesses — the agent tools your team members run. Every role in a team gets its own harness and its own model, so a team can mix model families.
+> **Your harnesses, your subscriptions, your choice of models.** Deck works with the AI harnesses you already use, the agent tools your team members run: Claude Code, Codex, GitHub Copilot, OpenCode, Pi and Muse Code today, with more on the way. Each one runs signed in with your own subscriptions. Every role in a team gets its own harness and its own model, so a team can mix model families.
 >
 > **Adversarial reviews.** The AI reviewer is a different agent from the one who built the work — another agent whose job is to challenge it. And because each role carries its own model choice, you can give the reviewer role a different model family from the builder's, for a second perspective on the same work.
 >
-> **Team communication.** Your AI team members talk to each other through Deck as they work — asking questions, sharing context, and handing work over. When a decision is yours, they can reach you the same way.
+> **Agent Mail: read how your team works together.** Your AI team members talk to each other through Agent Mail as they work — asking questions, sharing context, and handing work over. Every message is kept, so you can read exactly how the team reached each decision. When a decision is yours, they can reach you the same way.
+>
+> **Agent Bridge: watch every agent at work.** Agent Bridge shows each agent's live session side by side, with a live preview of what it is doing right now. Look over any agent's shoulder, at any time.
 >
 > **The production dashboard.** One overview keeps the whole factory in view: what needs you first, and how every team's work is going.
 
