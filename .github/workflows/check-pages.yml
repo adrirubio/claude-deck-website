@@ -2,7 +2,7 @@ name: Check pages
 
 on:
   pull_request:
-    branches: [master, release/v3.0.0]
+    branches: [master, release/v3.0.0, preview/synth-city]
 
 permissions:
   contents: read
