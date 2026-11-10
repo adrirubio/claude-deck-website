@@ -1,0 +1,43 @@
+---
+// Shared street-scene mount (website-and-docs.md section 4.2).
+// Renders one svg mount; the shared init script in this component
+// mounts every scene on the page through the one scene module.
+// Props:
+// - id, label: mount identity and accessible name
+// - prefix: unique gradient/id prefix for this mount
+// - viewBox: fixed crop for stills (omit for the full scene)
+// - animate: false for a still that never plays
+// - still: per-team loop seconds (array) or one story-clock second
+// - hero: true for the animated hero mount (caller crop, steps, button)
+interface Props {
+  id: string;
+  prefix: string;
+  label: string;
+  viewBox?: string;
+  animate?: boolean;
+  still?: number | number[];
+  hero?: boolean;
+}
+
+const { id, prefix, label, viewBox, animate = true, still, hero = false } = Astro.props;
+const stillValue = Array.isArray(still) ? still.join(',') : still?.toString();
+---
+
+<svg
+  id={id}
+  class="city"
+  viewBox={viewBox ?? '0 0 1200 500'}
+  preserveAspectRatio={hero ? 'xMidYMid meet' : undefined}
+  role="img"
+  aria-label={label}
+  data-street
+  data-prefix={prefix}
+  data-animate={animate ? undefined : 'false'}
+  data-viewbox={viewBox}
+  data-still={stillValue}
+  data-hero={hero ? '' : undefined}
+></svg>
+
+<script>
+  import '../scripts/street-init.js';
+</script>
