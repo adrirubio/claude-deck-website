@@ -17,9 +17,10 @@ interface Props {
   animate?: boolean;
   still?: number | number[];
   hero?: boolean;
+  steps?: boolean;
 }
 
-const { id, prefix, label, viewBox, animate = true, still, hero = false } = Astro.props;
+const { id, prefix, label, viewBox, animate = true, still, hero = false, steps = false } = Astro.props;
 const stillValue = Array.isArray(still) ? still.join(',') : still?.toString();
 ---
 
@@ -36,6 +37,7 @@ const stillValue = Array.isArray(still) ? still.join(',') : still?.toString();
   data-viewbox={viewBox}
   data-still={stillValue}
   data-hero={hero ? '' : undefined}
+  data-steps={steps || hero ? '' : undefined}
 ></svg>
 
 <script>

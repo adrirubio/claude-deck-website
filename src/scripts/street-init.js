@@ -36,6 +36,9 @@ for (const svg of document.querySelectorAll('svg[data-street]')) {
   if (svg.dataset.hero !== undefined) {
     const frame = svg.closest('.frame');
     if (frame) opts.viewBoxFor = heroBoxFactory(frame);
+  }
+
+  if (svg.dataset.steps !== undefined) {
     const tools = svg.closest('.plate') || document;
     const button = tools.querySelector('.playpause');
     if (button) opts.button = button;
