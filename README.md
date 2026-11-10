@@ -1,6 +1,8 @@
-# Claude Deck Website
+# Albiex Synth City Website
 
-Landing page and public documentation for [Claude Deck](https://github.com/adrirubio/claude-deck), a self-hosted workspace to follow and steer coding agents working on GitHub issues.
+Website and public documentation for Albiex Synth City, a self-hosted workspace to follow and steer coding agents working on GitHub issues.
+
+This branch (`preview/synth-city`) carries the Astro foundation for the new site. It is a preview: every built page is `noindex`, nothing here is published, and a merge to `master` remains the production deployment, gated on the release owner's approval.
 
 ## Live Site
 
@@ -8,12 +10,20 @@ https://claudedeck.org
 
 ## Development
 
-```bash
-# Serve locally
-npx serve
+The site is built with Astro (static output). Fonts are self-hosted under `public/fonts/`; the build makes no external font or asset requests.
 
-# Or open index.html directly in your browser
+```bash
+npm ci
+npm run dev      # local dev server
+npm run build    # astro build, then copies docs/ verbatim into dist/docs/
+npm run check    # build, then scripts/check-pages.py on the built pages
 ```
+
+The build output is `dist/`. The generated documentation under `docs/` is copied into `dist/docs/` unchanged by `scripts/copy-docs.mjs`, so the documentation keeps being served at the same URLs.
+
+## Preview deploy
+
+`.github/workflows/preview.yml` builds and checks the site on pushes to `preview/synth-city`. It deploys only when the Director has supplied the Cloudflare Pages preview target as the repository variable `CLOUDFLARE_PAGES_PREVIEW_PROJECT`; until then the deploy step is skipped and the workflow only builds and checks. The production workflow (`.github/workflows/deploy.yml`, push to `master`) is untouched.
 
 ## Deployment
 
@@ -39,17 +49,17 @@ The pages under `docs/` are generated. Do not edit them by hand.
 
 ## Preview and publication
 
-Preview the landing page and the documentation together with `npx serve` or `python3 -m http.server`, and open `/` and `/docs/`.
+Preview the built site and the documentation together by serving `dist/` (for example `npx serve dist` or `python3 -m http.server -d dist`), and open `/` and `/docs/`.
 
-This repository targets `release/v3.0.0` for the Claude Deck 3.0.0 release work. A push to `master` deploys the site to Cloudflare Pages. Do not push to `master` until the release owner approves the preview.
+A push to `master` deploys the site to Cloudflare Pages. Do not push to `master` until the release owner approves the preview.
 
 To restore the previous site, revert the website commit on `master`. For a merge commit, use `git revert -m 1 <merge-sha>`. The deployment workflow then publishes the restored files. A push to `master` deploys production, so the revert push needs the same release owner approval as a publication.
 
 ## Tech Stack
 
-- Static HTML
-- Tailwind CSS (via CDN)
-- Inter + JetBrains Mono fonts
+- Astro (static output in `dist/`)
+- One shared layout and stylesheet with the design tokens from the approved mockup
+- Self-hosted fonts: Newsreader, Hanken Grotesk, JetBrains Mono, Chakra Petch (SIL Open Font License 1.1)
 
 ## License
 

@@ -1,0 +1,38 @@
+---
+// Foundation placeholder (W1). The home page sections are W2 work;
+// this page only proves the shared layout, tokens, fonts and build.
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Albiex Synth City"
+  description="Albiex Synth City — the new Synth City website is being built. Documentation remains available."
+>
+  <div class="wrap">
+    <h1>Albiex Synth City</h1>
+    <p>
+      The new Synth City website is on its way. In the meantime, the
+      <a href="/docs/">documentation</a> remains available as before.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  h1 {
+    font: 400 clamp(40px, 4.2vw, 60px)/1.06 var(--serif);
+    letter-spacing: -0.02em;
+    color: var(--graphite);
+    margin: 64px 0 12px;
+  }
+
+  p {
+    font-size: 19px;
+    color: var(--muted);
+    max-width: 72ch;
+    margin: 0 0 64px;
+  }
+
+  p a {
+    text-decoration: underline;
+  }
+</style>

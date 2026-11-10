@@ -13,37 +13,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check landing page HTML and local links
-        run: |
-          python3 - <<'PY'
-          import html.parser, pathlib, sys, urllib.parse
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
 
-          root = pathlib.Path('.').resolve()
-          errors = []
+      - name: Install dependencies
+        run: npm ci
 
-          class Page(html.parser.HTMLParser):
-              def __init__(self):
-                  super().__init__()
-                  self.refs = []
-              def handle_starttag(self, tag, attrs):
-                  for name, value in attrs:
-                      if name in ('href', 'src') and value:
-                          self.refs.append(value)
+      - name: Build the site (Astro output plus unchanged docs/)
+        run: npm run build
 
-          parser = Page()
-          parser.feed((root / 'index.html').read_text(encoding='utf-8'))
-          for ref in parser.refs:
-              parts = urllib.parse.urlsplit(ref)
-              if parts.scheme or parts.netloc or ref.startswith('#'):
-                  continue
-              path = parts.path
-              target = root / path.lstrip('/')
-              if path.endswith('/'):
-                  target = target / 'index.html'
-              if not target.exists():
-                  errors.append('missing local target: ' + ref)
-
-          for message in sorted(set(errors)):
-              print('ERROR', message)
-          sys.exit(1 if errors else 0)
-          PY
+      - name: Check built pages and local links
+        run: python3 scripts/check-pages.py dist
