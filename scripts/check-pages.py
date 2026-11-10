@@ -3,6 +3,8 @@
 
 For every built HTML page this verifies:
 - every local href/src target exists in the built output,
+- every CSS url() target (in stylesheet files and inline styles) is local
+  and exists in the built output,
 - no external request URLs are present (fonts and assets are self-hosted),
 - the page carries the preview noindex robots directive.
 
@@ -12,17 +14,32 @@ Exit code 1 lists every problem found.
 
 import html.parser
 import pathlib
+import re
 import sys
 import urllib.parse
+
+CSS_URL = re.compile(r"url\(\s*['\"]?([^'\")]+)['\"]?\s*\)")
 
 
 class Page(html.parser.HTMLParser):
     def __init__(self):
         super().__init__()
         self.refs = []
+        self.style_text = []
         self.robots_noindex = False
+        self._in_style = False
+
+    def handle_endtag(self, tag):
+        if tag == "style":
+            self._in_style = False
+
+    def handle_data(self, data):
+        if self._in_style:
+            self.style_text.append(data)
 
     def handle_starttag(self, tag, attrs):
+        if tag == "style":
+            self._in_style = True
         attributes = dict(attrs)
         for name in ("href", "src"):
             value = attributes.get(name)
@@ -34,6 +51,29 @@ class Page(html.parser.HTMLParser):
             content = attributes.get("content", "")
             if "noindex" in content:
                 self.robots_noindex = True
+
+
+def check_css_urls(text, base_dir, dist, label, errors):
+    """Every url() in CSS must be local and exist in the built output."""
+    for ref in CSS_URL.findall(text):
+        ref = ref.strip()
+        if not ref or ref.startswith("#"):
+            continue
+        parts = urllib.parse.urlsplit(ref)
+        if parts.scheme in ("data",):
+            continue
+        if parts.scheme or parts.netloc:
+            errors.append(f"{label}: external CSS resource URL: {ref}")
+            continue
+        path = urllib.parse.unquote(parts.path)
+        if not path:
+            continue
+        if path.startswith("/"):
+            target = dist / path.lstrip("/")
+        else:
+            target = (base_dir / path).resolve()
+        if not target.exists():
+            errors.append(f"{label}: missing CSS-referenced target: {ref}")
 
 
 def main():
@@ -82,6 +122,20 @@ def main():
                     target = target / "index.html"
             if not target.exists():
                 errors.append(f"{relative}: missing local target: {ref}")
+
+        # Inline <style> CSS dependencies follow the same rule.
+        for style_text in parser.style_text:
+            check_css_urls(style_text, page.parent, dist, str(relative), errors)
+
+    # Stylesheet files: follow every url() (fonts, images) to its target.
+    stylesheets = sorted(
+        sheet for sheet in dist.rglob("*.css") if "docs" not in sheet.relative_to(dist).parts
+    )
+    for sheet in stylesheets:
+        relative = sheet.relative_to(dist)
+        check_css_urls(
+            sheet.read_text(encoding="utf-8"), sheet.parent, dist, str(relative), errors
+        )
 
     for message in sorted(set(errors)):
         print("ERROR", message)

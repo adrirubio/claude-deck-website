@@ -168,9 +168,11 @@ header.site-header .wrap {
 
 nav.site-nav {
   display: flex;
+  flex-wrap: nowrap;
   gap: 28px;
   font-size: 15px;
   margin-left: auto;
+  white-space: nowrap;
 }
 
 nav.site-nav a {
@@ -188,6 +190,8 @@ nav.site-nav a:hover {
 
 .pill {
   display: inline-flex;
+  flex-shrink: 0;
+  white-space: nowrap;
   align-items: center;
   gap: 8px;
   border: 1px solid var(--rule);
@@ -274,12 +278,9 @@ footer.site-footer .legal {
   font-size: 13px;
 }
 
-@media (max-width: 720px) {
-  :root {
-    --edge: 20px;
-    --head: 60px;
-  }
-
+/* The header keeps one line until the full link set no longer fits;
+   below that width the menu takes over (website-and-docs.md 4.2). */
+@media (max-width: 1020px) {
   header.site-header .wrap {
     gap: 16px;
   }
@@ -312,12 +313,28 @@ footer.site-footer .legal {
     background: var(--fog);
     border-bottom: 1px solid var(--rule);
     padding: 8px var(--edge) 16px;
+    white-space: normal;
   }
 
   header.site-header.open nav.site-nav a {
     padding: 12px 0;
     font-size: 17px;
     border-bottom: 1px solid var(--rule);
+  }
+
+  footer.site-footer .row {
+    flex-wrap: wrap;
+  }
+
+  footer.site-footer nav.site-nav {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --edge: 20px;
+    --head: 60px;
   }
 
   .logo img {

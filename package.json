@@ -10,9 +10,10 @@
     "dev": "astro dev",
     "build": "astro build && node scripts/copy-docs.mjs",
     "preview": "astro preview",
-    "check": "astro build && node scripts/copy-docs.mjs && python3 scripts/check-pages.py dist"
+    "check": "astro build && node scripts/copy-docs.mjs && python3 scripts/check-pages.py dist",
+    "test": "python3 scripts/test-check-pages.py"
   },
   "dependencies": {
-    "astro": "^5.13.5"
+    "astro": "^7.4.8"
   }
 }

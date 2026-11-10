@@ -26,3 +26,6 @@ jobs:
 
       - name: Check built pages and local links
         run: python3 scripts/check-pages.py dist
+
+      - name: Negative checks for the page checker
+        run: python3 scripts/test-check-pages.py
