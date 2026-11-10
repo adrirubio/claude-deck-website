@@ -1,0 +1,51 @@
+name: Preview deploy
+
+# Separate preview build and deploy for the preview branch
+# (website-and-docs.md section 7 item 4). This workflow never touches
+# the production deploy in deploy.yml, which keeps triggering only on
+# master.
+#
+# The Cloudflare Pages preview project is a documented input, supplied
+# by the Director: set the repository variable
+# CLOUDFLARE_PAGES_PREVIEW_PROJECT to the preview project name. Until
+# that variable exists, this workflow builds and checks the site and
+# skips the deploy step. Pages carry noindex while on preview.
+on:
+  push:
+    branches: [preview/synth-city]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the site (Astro output plus unchanged docs/)
+        run: npm run build
+
+      - name: Check built pages and local links
+        run: python3 scripts/check-pages.py dist
+
+      - name: Deploy preview to Cloudflare Pages
+        if: vars.CLOUDFLARE_PAGES_PREVIEW_PROJECT != ''
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=${{ vars.CLOUDFLARE_PAGES_PREVIEW_PROJECT }} --branch=preview-synth-city
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

@@ -1,0 +1,369 @@
+/* Albiex Synth City website: one shared stylesheet.
+   Design tokens and shared header/footer styles ported from the approved
+   v7d mockup (website-and-docs.md section 4.2, layout row).
+   Brand artwork colours are the Transit enamel palette (BRAND-GUIDE.md);
+   the role colours below are website UI colours only. No glows. */
+
+/* Self-hosted fonts (section 4.5 item 5): vendored woff2, latin subset,
+   weights used by the mockup. No external font requests. */
+@font-face {
+  font-family: 'Newsreader';
+  src: url('/fonts/newsreader-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Newsreader';
+  src: url('/fonts/newsreader-latin-500-normal.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  src: url('/fonts/hanken-grotesk-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  src: url('/fonts/hanken-grotesk-latin-500-normal.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  src: url('/fonts/hanken-grotesk-latin-600-normal.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains-mono-latin-500-normal.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Chakra Petch';
+  src: url('/fonts/chakra-petch-latin-500-normal.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Chakra Petch';
+  src: url('/fonts/chakra-petch-latin-600-normal.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --fog: #f7f5f0;
+  --paper: #fff;
+  --surface: #f4f4f1;
+  --rule: #e3ded3;
+  --graphite: #101a26;
+  --body: #2c3036;
+  --muted: #4d5258;
+  --human: #d97706;
+  --human-text: #a35a04;
+  --ai: #0d9488;
+  --steel: #9daeb6;
+  --signal: #e4572e;
+  --serif: 'Newsreader', Georgia, serif;
+  --sans: 'Hanken Grotesk', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --sign: 'Chakra Petch', sans-serif;
+  --edge: 40px;
+  --max: 1280px;
+  --head: 68px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: var(--head);
+}
+
+body {
+  margin: 0;
+  background: var(--fog);
+  color: var(--body);
+  font: 400 17px/1.6 var(--sans);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(228, 87, 46, 0.16);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 3px;
+}
+
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--edge);
+}
+
+.skip {
+  position: absolute;
+  left: var(--edge);
+  top: -60px;
+  z-index: 10;
+  background: var(--graphite);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 6px;
+  transition: top 0.2s;
+}
+
+.skip:focus {
+  top: 12px;
+}
+
+/* Shared header */
+header.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: rgba(251, 251, 250, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--rule);
+}
+
+header.site-header .wrap {
+  display: flex;
+  align-items: center;
+  height: var(--head);
+  gap: 36px;
+}
+
+.logo {
+  display: block;
+  line-height: 0;
+  border-radius: 4px;
+}
+
+.logo img {
+  display: block;
+  height: 44px;
+  width: auto;
+}
+
+nav.site-nav {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 28px;
+  font-size: 15px;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+nav.site-nav a {
+  background: linear-gradient(var(--signal), var(--signal)) 0 100% / 0 1px no-repeat;
+  transition: background-size 0.25s;
+}
+
+nav.site-nav a:hover {
+  background-size: 100% 1px;
+}
+
+.nav-gh {
+  display: none;
+}
+
+.pill {
+  display: inline-flex;
+  flex-shrink: 0;
+  white-space: nowrap;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 14px;
+  color: var(--graphite);
+  background: var(--paper);
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.pill:hover {
+  border-color: var(--signal);
+  transform: translateY(-1px);
+}
+
+.menu {
+  display: none;
+  font: 500 14px var(--sans);
+  color: var(--graphite);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+}
+
+.mark {
+  font: 600 15px/1 var(--sign);
+  letter-spacing: 0.22em;
+  color: var(--graphite);
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 7px;
+}
+
+.mark::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0.22em;
+  bottom: 0;
+  height: 2px;
+  background: var(--signal);
+  border-radius: 2px;
+}
+
+.mark b {
+  font-weight: 600;
+  color: var(--muted);
+  margin-right: 0.5em;
+}
+
+/* Shared footer */
+footer.site-footer {
+  padding: 0 0 40px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+footer.site-footer .divider {
+  display: block;
+  width: 100%;
+  height: 31px;
+}
+
+footer.site-footer .row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding-top: 26px;
+}
+
+footer.site-footer .logo img {
+  height: 40px;
+}
+
+footer.site-footer .mark {
+  font-size: 12px;
+}
+
+footer.site-footer .legal {
+  margin: 22px 0 0;
+  font-size: 13px;
+}
+
+/* The header keeps one line until the full link set no longer fits;
+   below that width the menu takes over (website-and-docs.md 4.2). */
+@media (max-width: 1020px) {
+  header.site-header .wrap {
+    gap: 16px;
+  }
+
+  header.site-header nav.site-nav {
+    display: none;
+  }
+
+  .pill {
+    display: none;
+  }
+
+  .menu {
+    display: inline-block;
+    margin-left: auto;
+  }
+
+  header.site-header.open .nav-gh {
+    display: block;
+  }
+
+  header.site-header.open nav.site-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--head);
+    background: var(--fog);
+    border-bottom: 1px solid var(--rule);
+    padding: 8px var(--edge) 16px;
+    white-space: normal;
+  }
+
+  header.site-header.open nav.site-nav a {
+    padding: 12px 0;
+    font-size: 17px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  footer.site-footer .row {
+    flex-wrap: wrap;
+  }
+
+  footer.site-footer nav.site-nav {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --edge: 20px;
+    --head: 60px;
+  }
+
+  .logo img {
+    height: 40px;
+  }
+
+  footer.site-footer .row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  footer.site-footer nav {
+    margin-left: 0;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
