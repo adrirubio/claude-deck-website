@@ -1,8 +1,103 @@
 ---
-// Empty route shell (W1 foundation, confirmed by the Leader).
-// Page content is W3 work; this shell only keeps the shared header
-// links and the built-output check true.
+// How it works, ported from the approved v7d mockup
+// (website-and-docs.md 4.2): outer-loop order, stage anchors,
+// glossary, and the shared scene module mounts. First textual
+// mention uses the full name (section 4.7).
 import BaseLayout from '../layouts/BaseLayout.astro';
+import StreetScene from '../components/StreetScene.astro';
+import LoopDiagram from '../components/LoopDiagram.astro';
+import '../styles/home.css';
+import '../styles/pages.css';
 ---
 
-<BaseLayout title="How it works — Albiex Synth City" />
+<BaseLayout
+  title="How it works — Albiex Synth City"
+  description="Albiex Synth City runs two loops: you set up the work and the teams, and each team carries one ready feature at a time back to GitHub."
+  current="how"
+>
+
+<div class="wrap page-intro">
+  <h1>How it works</h1>
+  <p class="lede">Albiex Synth City runs two loops. In the outer loop, you set up the work and the teams. In the inner loop, each team takes one ready feature at a time and carries it, finished, back to GitHub.</p>
+</div>
+
+<section id="outer"><div class="wrap">
+  <div class="loop-head"><h2>The outer loop: you set up the work and the teams</h2>
+  <p>Four decisions start everything. Your AI assistants can help with each of them; the decisions stay yours.</p></div>
+  <article class="step" id="step-backlog">
+    <div><span class="n">Outer loop · 1 of 4</span><h2>Write the backlog in GitHub</h2><p>Write the features you want in GitHub, each with a clear result, put them in order, and mark the ones that are ready to build. Your AI assistants can draft them with you.</p><p class="call"><strong>Your call:</strong> what gets built, and in what order.</p></div>
+    <div class="still"><StreetScene id="still-backlog" prefix="sbacklog" animate={false} viewBox="0 140 480 360" still={[0.9, 13.0, 9.5]} label="An agent leaves GitHub with the blueprint of the next ready feature." /></div>
+  </article><article class="step" id="step-roster">
+    <div><span class="n">Outer loop · 2 of 4</span><h2>Put together the team rosters</h2><p>Choose who is on each team and what each member does: an AI Leader, agent owners who plan and build, and AI reviewers. Every member runs its own harness and its own model, so one team can mix Claude Code, Codex, GitHub Copilot and others, and several model families.</p><p class="call"><strong>Your call:</strong> who is on each team, and which tools and models they use.</p></div>
+    <div class="app"><div class="app-bar" aria-hidden="true"><i></i><i></i><i></i><span>Synth City</span></div><img src="/assets/tour/teams.png" alt="A team roster, with example data: its AI Leader and team members, each with its own role." loading="lazy"></div>
+  </article><article class="step" id="step-rules">
+    <div><span class="n">Outer loop · 3 of 4</span><h2>Set the rules of play</h2><p>Give each member its instructions, and set the limits the team works within: how finished work may merge, and finite limits for automated work. Decisions you keep for yourself wait for your word.</p><p class="call"><strong>Your call:</strong> publication, budgets, AI models, and safety stops stay yours.</p></div>
+    <div class="still"><StreetScene id="still-rules" prefix="srules" animate={false} viewBox="940 80 270 250" label="You and your AI assistants at the control console, wired to every hall." /></div>
+  </article><article class="step" id="step-autonomy">
+    <div><span class="n">Outer loop · 4 of 4</span><h2>Switch autonomy on</h2><p>Autonomy stays off until you turn it on, team by team. Then the AI Leader starts taking the ready features from the GitHub repository it watches, and the inner loop begins. You can pause a team, or a single repository, at any time.</p><p class="call"><strong>Your call:</strong> when the teams start, and when they pause.</p></div>
+    <div class="app"><div class="app-bar" aria-hidden="true"><i></i><i></i><i></i><span>Synth City</span></div><img src="/assets/tour/overview.png" alt="The Overview, with example data: what needs you comes first, then each campaign's progress." loading="lazy"></div>
+  </article>
+</div></section>
+
+<section id="inner" style="background:#EFEADF"><div class="wrap">
+  <div class="loop-head"><h2>The inner loop: each team carries a feature to GitHub</h2>
+  <p>Every ready feature gets its own AI team, and teams work side by side at their own pace. Inside each team, the same five stages repeat for every feature.</p></div>
+  <div class="walk" style="margin-top:28px"><figure class="plate" aria-labelledby="scene-cap">
+    <div class="plate-head">
+      <p id="scene-cap"><span class="cap-wide">The inner loop, running: choose a stage to read about it below.</span><span class="cap-phone">The inner loop, running: choose a stage to read about it below.</span></p>
+      <div class="plate-tools">
+        <ul class="key"><li><svg width="9" height="18" viewBox="-10 -10 20 46" aria-hidden="true"><circle r="7.5" fill="#F5C77A" stroke="#101A26" stroke-width="2"/><rect x="-8" y="8" width="16" height="27" rx="6" fill="#F59E0B" stroke="#101A26" stroke-width="2"/></svg>You</li><li><svg width="12" height="16" viewBox="-12 -15 24 30" aria-hidden="true"><g transform="translate(0 0)"><polygon points="0,-14 10.5,0 0,14 -10.5,0" fill="#FBBF24" stroke="#101A26" stroke-width="2" stroke-linejoin="round"/><polygon points="0,-7 5,0 0,7 -5,0" fill="#14B8A6"/></g></svg>Your AI assistants</li><li><svg width="34" height="16" viewBox="-12 -15 68 30" aria-hidden="true"><g transform="translate(0 0)"><polygon points="0,-14 10.5,0 0,14 -10.5,0" fill="#60A5FA" stroke="#101A26" stroke-width="2" stroke-linejoin="round"/><polygon points="0,-7 5,0 0,7 -5,0" fill="#14B8A6"/></g><g transform="translate(22 0)"><polygon points="0,-14 10.5,0 0,14 -10.5,0" fill="#A3E635" stroke="#101A26" stroke-width="2" stroke-linejoin="round"/><polygon points="0,-7 5,0 0,7 -5,0" fill="#14B8A6"/></g><g transform="translate(44 0)"><polygon points="0,-14 10.5,0 0,14 -10.5,0" fill="#FB7185" stroke="#101A26" stroke-width="2" stroke-linejoin="round"/><polygon points="0,-7 5,0 0,7 -5,0" fill="#14B8A6"/></g></svg>AI agents: one colour per feature in progress</li><li><i class="sw" style="background:#7D8C96"></i>GitHub</li><li><i class="sw" style="background:#1B2A3E"></i>Synth City control</li></ul>
+        <button class="playpause" type="button" aria-controls="street">
+          <svg class="i-pause" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="1.5" width="2.6" height="9" rx="1"/><rect x="7.4" y="1.5" width="2.6" height="9" rx="1"/></svg>
+          <svg class="i-play" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.6v8.8a.6.6 0 0 0 .9.5l7-4.4a.6.6 0 0 0 0-1L3.9 1.1a.6.6 0 0 0-.9.5z"/></svg>
+          <span>Pause</span>
+        </button>
+      </div>
+    </div>
+    <div class="frame"><StreetScene id="street" prefix="hiw" steps label="Synth City signal works: three AI teams guide their feature parcels through Plan, Build, Review and Verify, finished parcels ride the rail back to GitHub alone, and you supervise every hall by wire from your control panel" />
+      <ol class="steps" aria-label="Jump to a stage"><li><a href="#stage-plan">Plan</a></li><li><a href="#stage-build">Build</a></li><li><a href="#stage-review">Review</a></li><li><a href="#stage-verify">Verify</a></li><li><a href="#stage-merged">Merged</a></li></ol></div>
+  </figure></div>
+  <LoopDiagram />
+  <div class="inner-shot">
+    <p>Follow every feature as it moves: the Work view shows each one's team, owner and stage, and what it is waiting for.</p>
+    <div class="app"><div class="app-bar" aria-hidden="true"><i></i><i></i><i></i><span>Synth City</span></div>
+    <img src="/assets/work-active.png" alt="The Work view, with example data: each feature with its team, its state and its owner." loading="lazy"></div>
+  </div>
+</div></section>
+
+<section id="highlights"><div class="wrap">
+  <h2>Highlights: what makes Synth City different</h2>
+  <ul class="hl"><li><h3>Your tools, your subscriptions, your choice of models.</h3><p>Synth City works with the AI harnesses you already use, the agent tools your team members run: Claude Code, Codex, GitHub Copilot, OpenCode, Pi and Muse Code today, with more on the way. Each one runs signed in with your own subscriptions. Every role in a team gets its own harness and its own model, so a team can mix model families.</p></li><li><h3>Adversarial reviews.</h3><p>The AI reviewer is a different agent from the one who built the work — another agent whose job is to challenge it. And because each role carries its own model choice, you can give the reviewer role a different model family from the builder's, for a second perspective on the same work.</p></li><li><h3>Agent Mail: read how your team works together.</h3><p>Your AI team members talk to each other through Agent Mail as they work — asking questions, sharing context, and handing work over. Every message is kept, so you can read exactly how the team reached each decision. When a decision is yours, they can reach you the same way.</p></li><li><h3>Agent Bridge: watch every agent at work.</h3><p>Agent Bridge shows each agent's live session side by side, with a live preview of what it is doing right now. Look over any agent's shoulder, at any time.</p></li><li><h3>The production dashboard.</h3><p>One overview keeps all of Synth City in view: what needs you first, and how every team's work is going.</p></li></ul>
+</div></section>
+
+<section id="words"><div class="wrap">
+  <h2>Words on this page</h2>
+  <dl class="words"><dt>Feature</dt><dd>something you want built, with a clear result.</dd><dt>AI team</dt><dd>the AI agents working on your features.</dd><dt>Agent owner</dt><dd>the AI agent who plans and builds one feature.</dd><dt>AI Leader</dt><dd>the AI agent who approves the plans and verifies the finished work.</dd><dt>AI reviewer</dt><dd>an AI agent who checks work they did not build.</dd><dt>Harness</dt><dd>the agent tool a team member runs.</dd><dt>Synth City</dt><dd>your AI teams and the street they work on.</dd><dt>Merged</dt><dd>finished work joined into the project's shared version on GitHub.</dd></dl>
+</div></section>
+
+<section id="share" class="prose" style="background:#E8ECF0"><div class="wrap">
+  <h2>Share this page</h2>
+  <p>Send it to a colleague:</p>
+  <p class="share"><a href="/how-it-works/">"Worth a look: Synth City — your features, built and checked by AI teams."</a></p>
+  <p>Prefer to watch? A short video of Synth City in action will join this page later.</p>
+  <p style="margin-top:28px">Setting up? Read <a class="quiet" href="/technical-information/">Technical information</a>.</p>
+</div></section>
+
+</BaseLayout>
+
+<script>
+  // On phones the vertical diagram is shown, so stage links jump to its boxes.
+  document.querySelectorAll('.steps a').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      if (!matchMedia('(max-width: 720px)').matches) return;
+      const t = document.getElementById('m-' + a.getAttribute('href').slice(1));
+      if (t) {
+        e.preventDefault();
+        t.scrollIntoView({
+          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+          block: 'center',
+        });
+      }
+    });
+  });
+</script>

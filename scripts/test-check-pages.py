@@ -23,7 +23,7 @@ HTML = """<!doctype html>
 <html><head>
 <meta name="robots" content="noindex, nofollow">
 <link rel="stylesheet" href="/assets/style.css">
-</head><body>fixture</body></html>
+</head><body><a href="/docs/guide/installation">installation guide</a></body></html>
 """
 
 CSS = "@font-face { font-family: 'Fixture'; src: url('/fonts/fixture.woff2') format('woff2'); }\n"
@@ -47,6 +47,10 @@ def build_fixture(base):
     (dist / "fonts" / "fixture.woff2").write_bytes(b"fixture")
     (dist / "fonts" / "LICENSE-OFL.txt").write_text(
         "SIL Open Font License fixture\n", encoding="utf-8"
+    )
+    (dist / "docs" / "guide").mkdir(parents=True)
+    (dist / "docs" / "guide" / "installation.html").write_text(
+        "<html>guide</html>\n", encoding="utf-8"
     )
     return dist
 
@@ -72,6 +76,12 @@ def main():
         code, out = run_checker(dist)
         if code == 0:
             failures.append("deleted font licence file must fail, got success")
+
+        dist = build_fixture(base / "missing-docs-target")
+        (dist / "docs" / "guide" / "installation.html").unlink()
+        code, out = run_checker(dist)
+        if code == 0:
+            failures.append("deleted docs .html target must fail, got success")
 
         dist = build_fixture(base / "external-font")
         (dist / "assets" / "style.css").write_text(

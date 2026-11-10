@@ -117,9 +117,12 @@ def main():
             if path.endswith("/"):
                 target = target / "index.html"
             elif not target.suffix:
-                # Clean routes are served as <route>/index.html.
+                # Clean routes are served as <route>/index.html, or as
+                # <route>.html for the VitePress files under docs/.
                 if not target.exists():
                     target = target / "index.html"
+                if not target.exists():
+                    target = dist / (path.lstrip("/") + ".html")
             if not target.exists():
                 errors.append(f"{relative}: missing local target: {ref}")
 

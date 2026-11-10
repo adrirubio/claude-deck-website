@@ -10,9 +10,10 @@ import SiteFooter from '../components/SiteFooter.astro';
 interface Props {
   title: string;
   description?: string;
+  current?: 'how' | 'technical';
 }
 
-const { title, description } = Astro.props;
+const { title, description, current } = Astro.props;
 ---
 
 <!doctype html>
@@ -29,10 +30,10 @@ const { title, description } = Astro.props;
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
-    <SiteHeader />
+    <SiteHeader current={current} />
     <main id="main">
       <slot />
     </main>
-    <SiteFooter />
+    <SiteFooter current={current} />
   </body>
 </html>

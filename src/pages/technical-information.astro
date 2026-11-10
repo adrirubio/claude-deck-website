@@ -1,8 +1,67 @@
 ---
-// Empty route shell (W1 foundation, confirmed by the Leader).
-// Page content is W3 work; this shell only keeps the shared header
-// links and the built-output check true.
+// Technical information, ported from the approved v7d mockup
+// (website-and-docs.md 4.2), with every guide link wired per the
+// section 4.6 link map. First textual mention uses the full name
+// (section 4.7).
 import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/home.css';
+import '../styles/pages.css';
 ---
 
-<BaseLayout title="Technical information — Albiex Synth City" />
+<BaseLayout
+  title="Technical information — Albiex Synth City"
+  description="What you need to install Albiex Synth City and keep it running: requirements, installation, harnesses, and turning on your AI teams."
+  current="technical"
+>
+
+<div class="wrap page-intro">
+  <h1>Technical information</h1>
+  <p class="lede">For the person who installs Albiex Synth City and keeps it running.</p>
+</div>
+
+<section id="need" class="read"><div class="wrap">
+  <h2>What you need</h2>
+  <p>Synth City must run in the same environment as your agent tools and the sign-ins they use. Do not run Synth City in Docker; Docker is not supported.</p>
+  <p>You need:</p>
+  <ul><li>Python 3.11 or newer</li><li>Node.js 22.12 or newer</li><li>At least one supported agent tool installed in that same environment</li></ul>
+  <p>The Python and Node.js versions above are general minimums. A tool you choose may need a newer version or extra preparation, so check its notes in the <a class="quiet" href="/docs/guide/installation">installation guide</a>.</p>
+</div></section>
+
+<section id="install" class="read" style="background:#EFEADF"><div class="wrap">
+  <h2>Install Synth City</h2>
+  <p>At a glance:</p>
+  <ol><li>Get a copy of Synth City's source code.</li><li>Run the install script. It prepares what Synth City needs to run.</li><li>Start Synth City, then open it in your browser.</li><li>Run the checks in the guide to confirm the installation.</li></ol>
+  <p>The full guide gives the exact commands for each step.</p>
+  <p><a class="quiet" href="/docs/guide/installation">Read the installation guide</a></p>
+</div></section>
+
+<section id="harnesses" class="read"><div class="wrap">
+  <h2>Connect your AI harnesses and models</h2>
+  <p>A harness is the agent tool a team member runs. Synth City works with these today, with more on the way. Each one runs signed in with your own subscriptions.</p>
+  <ul class="tools"><li><img src="/assets/icons/claude-code.svg" alt="" width="32" height="32"><span>Claude Code</span></li><li><img src="/assets/icons/openai-icon.svg" alt="" width="32" height="32"><span>Codex</span></li><li><img src="/assets/icons/github-copilot.svg" alt="" width="32" height="32"><span>GitHub Copilot</span></li><li><img src="/assets/icons/opencode-icon.svg" alt="" width="32" height="32"><span>OpenCode</span></li><li class="typed"><span>Pi</span></li><li class="typed"><span>Muse Code</span></li></ul>
+  <p>Install a harness in the same environment as Synth City first. Then choose the harness and AI model for each role on your AI teams.</p>
+  <p>The harness guide explains what Synth City can show and set up for each choice.</p>
+  <p><a class="quiet" href="/docs/features/harnesses">Read the harness guide</a></p>
+</div></section>
+
+<section id="see" class="read"><div class="wrap">
+  <h2>See how your agents work</h2>
+  <p>Two features show you how your AI teams operate. Agent Mail keeps every message the team members send each other: questions, context and handovers. Agent Bridge shows each agent's live session, with a live preview of its work.</p>
+  <p class="links"><a class="quiet" href="/docs/features/agent-mail">Read the Agent Mail guide</a><a class="quiet" href="/docs/features/agent-bridge">Read the Agent Bridge guide</a></p>
+</div></section>
+
+<section id="teams" class="read" style="background:#E8ECF0"><div class="wrap">
+  <h2>Turn on your AI teams</h2>
+  <p>Autonomy stays off until you turn it on for a team. To get ready:</p>
+  <ol><li>Give Synth City access to GitHub from the environment where it runs.</li><li>Prepare each team roster, choose its AI Leader, and launch the Leader as the guide explains.</li><li>Choose the GitHub repository Synth City should watch.</li><li>Mark your features ready in GitHub when they can start.</li><li>Choose how finished work may merge, and set finite limits for automated work.</li></ol>
+  <p>When the rosters and watched repositories are ready, turn autonomy on. You can pause a watched repository separately.</p>
+  <p class="links"><a class="quiet" href="/docs/autonomy">Read the autonomy guide</a><a class="quiet" href="/docs/features/agent-teams">Read the Teams guide</a></p>
+</div></section>
+
+<section id="next" class="read"><div class="wrap">
+  <h2>Where to go next</h2>
+  <p>Start at the docs home for the full guides. For the source code, choose “View product source” there.</p>
+  <ul class="next"><li><a class="quiet" href="/docs/">Docs home</a></li><li><a class="quiet" href="/docs/guide/installation">Installation guide</a></li><li><a class="quiet" href="/docs/guide/quick-start">Quick start</a></li><li><a class="quiet" href="/docs/features/harnesses">Harness guide</a></li><li><a class="quiet" href="/docs/features/agent-teams">Teams guide</a></li><li><a class="quiet" href="/docs/autonomy">Autonomy guide</a></li></ul>
+</div></section>
+
+</BaseLayout>

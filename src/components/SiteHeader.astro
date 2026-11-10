@@ -3,6 +3,11 @@
 // The compact logo is brand artwork, not a product mention: the first
 // mention in each page's copy must still be the full Albiex Synth City,
 // with Synth City after that (website-and-docs.md section 4.7).
+interface Props {
+  current?: 'how' | 'technical';
+}
+
+const { current } = Astro.props;
 ---
 
 <header class="site-header">
@@ -11,8 +16,8 @@
       <img src="/brand/albiex-logo-compact.svg" alt="Albiex Synth City" height="44" />
     </a>
     <nav class="site-nav" id="site-nav" aria-label="Primary">
-      <a href="/how-it-works/">How it works</a>
-      <a href="/technical-information/">Technical information</a>
+      <a href="/how-it-works/" aria-current={current === 'how' ? 'page' : undefined}>How it works</a>
+      <a href="/technical-information/" aria-current={current === 'technical' ? 'page' : undefined}>Technical information</a>
       <a href="/docs/">Documentation</a>
       <a class="nav-gh" href="https://github.com/adrirubio/claude-deck">Open source on GitHub</a>
     </nav>
