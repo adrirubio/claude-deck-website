@@ -45,6 +45,9 @@ def build_fixture(base):
     (dist / "index.html").write_text(HTML, encoding="utf-8")
     (dist / "assets" / "style.css").write_text(CSS, encoding="utf-8")
     (dist / "fonts" / "fixture.woff2").write_bytes(b"fixture")
+    (dist / "fonts" / "LICENSE-OFL.txt").write_text(
+        "SIL Open Font License fixture\n", encoding="utf-8"
+    )
     return dist
 
 
@@ -64,6 +67,12 @@ def main():
         if code == 0:
             failures.append("deleted CSS-referenced font must fail, got success")
 
+        dist = build_fixture(base / "missing-licence")
+        (dist / "fonts" / "LICENSE-OFL.txt").unlink()
+        code, out = run_checker(dist)
+        if code == 0:
+            failures.append("deleted font licence file must fail, got success")
+
         dist = build_fixture(base / "external-font")
         (dist / "assets" / "style.css").write_text(
             CSS.replace("/fonts/fixture.woff2", "https://example.com/fixture.woff2"),
@@ -77,7 +86,7 @@ def main():
         print("FAIL", failure)
     if failures:
         return 1
-    print("test-check-pages: OK (pass, missing-font failure, external-url failure)")
+    print("test-check-pages: OK (pass, missing-font, missing-licence, external-url failures)")
     return 0
 
 

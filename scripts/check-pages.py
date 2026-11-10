@@ -137,6 +137,15 @@ def main():
             sheet.read_text(encoding="utf-8"), sheet.parent, dist, str(relative), errors
         )
 
+    # Self-hosted fonts must ship with their licence (SIL OFL 1.1).
+    fonts_dir = dist / "fonts"
+    if fonts_dir.is_dir() and any(fonts_dir.glob("*.woff2")):
+        licence = fonts_dir / "LICENSE-OFL.txt"
+        if not licence.is_file() or "Open Font License" not in licence.read_text(
+            encoding="utf-8", errors="ignore"
+        ):
+            errors.append("fonts/LICENSE-OFL.txt: missing font licence file in built output")
+
     for message in sorted(set(errors)):
         print("ERROR", message)
     if errors:
