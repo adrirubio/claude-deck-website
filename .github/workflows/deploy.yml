@@ -1,5 +1,16 @@
 name: Deploy to Cloudflare Pages
 
+# Production deployment candidate, prepared on the preview branch for the
+# single reviewed cutover merge (website-and-docs.md section 9.2 step 6).
+# The trigger stays push-to-master only: this file does nothing until the
+# cutover merge lands it on master together with the Astro source and the
+# generated docs, so no intermediate production deploy can occur.
+#
+# The production Pages project is supplied by the Director as the
+# repository variable CLOUDFLARE_PAGES_PRODUCTION_PROJECT. Until that
+# variable exists the deploy step is skipped and the workflow only builds
+# and checks the site; it never falls back to a guessed project name.
+
 on:
   push:
     branches: [master]
@@ -13,12 +24,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the site (Astro output plus unchanged docs/)
+        run: npm run build
+
+      - name: Check built pages and local links
+        run: python3 scripts/check-pages.py dist
+
       - name: Deploy to Cloudflare Pages
+        if: vars.CLOUDFLARE_PAGES_PRODUCTION_PROJECT != ''
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy . --project-name=claude-deck-website
+          command: pages deploy dist --project-name=${{ vars.CLOUDFLARE_PAGES_PRODUCTION_PROJECT }}
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

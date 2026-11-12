@@ -1,0 +1,107 @@
+---
+// Home page, ported from the approved v7d mockup in mockup order
+// (website-and-docs.md 4.2). The street scenes all mount through the
+// one shared scene module. First textual product mention uses the
+// full name (section 4.7): the plate key below.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StreetScene from '../components/StreetScene.astro';
+import '../styles/home.css';
+
+const githubUrl = 'https://github.com/albiexai/synth-city';
+---
+
+<BaseLayout
+  title="Albiex Synth City: Scale product velocity with self-directing AI teams"
+  description="Choose what to build. Your AI teams organise the work among themselves, and you, the Director, stay in charge."
+>
+  <div class="wrap hero">
+    <div class="copy">
+      <span class="status"><i></i><span>Open source &middot; works with 6 AI<span class="st-wide"> coding</span> tools</span></span>
+      <h1>Scale product velocity with self&#8209;directing AI teams.</h1>
+      <p class="lede">Choose what to build. Your AI teams organise the work among themselves, and you, the Director, stay in charge.</p>
+      <div class="actions">
+        <a class="btn" href="/how-it-works/">See how it works <span aria-hidden="true">&rarr;</span></a>
+        <a class="btn ghost" href={githubUrl}><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Get started on GitHub</a>
+      </div>
+    </div>
+    <figure class="plate" aria-labelledby="scene-cap">
+      <div class="plate-head">
+        <p id="scene-cap"><span class="cap-wide">Each feature gets its own AI team. Follow the blue parcel from plan to merged.</span><span class="cap-phone">Each feature gets its own AI team. Here, a parcel reaches Verify while you supervise from your console.</span></p>
+        <div class="plate-tools">
+          <ul class="key"><li><svg width="9" height="18" viewBox="-10 -10 20 46" aria-hidden="true"><circle r="7.5" fill="#F5C77A" stroke="#101A26" stroke-width="2"/><rect x="-8" y="8" width="16" height="27" rx="6" fill="#F59E0B" stroke="#101A26" stroke-width="2"/></svg>You</li><li><svg width="12" height="16" viewBox="-12 -15 24 30" aria-hidden="true"><g transform="translate(0 0)"><polygon points="0,-14 10.5,0 0,14 -10.5,0" fill="#FBBF24" stroke="#101A26" stroke-width="2" stroke-linejoin="round"/><polygon points="0,-7 5,0 0,7 -5,0" fill="#14B8A6"/></g></svg>Your AI assistants</li><li><svg width="34" height="16" viewBox="-12 -15 68 30" aria-hidden="true"><g transform="translate(0 0)"><polygon points="0,-14 10.5,0 0,14 -10.5,0" fill="#60A5FA" stroke="#101A26" stroke-width="2" stroke-linejoin="round"/><polygon points="0,-7 5,0 0,7 -5,0" fill="#14B8A6"/></g><g transform="translate(22 0)"><polygon points="0,-14 10.5,0 0,14 -10.5,0" fill="#A3E635" stroke="#101A26" stroke-width="2" stroke-linejoin="round"/><polygon points="0,-7 5,0 0,7 -5,0" fill="#14B8A6"/></g><g transform="translate(44 0)"><polygon points="0,-14 10.5,0 0,14 -10.5,0" fill="#FB7185" stroke="#101A26" stroke-width="2" stroke-linejoin="round"/><polygon points="0,-7 5,0 0,7 -5,0" fill="#14B8A6"/></g></svg>AI agents: one colour per feature in progress</li><li><i class="sw" style="background:#7D8C96"></i>GitHub</li><li><i class="sw" style="background:#1B2A3E"></i>Albiex Synth City control</li></ul>
+          <button class="playpause" type="button" aria-controls="street">
+            <svg class="i-pause" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="1.5" width="2.6" height="9" rx="1"/><rect x="7.4" y="1.5" width="2.6" height="9" rx="1"/></svg>
+            <svg class="i-play" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.6v8.8a.6.6 0 0 0 .9.5l7-4.4a.6.6 0 0 0 0-1L3.9 1.1a.6.6 0 0 0-.9.5z"/></svg>
+            <span>Pause</span>
+          </button>
+        </div>
+      </div>
+      <div class="frame">
+        <StreetScene
+          id="street"
+          prefix="hero"
+          hero
+          label="Synth City signal works: three AI teams guide their feature parcels through Plan, Build, Review and Verify, finished parcels ride the rail back to GitHub alone, and you supervise every hall by wire from your control panel"
+        />
+        <ol class="steps" aria-hidden="true"><li>Plan</li><li>Build</li><li>Review</li><li>Verify</li><li>Merged</li></ol>
+      </div>
+    </figure>
+  </div>
+
+  <section id="dashboard"><div class="wrap">
+    <h2>Every feature and every team, on one screen</h2>
+    <p class="intro">See which feature each team is on, what it is waiting for, and where you are needed. The capture below uses example data.</p>
+    <div class="app">
+      <div class="app-bar" aria-hidden="true"><i></i><i></i><i></i><span>Synth City &middot; Work</span></div>
+      <div class="shot"><img src="/assets/work-active.png" alt="The Work view: four features, each with its team, its state (queued, needs review, needs attention, in progress), its owner and when it last changed." width="1280" height="800" /></div>
+    </div>
+  </div></section>
+
+  <section id="tools"><div class="wrap">
+    <h2>Works with the AI tools you already pay for</h2>
+    <p class="intro">Each AI team member runs on a coding tool you already use, on your own machine and signed in with your own subscriptions.</p>
+    <ul class="tools"><li><img src="/assets/icons/claude-code.svg" alt="" width="32" height="32" /><span>Claude Code</span></li><li><img src="/assets/icons/openai-icon.svg" alt="" width="32" height="32" /><span>Codex</span></li><li><img src="/assets/icons/github-copilot.svg" alt="" width="32" height="32" /><span>GitHub Copilot</span></li><li><img src="/assets/icons/opencode-icon.svg" alt="" width="32" height="32" /><span>OpenCode</span></li><li class="typed"><span>Pi</span></li><li class="typed"><span>Muse Code</span></li></ul>
+    <p class="more">More tools are on the way.</p>
+  </div></section>
+
+  <section id="yours"><div class="wrap split">
+    <div>
+      <h2>You decide, they deliver</h2>
+      <ol class="ledger">
+        <li><span class="n">01</span><p>You, the Director, write the features in GitHub and choose who builds them.</p></li>
+        <li><span class="n">02</span><p>You supervise every team with your AI assistants.</p></li>
+        <li><span class="n">03</span><p>You decide whether the results meet your goals.</p></li>
+      </ol>
+    </div>
+    <div class="still">
+      <StreetScene
+        id="balcony"
+        prefix="bal"
+        animate={false}
+        viewBox="800 120 400 340"
+        label="You and your AI assistants at the control panel, supervising a team at the Verify step by wire"
+      />
+    </div>
+  </div></section>
+
+  <section id="close" class="closing"><div class="wrap split">
+    <div>
+      <h2 class="big">Ready to watch your features become finished products?</h2>
+      <p class="promise">Free and open source under the MIT licence. It runs on your machine, with the AI tools you already use.</p>
+      <div class="actions">
+        <a class="btn" href="/how-it-works/">See how it works <span aria-hidden="true">&rarr;</span></a>
+        <a class="btn ghost" href={githubUrl}><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Get started on GitHub</a>
+      </div>
+    </div>
+    <div class="still">
+      <StreetScene
+        id="return"
+        prefix="ret"
+        animate={false}
+        viewBox="0 118 420 340"
+        still={[21.6, 3.1, 0.9]}
+        label="A finished parcel rides the freight rail back into GitHub while its agent stays in the city and the next parcel sets out"
+      />
+    </div>
+  </div></section>
+</BaseLayout>
