@@ -21,7 +21,6 @@ CHECKER = ROOT / "scripts" / "check-pages.py"
 
 HTML = """<!doctype html>
 <html><head>
-<meta name="robots" content="noindex, nofollow">
 <link rel="stylesheet" href="/assets/style.css">
 </head><body><a href="/docs/guide/installation">installation guide</a></body></html>
 """
@@ -83,6 +82,15 @@ def main():
         if code == 0:
             failures.append("deleted docs .html target must fail, got success")
 
+        dist = build_fixture(base / "noindex")
+        (dist / "index.html").write_text(
+            HTML.replace("<head>", '<head>\n<meta name="robots" content="noindex, nofollow">'),
+            encoding="utf-8",
+        )
+        code, out = run_checker(dist)
+        if code == 0:
+            failures.append("a production page with noindex must fail, got success")
+
         dist = build_fixture(base / "external-font")
         (dist / "assets" / "style.css").write_text(
             CSS.replace("/fonts/fixture.woff2", "https://example.com/fixture.woff2"),
@@ -96,7 +104,7 @@ def main():
         print("FAIL", failure)
     if failures:
         return 1
-    print("test-check-pages: OK (pass, missing-font, missing-licence, external-url failures)")
+    print("test-check-pages: OK (pass, missing-font, missing-licence, noindex, external-url failures)")
     return 0
 
 

@@ -6,7 +6,7 @@ For every built HTML page this verifies:
 - every CSS url() target (in stylesheet files and inline styles) is local
   and exists in the built output,
 - no external request URLs are present (fonts and assets are self-hosted),
-- the page carries the preview noindex robots directive.
+- the page does not carry a noindex robots directive (production, since the v4.0.0 go-live).
 
 Usage: python3 scripts/check-pages.py [dist-dir]
 Exit code 1 lists every problem found.
@@ -97,8 +97,8 @@ def main():
         parser = Page()
         parser.feed(page.read_text(encoding="utf-8"))
 
-        if not parser.robots_noindex:
-            errors.append(f"{relative}: missing noindex robots meta")
+        if parser.robots_noindex:
+            errors.append(f"{relative}: production page carries a noindex robots meta")
 
         for tag, ref in parser.refs:
             if ref.startswith("#"):
